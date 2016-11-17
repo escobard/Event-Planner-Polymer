@@ -1,0 +1,20 @@
+{
+  "name": "meetup-event-planner",
+  "version": "0.0.1",
+  "description": "meet up event planner application for the senior web developer nanodegree by google from udacity.",
+  "main": "service-worker.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mep"
+  ],
+  "author": "Daniel Escobar",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
