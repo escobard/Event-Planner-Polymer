@@ -17,35 +17,35 @@ gulp.task('default', ['copy-html', 'copy-images', 'styles', 'lint', 'scripts'], 
 	gulp.watch('index.html').on('change', browserSync.reload);
 });
 
-gulp.task('dist', [
+gulp.task('public', [
 	'copy-html',
 	'copy-images',
 	'styles',
 	'lint',
-	'scripts-dist'
+	'scripts-public'
 ]);
 
 gulp.task('scripts', function() {
-  gulp.src('./js/*.js')
+  gulp.src('./js/main.js')
     .pipe(concat('main.js'))
-    .pipe(gulp.dest('./dist/js/*.js'));
+    .pipe(gulp.dest('./public/js/*.js'));
 });
 
-gulp.task('scripts-dist', function() {
-	gulp.src('./js/main.js')
-		.pipe(concat('./dist/'))
+gulp.task('scripts-public', function() {
+	gulp.src('./js/*.js')
+		.pipe(concat('./public/'))
 		.pipe(uglify())
-		.pipe(gulp.dest('./dist/js/*.js'));
+		.pipe(gulp.dest('./public/js/*.js'));
 });
 
 gulp.task('copy-html', function() {
 	gulp.src('./index.html')
-		.pipe(gulp.dest('./dist'));
+		.pipe(gulp.dest('./public'));
 });
 
 gulp.task('copy-images', function() {
 	gulp.src('img/*')
-		.pipe(gulp.dest('dist/img'));
+		.pipe(gulp.dest('public/img'));
 });
 
 gulp.task('styles', function() {
@@ -56,7 +56,7 @@ gulp.task('styles', function() {
 		.pipe(autoprefixer({
 			browsers: ['last 2 versions']
 		}))
-		.pipe(gulp.dest('dist/css'))
+		.pipe(gulp.dest('public/css'))
 		.pipe(browserSync.stream());
 });
 
@@ -73,7 +73,7 @@ gulp.task('lint', function () {
 		.pipe(eslint.failOnError());
 });
 
-// use browser-sync start --server --index index.html --files="dist/*.css"
+// use browser-sync start --server --index index.html --files="public/*.css"
  browserSync.init({
      server: "./"
  });
