@@ -15,6 +15,9 @@ gulp.task('default', ['copy-html', 'copy-images', 'styles', 'lint', 'scripts'], 
 	gulp.watch('js/**/*.js', ['lint']);
 	gulp.watch('/index.html', ['copy-html']);
 	gulp.watch('index.html').on('change', browserSync.reload);
+	gulp.watch('sass/main.scss').on('change', browserSync.reload);
+	gulp.watch('components/signup.html').on('change', browserSync.reload);
+	gulp.watch('components/main-app.html').on('change', browserSync.reload);
 });
 
 gulp.task('public', [
