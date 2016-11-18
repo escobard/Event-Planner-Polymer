@@ -2,7 +2,7 @@
   "name": "meetup-event-planner",
   "version": "0.0.1",
   "description": "meet up event planner application for the senior web developer nanodegree by google from udacity.",
-  "main": "gulpfile.js",
+  "main": "../js/gulpfile.js",
   "directories": {
     "test": "test"
   },

@@ -1,7 +1,7 @@
 {
-  "name": "polymer-starter-kit",
+  "name": "event-planner-application",
   "authors": [
-    "The Polymer Authors"
+    "Daniel Escobar"
   ],
   "private": true,
   "dependencies": {
