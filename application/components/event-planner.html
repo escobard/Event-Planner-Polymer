@@ -78,19 +78,50 @@
       }
     </style>
     <template is="dom-if" if="[[editable]]">
+
       <input is="iron-input"
           bind-value="{{title}}">
       </input>
-        <input is="iron-input"
+
+      <input is="iron-input"
           bind-value="{{subtitle}}">
       </input>
+
+      <input is="iron-input"
+          bind-value="{{event-type}}">
+      </input>
+
+       <input is="iron-input"
+          bind-value="{{startdate}}">
+      </input>
+
+      <input is="iron-input"
+          bind-value="{{enddate}}">
+      </input>
+
+      <input is="iron-input"
+          bind-value="{{location}}">
+      </input>  
+
+      <!--  coded out area for the guest list, will add last 
+      <input is="iron-input"
+          bind-value="{{guestlist}}">
+      </input>-->
+
       <iron-autogrow-textarea
           bind-value="{{body}}">
       </iron-autogrow-textarea>
+
     </template>
+
+    <!--  if is not editable-->
     <template is="dom-if" if="[[!editable]]">
       <h1 class$="[[emptyClass(title)]]">[[title]]</h1>
-      <h1 class$="[[emptyClass(title)]]">[[subtitle]]</h1>
+      <h1 class$="[[emptyClass(subtitle)]]">[[subtitle]]</h1>
+      <p class$="[[emptyClass(eventtype)]]">[[eventtype]]</p>
+      <p class$="[[emptyClass(startdate)]]">[[startdate]]</p>
+      <p class$="[[emptyClass(enddate)]]">[[enddate]]</p>
+      <p class$="[[emptyClass(location)]]">[[location]]</p>
       <p class$="[[emptyClass(body)]]">[[body]]</p>
     </template>
 
@@ -115,6 +146,31 @@
           value: ''
         },
         subtitle: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        eventtype: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        startdate: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        enddate: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        location: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        location: {
           type: String,
           notify: true,
           value: ''

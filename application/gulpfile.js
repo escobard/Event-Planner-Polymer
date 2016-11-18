@@ -1,6 +1,6 @@
 /*eslint-env node */
 
-// establishes gulp dependencies
+// establishes gulp dependenciesf
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
@@ -18,6 +18,7 @@ gulp.task('default', ['copy-html', 'copy-images', 'styles', 'lint', 'scripts'], 
 	gulp.watch('components/signup.html').on('change', browserSync.reload);
 	gulp.watch('components/main-app.html').on('change', browserSync.reload);
 	gulp.watch('components/event-planner.html').on('change', browserSync.reload);
+	gulp.watch('components/event-planner-editor.html').on('change', browserSync.reload);
 });
 
 //publishes content, calls tasks that copy content over
