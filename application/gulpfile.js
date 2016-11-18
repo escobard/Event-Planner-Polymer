@@ -33,15 +33,15 @@ gulp.task('public', [
 gulp.task('scripts', function() {
   gulp.src('./components/js/main.js')
     .pipe(concat('main.js'))
-    .pipe(gulp.dest('./public/js/*.js'));
+    .pipe(gulp.dest('./public/components/js'));
 });
 
 // copy js files over to public folder
 gulp.task('scripts-public', function() {
-	gulp.src('./components/js/*.js')
-		.pipe(concat('./public/'))
+	gulp.src('./components/js/main.js')
+		.pipe(concat('main.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('./public/js/*.js'));
+		.pipe(gulp.dest('./public/components/js'));
 });
 
 // copies index.html over to public folder
@@ -53,7 +53,7 @@ gulp.task('copy-html', function() {
 // copies images over to the public folder
 gulp.task('copy-images', function() {
 	gulp.src('img/*')
-		.pipe(gulp.dest('public/img'));
+		.pipe(gulp.dest('public/components/img/*'));
 });
 
 
