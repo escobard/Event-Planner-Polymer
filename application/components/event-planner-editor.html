@@ -7,10 +7,10 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-<link rel="import" href="../paper-styles/color.html">
-<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../paper-button/paper-button.html">
-<dom-module id="na-editor">
+<link rel="import" href="bower_components/paper-styles/color.html">
+<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+<dom-module id="event-planner-editor">
   <template>
     <style>
       :host {
@@ -72,7 +72,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
     <div id="background"></div>
-    <na-note id="note" title="{{note.title}}" body="{{note.body}}" editable></na-note>
+    <event-planner id="note" title="{{note.title}}" subtitle="{{note.subtitle}}" body="{{note.body}}" editable></event-planner>
     <div class="controls">
       <paper-button on-tap="delete">Delete</paper-button>
       <paper-button on-tap="save">Done</paper-button>
@@ -80,7 +80,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
   <script>
     Polymer({
-      is: 'na-editor',
+      is: 'event-planner-editor',
       properties: {
         note: {
           type: Object,
