@@ -17,6 +17,7 @@ gulp.task('default', ['copy-html', 'copy-images', 'styles', 'lint', 'scripts'], 
 	gulp.watch('components/sass/main.scss').on('change', browserSync.reload);
 	gulp.watch('components/signup.html').on('change', browserSync.reload);
 	gulp.watch('components/main-app.html').on('change', browserSync.reload);
+	gulp.watch('components/event-planner.html').on('change', browserSync.reload);
 });
 
 //publishes content, calls tasks that copy content over

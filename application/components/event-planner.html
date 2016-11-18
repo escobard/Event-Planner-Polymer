@@ -81,12 +81,16 @@
       <input is="iron-input"
           bind-value="{{title}}">
       </input>
+        <input is="iron-input"
+          bind-value="{{subtitle}}">
+      </input>
       <iron-autogrow-textarea
           bind-value="{{body}}">
       </iron-autogrow-textarea>
     </template>
     <template is="dom-if" if="[[!editable]]">
       <h1 class$="[[emptyClass(title)]]">[[title]]</h1>
+      <h1 class$="[[emptyClass(title)]]">[[subtitle]]</h1>
       <p class$="[[emptyClass(body)]]">[[body]]</p>
     </template>
 
@@ -110,12 +114,17 @@
           notify: true,
           value: ''
         },
+        subtitle: {
+          type: String,
+          notify: true,
+          value: ''
+        },
         lastUpdated: {
           type: Number,
           value: 0
         }
       },
-      emptyClass: function(content) {
+      emptyClass : function (content) {
         return !content ? 'hidden' : '';
       },
       propertiesAreEmpty: function() {
