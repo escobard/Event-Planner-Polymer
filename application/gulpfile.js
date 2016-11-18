@@ -1,5 +1,6 @@
 /*eslint-env node */
 
+// establishes gulp dependencies
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
@@ -9,7 +10,7 @@ var eslint = require('gulp-eslint');
 var phantom = require('gulp-phantom');
 var jasmine = require('gulp-jasmine-phantom');
 
-
+// defines gulp tasks on default command
 gulp.task('default', ['copy-html', 'copy-images', 'styles', 'lint', 'scripts'], function() {
 	gulp.watch('sass/**/*.scss', ['styles']);
 	gulp.watch('js/**/*.js', ['lint']);
@@ -20,6 +21,7 @@ gulp.task('default', ['copy-html', 'copy-images', 'styles', 'lint', 'scripts'], 
 	gulp.watch('components/main-app.html').on('change', browserSync.reload);
 });
 
+//publishes content, calls tasks that copy content over
 gulp.task('public', [
 	'copy-html',
 	'copy-images',
@@ -34,6 +36,7 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('./public/js/*.js'));
 });
 
+// copy js files over to public folder
 gulp.task('scripts-public', function() {
 	gulp.src('./js/*.js')
 		.pipe(concat('./public/'))
@@ -41,16 +44,20 @@ gulp.task('scripts-public', function() {
 		.pipe(gulp.dest('./public/js/*.js'));
 });
 
+// copies index.html over to public folder
 gulp.task('copy-html', function() {
 	gulp.src('./index.html')
 		.pipe(gulp.dest('./public'));
 });
 
+// copies images over to the public folder
 gulp.task('copy-images', function() {
 	gulp.src('img/*')
 		.pipe(gulp.dest('public/img'));
 });
 
+
+// copies css over to the public folder, after converting from scss
 gulp.task('styles', function() {
 	gulp.src('sass/**/*.scss')
 		.pipe(sass({
@@ -63,6 +70,7 @@ gulp.task('styles', function() {
 		.pipe(browserSync.stream());
 });
 
+// does not allow publishing of scripts that are synxtically incorrect
 gulp.task('lint', function () {
 	return gulp.src(['js/**/*.js'])
 		// eslint() attaches the lint output to the eslint property
@@ -81,23 +89,3 @@ gulp.task('lint', function () {
      server: "./"
  });
  browserSync.stream();
-
-// phantom
-gulp.task('phantom', function(){
-  gulp.src("./phantom/*.js")
-    .pipe(phantom({
-      ext: json
-    }))
-    .pipe(gulp.dest("./data/"));
-});
-
-
- //jasmine-phantom plugin
-
- gulp.task('tests', function () {
-   gulp.src('tests/spec/extraSpec.js')
-          .pipe(jasmine({
-          	integration: true,
-          	vendor: 'tests/spec/extraSpec.js'
-          }));
-});
