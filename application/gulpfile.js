@@ -7,8 +7,6 @@ var concat = require('gulp-concat');
 var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
 var eslint = require('gulp-eslint');
-var phantom = require('gulp-phantom');
-var jasmine = require('gulp-jasmine-phantom');
 
 // defines gulp tasks on default command
 gulp.task('default', ['copy-html', 'copy-images', 'styles', 'lint', 'scripts'], function() {
