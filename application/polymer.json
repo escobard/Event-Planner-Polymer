@@ -1,11 +1,8 @@
 {
-  "entrypoint": "index.html",
-  "shell": "src/my-app.html",
+  "entrypoint": "../../index.html",
+  "shell": "../../index.html",
   "fragments": [
-    "src/my-view1.html",
-    "src/my-view2.html",
-    "src/my-view3.html",
-    "src/my-view404.html"
+    "components/checkout-form.html",
   ],
   "sourceGlobs": [
    "src/**/*",
