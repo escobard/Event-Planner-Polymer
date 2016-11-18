@@ -12,11 +12,11 @@ var jasmine = require('gulp-jasmine-phantom');
 
 // defines gulp tasks on default command
 gulp.task('default', ['copy-html', 'copy-images', 'styles', 'lint', 'scripts'], function() {
-	gulp.watch('sass/**/*.scss', ['styles']);
-	gulp.watch('js/**/*.js', ['lint']);
+	gulp.watch('components/sass/**/*.scss', ['styles']);
+	gulp.watch('components/js/**/*.js', ['lint']);
 	gulp.watch('/index.html', ['copy-html']);
 	gulp.watch('index.html').on('change', browserSync.reload);
-	gulp.watch('sass/main.scss').on('change', browserSync.reload);
+	gulp.watch('components/sass/main.scss').on('change', browserSync.reload);
 	gulp.watch('components/signup.html').on('change', browserSync.reload);
 	gulp.watch('components/main-app.html').on('change', browserSync.reload);
 });
@@ -31,14 +31,14 @@ gulp.task('public', [
 ]);
 
 gulp.task('scripts', function() {
-  gulp.src('./js/main.js')
+  gulp.src('./components/js/main.js')
     .pipe(concat('main.js'))
     .pipe(gulp.dest('./public/js/*.js'));
 });
 
 // copy js files over to public folder
 gulp.task('scripts-public', function() {
-	gulp.src('./js/*.js')
+	gulp.src('./components/js/*.js')
 		.pipe(concat('./public/'))
 		.pipe(uglify())
 		.pipe(gulp.dest('./public/js/*.js'));
