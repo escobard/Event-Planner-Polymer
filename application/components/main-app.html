@@ -79,12 +79,12 @@
 	docs cont: https://github.com/PolymerLabs/note-app-elements/blob/master/na-note.html -->
 	<div class="notes">
   		<template is="dom-repeat" items="[[persistedNotes]]" as="note">
-    		<na-note
+    		<event-planner
         		id$="[[note.$key]]"
         		title="[[note.title]]"
         		body="[[note.body]]"
         		on-tap="edit">
-    		</na-note>
+    		</event-planner>
   		</template>
 	</div>
   </template>
