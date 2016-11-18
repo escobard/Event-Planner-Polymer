@@ -3,45 +3,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
     <title>Application - Practicing with Polymer & Firebase</title>
-
-    <link rel="manifest" href="components/json/manifest.json">
-        <!-- Web Components -->
-    <script src="components/bower_components/webcomponentsjs/webcomponents.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <link rel="import" href="components/bower_components/paper-material/paper-material.html">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <!-- Older Chrome configuration -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Notes">
-    <!-- App dependencies -->
-
-    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
-    <script>
-    // Initialize Firebase
-    var config = {
-    apiKey: "AIzaSyCzhnmg4lArK8DY7jrk-BKMKi91p3Fw3hc",
-    authDomain: "event-planner-e6ee3.firebaseapp.com",
-    databaseURL: "https://event-planner-e6ee3.firebaseio.com",
-    storageBucket: "event-planner-e6ee3.appspot.com",
-    messagingSenderId: "838628542575"
-    };
-    firebase.initializeApp(config);
-    </script>
-    <script src="components/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="components/bower_components/web-animations-js/web-animations.min.js"></script>
-    <link rel="import" href="components/bower_components/platinum-sw/platinum-sw-elements.html">
-    <link rel="import" href="components/bower_components/polymerfire/firebase-app.html">
-
-    <link rel="icon"
-      sizes="192x192"
-      href="components/bower_components/note-app/common/images/icon-4x.png">
-    <style>
-      body {
-        margin: 0;
-      }
-    </style>
-    <link rel="import" href="components/main-app.html">
-    <link rel="import" href="components/checkout-form.html">
+    <link rel="import" href="components/global-dependencies.html">
   </head>
   <body>
       <platinum-sw-register
