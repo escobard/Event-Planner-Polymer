@@ -13,6 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="bower_components/neon-animation/animations/fade-out-animation.html">
 <link rel="import" href="bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="bower_components/iron-overlay-behavior/iron-overlay-behavior.html">
 <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="event-registration-form.html">
 <dom-module id="event-login">
@@ -41,7 +42,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
     <paper-button raised onclick="animated.open()">Sign In</paper-button>
-    <paper-dialog id="animated" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <paper-dialog id="animated" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
       <h2>Dialog Title</h2>
         <event-registration-form></event-registration-form>
     </paper-dialog>
