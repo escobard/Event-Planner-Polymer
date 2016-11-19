@@ -78,9 +78,8 @@
       }
     </style>
     <template is="dom-if" if="[[editable]]">
-
       <paper-input id="title" name="name" label="What's the name of your event?" required autocomplete="name" aria-disabled="false" bind-value="{{title}}"></paper-input>
-      <paper-input id="host" name="name" label="Enter your Host's name" required autocomplete="name" aria-disabled="false" bind-value="{{subtitle}}"></paper-input>
+      <paper-input id="host" name="name" label="Enter your Host's name" required autocomplete="name" aria-disabled="false" bind-value="{{host}}"></paper-input>
       <paper-input id="event-type" name="name" label="Select your event type" required autocomplete="name" aria-disabled="false" bind-value="{{event-type}}"></paper-input>
       <paper-input id="startdate" name="name" label="When will your event start?" required autocomplete="name" aria-disabled="false" bind-value="{{startdate}}"></paper-input>
       <paper-input id="enddate" name="name" label="When will your event end?" required autocomplete="name" aria-disabled="false" bind-value="{{enddate}}"></paper-input>
@@ -90,18 +89,16 @@
       <input is="iron-input"
           bind-value="{{guestlist}}">
       </input>-->
-
     </template>
 
     <!--  if is not editable-->
     <template is="dom-if" if="[[!editable]]">
       <h1 class$="[[emptyClass(title)]]">[[title]]</h1>
-      <h1 class$="[[emptyClass(host)]]">[[subtitle]]</h1>
+      <h2 class$="[[emptyClass(host)]]">[[host]]</h2>
       <p class$="[[emptyClass(eventtype)]]">[[eventtype]]</p>
       <p class$="[[emptyClass(startdate)]]">[[startdate]]</p>
       <p class$="[[emptyClass(enddate)]]">[[enddate]]</p>
       <p class$="[[emptyClass(location)]]">[[location]]</p>
-      <p class$="[[emptyClass(body)]]">[[body]]</p>
     </template>
 
   </template>
@@ -124,7 +121,7 @@
           notify: true,
           value: ''
         },
-        subtitle: {
+        host: {
           type: String,
           notify: true,
           value: ''
