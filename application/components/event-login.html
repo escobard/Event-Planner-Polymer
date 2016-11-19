@@ -7,134 +7,67 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-<link rel="import" href="../paper-styles/shadow.html">
-<link rel="import" href="../paper-styles/typography.html">
-<link rel="import" href="../iron-input/iron-input.html">
-<link rel="import" href="../iron-autogrow-textarea/iron-autogrow-textarea.html">
-
-<dom-module id="na-note">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+<link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="bower_components/neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="bower_componentsiron-icon/iron-icon.html">
+<link rel="import" href="bower_componentsiron-icons/iron-icons.html">
+<link rel="import" href="bower_componentsiron-flex-layout/iron-flex-layout.html">
+<dom-module id="na-login">
   <template>
     <style>
       :host {
-        display: block;
-        box-sizing: border-box;
-        background-color: #fafafa;
-        color: #212121;
-        padding: 1em;
-        @apply(--paper-font-common-base);
-        @apply(--shadow-elevation-2dp);
-        border-radius: 2px;
-        --iron-autogrow-textarea: {
-          margin: 0;
-          padding: 0;
-          font-family: 'Roboto Slab', Times New Roman, serif;
-          white-space: pre-wrap;
-        }
+        position: absolute;
+        top: 46px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--paper-purple-500);
+        transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1;
+        color: var(--paper-purple-50);
+        @apply(--layout);
+        @apply(--layout-center-center);
       }
-      iron-autogrow-textarea {
-        display: block;
-        box-sizing: border-box;
-        width: 100%;
-        border: 0;
-        margin: 1em 0 0;
-        padding: 0;
-        font-size: 0.9em;
-        font-family: 'Roboto Slab', Times New Roman, serif;
-      }
-      .hidden {
-        display: none;
-      }
-      h1 {
-        font-size: 1.15em;
-        margin: 0;
-        white-space: pre-wrap;
-      }
-      h1:not(.hidden)+p {
-        margin-top: 1em;
-      }
-      p {
-        margin: 0;
-        font-family: 'Roboto Slab', Times New Roman, serif;
-        font-size: 0.9em;
-        white-space: pre-wrap;
-      }
-      .placeholder:after {
-        content: 'Tap to edit';
-        opacity: 0.5;
-      }
-      .hidden {
-        display: none;
-      }
-      .empty {
-        font-style: italic;
-        color: #737373;
-        line-height: 0;
+      :host([signed-in]) {
+        opacity: 0;
         pointer-events: none;
       }
-      input {
-        display: block;
-        box-sizing: border-box;
-        width: 100%;
-        margin: 0;
-        outline: none;
-        border: 0;
-        background: transparent;
-        white-space: pre-wrap;
-        font-family: 'Roboto', 'Noto', sans-serif;
-        font-size: 1.15em;
-        font-weight: bold;
-        color: #212121;
+      paper-button > * {
+        vertical-align: middle;
+        text-transform: none;
       }
     </style>
-    <template is="dom-if" if="[[editable]]">
-      <input is="iron-input"
-          bind-value="{{title}}">
-      </input>
-      <iron-autogrow-textarea
-          bind-value="{{body}}">
-      </iron-autogrow-textarea>
-    </template>
-    <template is="dom-if" if="[[!editable]]">
-      <h1 class$="[[emptyClass(title)]]">[[title]]</h1>
-      <p class$="[[emptyClass(body)]]">[[body]]</p>
-    </template>
-
+    <paper-button raised onclick="animated.open()">open</paper-button>
+    <paper-dialog id="animated" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+      <h2>Dialog Title</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+      irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </paper-dialog>
+    <paper-button on-tap="signIn" disabled="[[disabled]]">
+      <iron-icon icon="account-circle"></iron-icon>
+      <span>Sign in with Google</span>
+    </paper-button>
   </template>
   <script>
     Polymer({
-      is: 'na-note',
+      is: 'na-login',
       properties: {
-        editable: {
+        disabled: {
           type: Boolean,
           reflectToAttribute: true,
           value: false
         },
-        title: {
-          type: String,
-          notify: true,
-          value: ''
-        },
-        body: {
-          type: String,
-          notify: true,
-          value: ''
-        },
-        lastUpdated: {
-          type: Number,
-          value: 0
+        signedIn: {
+          type: Boolean,
+          reflectToAttribute: true,
+          value: false
         }
       },
-      emptyClass: function(content) {
-        return !content ? 'hidden' : '';
-      },
-      propertiesAreEmpty: function() {
-        for (var i = 0; i < arguments.length; ++i) {
-          if (arguments[i]) {
-            return false;
-          }
-        }
-        return true;
+      signIn: function() {
+        this.fire('sign-in', null, { bubbles: false });
       }
-    })
+    });
   </script>
 </dom-module>
