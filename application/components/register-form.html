@@ -10,9 +10,129 @@
 <link rel="import" href="bower_components/gold-cc-cvc-input/gold-cc-cvc-input.html">
 <link rel="import" href="bower_components/gold-cc-expiration-input/gold-cc-expiration-input.html">
 
-<dom-module id="checkout-form">
+<dom-module id="register-form">
 <template>
 <style>
+body {
+  font-family: 'Roboto', 'Noto', sans-serif;
+  font-size: 14px;
+  background-color: #FAFAFA;
+  margin: 0;
+}
+
+.card {
+  background: #FFFFFF;
+  max-width: 400px;
+  padding: 24px;
+  margin: 40px auto;
+}
+paper-progress {
+  width: 100% !important;
+  position: fixed;
+  z-index: 999;
+  --paper-progress-transition-duration: 0.08s;
+  --paper-progress-transition-timing-function: ease;
+  --paper-progress-transition-transition-delay: 0s;
+}
+paper-progress.transiting.x-scope.paper-progress-0 {width: 100%;}
+
+.paper-progress-0 #progressContainer.paper-progress, .paper-progress-0 .indeterminate.paper-progress::after {
+    height: 25px;
+}
+.paper-progress-0 #primaryProgress.paper-progress {
+    background: #4CAF50;
+}
+#progressContainer {
+    height: 25px !important;
+}
+section {
+  margin: 20px;
+}
+
+a, a:hover {
+  text-decoration: none;
+}
+
+iron-toolbar {
+  background-color: #455ede;
+  box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 1.5em;
+}
+paper-toolbar.tall {
+    display: block;
+    background-color: #4285f4;
+    padding: 25px;
+    color: #fff;
+    text-align: center;
+}.cart-content.checkout-form
+paper-button {
+  margin: 0.5em 1em 0.5em 0;
+  width: 10em;
+}
+
+paper-button[right] {
+  position: fixed;
+  right: 0;
+}
+
+paper-checkbox {
+  margin-left: 1em;
+}
+
+paper-fab {
+  position: absolute !important;
+  top: 35px;
+  right: 1em;
+  z-index: 1;
+}
+
+paper-tabs {
+  background-color: #5677fc;
+  color: #fff;
+}
+
+paper-tabs paper-tab.iron-selected {
+  color: #ffff8d;
+}
+
+/* paper progress bar styles */
+--paper-progress-height {
+  height: 10px;
+}
+#progress-normal.inactive {
+    height: 0;
+    opacity: 0;
+    -webkit-transition: ease all 1s;
+    transition: ease all 1s;
+}
+
+#progress-diff-address.active {
+    opacity: 1;
+    height: auto;
+    -webkit-transition: ease all 1s;
+    transition: all ease 1s;
+}
+
+#progress-diff-address {
+    opacity: 0;
+    height: 0;
+    -webkit-transition: ease all 1s;
+    transition: all ease 1s;
+}
+
+#progress-normal {
+    height: auto;
+    opacity: 1;
+    -webkit-transition: ease all 1s;
+    transition: ease all 1s;
+}
+
+#progress-diff-address #primaryProgress {
+    background: #FF9800;
+}
   :host {
     display: block;
   }
@@ -94,6 +214,7 @@ fieldset#cart {
     display: block;
     opacity: 1;
     height: auto;
+    -webkit-transition: ease all 1s;
     transition: ease all 1s;
 }
 
@@ -101,6 +222,7 @@ fieldset#cart {
     display: block;
     opacity: 0;
     height: 0;
+    -webkit-transition: ease all 0.1s;
     transition: ease all 0.1s;
 }
 .paper-button-0 {
@@ -112,49 +234,27 @@ fieldset#cart {
 }
 
 </style>
-  <form is="iron-form" id="form" method="post" action="/checkout">
-    <fieldset id="cart">
-      <h2>Your Cart</h2>
-		    <div id="product-image" class="cart-content left">
-          <img src="img/kitty.jpg" alt="">
-        </div>
-		    <div id="product-description" class="cart-content right">
-          <h3>Kitty - x1</h3>
-        </div>
-		    <div id="price" class="cart-content right">
-          <span>$500</span>
-        </div>
-    </fieldset>
+  <form is="iron-form" id="form" method="post" action="/login">
 		<fieldset>
-      <h2>What is your billing address?</h2>
-		  <paper-input id="user-name" name="name" label="What's your name?" required autocomplete="name" aria-disabled="false"></paper-input>
-		  <paper-input id="geo-address" required onFocus="geolocate()" type="text" autocomplete="street-address"></paper-input>
-    </fieldset>
-    <fieldset id="">
-  	<h2>How would you like to pay?</h2>
-  	<gold-cc-input id="cc-number" name="cc-number" required auto-validate card-type="{{typeOfCard}}"></gold-cc-input>
-  	<div class="horizontal layout">
-    	<gold-cc-expiration-input id="cc-expiration" name="cc-expiration" required auto-validate label="Expiration"></gold-cc-expiration-input>
-   		<gold-cc-cvc-input id="cc-cvc" name="cc-cvc" required auto-validate card-type="[[typeOfCard]]"></gold-cc-cvc-input>
-  	</div>
-    <paper-checkbox id="diff-address">Ship to a different Address?</paper-checkbox>
+       <h2>Register your user account by adding the following information</h2>
+	       <paper-input id="user-name" name="name" label="What's your Username?" required autocomplete="name" aria-disabled="false"></paper-input>
+         <paper-input id="email" name="email" label="Please enter your email" required autocomplete="name" aria-disabled="false"></paper-input>
+         <paper-input id="password" name="password" label="Please enter your password" required autocomplete="name" aria-disabled="false"></paper-input>
+         <paper-input id="password-confirm" name="password-confirm" label="Please enter your password" required autocomplete="name" aria-disabled="false"></paper-input>
     </fieldset>
      <fieldset id="diff-address-container">
-      <h2>What address would you like this shipped to?</h2>
+      <h2>Enter additional personal information (optional)</h2>
       <paper-input id="user-diffname" name="name" label="Ship to a different name?" autocomplete="name" aria-disabled="false"></paper-input>
-      <paper-input id="diff-geo-address" onFocus="geolocate()" type="text" autocomplete="street-address"></paper-input>
+      <paper-input id="diff-geo-address" onFocus="geolocate" type="text" autocomplete="street-address"></paper-input>
     </fieldset>
   		<paper-button on-click="_submit">Pay</paper-button>
   </form>
-      <script src="js/app.js"> </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPaNnwavmJ65FEF9c2YV-bG1uu9-YVvNo"
-        async defer></script>
 </template>
 
   <script>
 Polymer({
 
-  is: 'checkout-form',
+  is: 'register-form',
 
   listeners: {
     'form.iron-form-submit': '_handleFormSubmit'
