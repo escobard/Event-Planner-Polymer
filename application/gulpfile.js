@@ -1,14 +1,12 @@
 /*eslint-env node */
 
-// establishes gulp dependencies
+// establishes gulp dependenciesf
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
 var eslint = require('gulp-eslint');
-var phantom = require('gulp-phantom');
-var jasmine = require('gulp-jasmine-phantom');
 
 // defines gulp tasks on default command
 gulp.task('default', ['copy-html', 'copy-images', 'styles', 'lint', 'scripts'], function() {
@@ -19,6 +17,8 @@ gulp.task('default', ['copy-html', 'copy-images', 'styles', 'lint', 'scripts'], 
 	gulp.watch('components/sass/main.scss').on('change', browserSync.reload);
 	gulp.watch('components/signup.html').on('change', browserSync.reload);
 	gulp.watch('components/main-app.html').on('change', browserSync.reload);
+	gulp.watch('components/event-planner.html').on('change', browserSync.reload);
+	gulp.watch('components/event-planner-editor.html').on('change', browserSync.reload);
 });
 
 //publishes content, calls tasks that copy content over
@@ -30,13 +30,16 @@ gulp.task('public', [
 	'scripts-public'
 ]);
 
+// copy js files over to public folder, into a single file
+// this can be re-used for CSS compilation
 gulp.task('scripts', function() {
-  gulp.src('./components/js/main.js')
-    .pipe(concat('main.js'))
-    .pipe(gulp.dest('./public/components/js'));
+  gulp.src('./components/js/*.js')
+    .pipe(concat('all.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('./public/components/js/'));
 });
 
-// copy js files over to public folder
+
 gulp.task('scripts-public', function() {
 	gulp.src('./components/js/main.js')
 		.pipe(concat('main.js'))
@@ -44,9 +47,11 @@ gulp.task('scripts-public', function() {
 		.pipe(gulp.dest('./public/components/js'));
 });
 
-// copies index.html over to public folder
+
+// copies ALL html over to the public folder. This can be used for json / template files
+// USE THIS to setup these two tasks in the future when json files are in the right palce
 gulp.task('copy-html', function() {
-	gulp.src('./index.html')
+	gulp.src('./*.html')
 		.pipe(gulp.dest('./public'));
 });
 

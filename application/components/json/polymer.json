@@ -7,7 +7,7 @@
   "sourceGlobs": [
    "../../components/**/*",
    "/../img/**/*",
-   "bower.json"
+   "../json/bower.json"
   ],
   "includeDependencies": [
     "manifest.json",

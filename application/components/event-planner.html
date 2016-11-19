@@ -1,0 +1,172 @@
+<link rel="import" href="bower_components/paper-styles/shadow.html">
+<link rel="import" href="bower_components/paper-styles/typography.html">
+<link rel="import" href="bower_components/iron-input/iron-input.html">
+<link rel="import" href="bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+
+<dom-module id="event-planner">
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+        background-color: #fafafa;
+        color: #212121;
+        padding: 1em;
+        @apply(--paper-font-common-base);
+        @apply(--shadow-elevation-2dp);
+        border-radius: 2px;
+        --iron-autogrow-textarea: {
+          margin: 0;
+          padding: 0;
+          font-family: 'Roboto Slab', Times New Roman, serif;
+          white-space: pre-wrap;
+        }
+      }
+      iron-autogrow-textarea {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        border: 0;
+        margin: 1em 0 0;
+        padding: 0;
+        font-size: 0.9em;
+        font-family: 'Roboto Slab', Times New Roman, serif;
+      }
+      .hidden {
+        display: none;
+      }
+      h1 {
+        font-size: 1.15em;
+        margin: 0;
+        white-space: pre-wrap;
+      }
+      h1:not(.hidden)+p {
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        font-family: 'Roboto Slab', Times New Roman, serif;
+        font-size: 0.9em;
+        white-space: pre-wrap;
+      }
+      .placeholder:after {
+        content: 'Tap to edit';
+        opacity: 0.5;
+      }
+      .hidden {
+        display: none;
+      }
+      .empty {
+        font-style: italic;
+        color: #737373;
+        line-height: 0;
+        pointer-events: none;
+      }
+      input {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        margin: 0;
+        outline: none;
+        border: 0;
+        background: transparent;
+        white-space: pre-wrap;
+        font-family: 'Roboto', 'Noto', sans-serif;
+        font-size: 1.15em;
+        font-weight: bold;
+        color: #212121;
+      }
+    </style>
+    <template is="dom-if" if="[[editable]]">
+      <paper-input id="title" name="name" label="What's the name of your event?" required autocomplete="name" aria-disabled="false" bind-value="{{title}}"></paper-input>
+      <paper-input id="host" name="name" label="Enter your Host's name" required autocomplete="name" aria-disabled="false" bind-value="{{host}}"></paper-input>
+      <paper-input id="event-type" name="name" label="Select your event type" required autocomplete="name" aria-disabled="false" bind-value="{{event-type}}"></paper-input>
+      <paper-input id="startdate" name="name" label="When will your event start?" required autocomplete="name" aria-disabled="false" bind-value="{{startdate}}"></paper-input>
+      <paper-input id="enddate" name="name" label="When will your event end?" required autocomplete="name" aria-disabled="false" bind-value="{{enddate}}"></paper-input>
+      <paper-input id="location" name="name" label="Enter your event's location" required autocomplete="name" aria-disabled="false" bind-value="{{location}}"></paper-input>
+      <paper-input id="opt-msg" name="name" label="Leave a courtesy message for your guests" required autocomplete="name" aria-disabled="false" bind-value="{{opt-msg}}"></paper-input>
+      <!--  coded out area for the guest list, will add last 
+      <input is="iron-input"
+          bind-value="{{guestlist}}">
+      </input>-->
+    </template>
+
+    <!--  if is not editable-->
+    <template is="dom-if" if="[[!editable]]">
+      <h1 class$="[[emptyClass(title)]]">[[title]]</h1>
+      <h2 class$="[[emptyClass(host)]]">[[host]]</h2>
+      <p class$="[[emptyClass(eventtype)]]">[[eventtype]]</p>
+      <p class$="[[emptyClass(startdate)]]">[[startdate]]</p>
+      <p class$="[[emptyClass(enddate)]]">[[enddate]]</p>
+      <p class$="[[emptyClass(location)]]">[[location]]</p>
+    </template>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'event-planner',
+      properties: {
+        editable: {
+          type: Boolean,
+          reflectToAttribute: true,
+          value: false
+        },
+        title: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        body: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        host: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        eventtype: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        startdate: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        enddate: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        location: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        location: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        lastUpdated: {
+          type: Number,
+          value: 0
+        }
+      },
+      emptyClass : function (content) {
+        return !content ? 'hidden' : '';
+      },
+      propertiesAreEmpty: function() {
+        for (var i = 0; i < arguments.length; ++i) {
+          if (arguments[i]) {
+            return false;
+          }
+        }
+        return true;
+      }
+    })
+  </script>
+</dom-module>
