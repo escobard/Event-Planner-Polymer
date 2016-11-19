@@ -30,13 +30,16 @@ gulp.task('public', [
 	'scripts-public'
 ]);
 
+// copy js files over to public folder, into a single file
+// this can be re-used for CSS compilation
 gulp.task('scripts', function() {
   gulp.src('./components/js/*.js')
     .pipe(concat('all.js'))
+    .pipe(uglify())
     .pipe(gulp.dest('./public/components/js/'));
 });
 
-// copy js files over to public folder
+
 gulp.task('scripts-public', function() {
 	gulp.src('./components/js/main.js')
 		.pipe(concat('main.js'))
@@ -44,9 +47,11 @@ gulp.task('scripts-public', function() {
 		.pipe(gulp.dest('./public/components/js'));
 });
 
-// copies index.html over to public folder
+
+// copies ALL html over to the public folder. This can be used for json / template files
+// USE THIS to setup these two tasks in the future when json files are in the right palce
 gulp.task('copy-html', function() {
-	gulp.src('./index.html')
+	gulp.src('./*.html')
 		.pipe(gulp.dest('./public'));
 });
 
