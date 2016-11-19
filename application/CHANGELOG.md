@@ -1,5 +1,8 @@
 ** Changelog for Event Planning Application
 
+v0.3
+- prototype for password / email authentication with firebase
+
 v0.2
 - base function and styles created for event-planner templates
 - refactor of files needs to be cleaned up
