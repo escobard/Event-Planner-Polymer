@@ -10,7 +10,7 @@
 <link rel="import" href="bower_components/gold-cc-cvc-input/gold-cc-cvc-input.html">
 <link rel="import" href="bower_components/gold-cc-expiration-input/gold-cc-expiration-input.html">
 
-<dom-module id="checkout-form">
+<dom-module id="login-form">
 <template>
 <style>
 body {
@@ -234,35 +234,15 @@ fieldset#cart {
 }
 
 </style>
-  <form is="iron-form" id="form" method="post" action="/checkout">
-    <fieldset id="cart">
-      <h2>Your Cart</h2>
-		    <div id="product-image" class="cart-content left">
-          <img src="../img/kitty.jpg" alt="">
-        </div>
-		    <div id="product-description" class="cart-content right">
-          <h3>Kitty - x1</h3>
-        </div>
-		    <div id="price" class="cart-content right">
-          <span>$500</span>
-        </div>
-    </fieldset>
+  <form is="iron-form" id="form" method="post" action="/login">
 		<fieldset>
-      <h2>What is your billing address?</h2>
-		  <paper-input id="user-name" name="name" label="What's your name?" required autocomplete="name" aria-disabled="false"></paper-input>
-		  <paper-input id="geo-address" required onFocus="geolocate" type="text" autocomplete="street-address"></paper-input>
-    </fieldset>
-    <fieldset id="">
-  	<h2>How would you like to pay?</h2>
-  	<gold-cc-input id="cc-number" name="cc-number" required auto-validate card-type="{{typeOfCard}}"></gold-cc-input>
-  	<div class="horizontal layout">
-    	<gold-cc-expiration-input id="cc-expiration" name="cc-expiration" required auto-validate label="Expiration"></gold-cc-expiration-input>
-   		<gold-cc-cvc-input id="cc-cvc" name="cc-cvc" required auto-validate card-type="[[typeOfCard]]"></gold-cc-cvc-input>
-  	</div>
-    <paper-checkbox id="diff-address">Ship to a different Address?</paper-checkbox>
+       <h2>Enter your login information to sign in</h2>
+	       <paper-input id="user-name" name="name" label="What's your Username?" required autocomplete="name" aria-disabled="false"></paper-input>
+         <paper-input id="email" name="email" label="Please enter your email" required autocomplete="name" aria-disabled="false"></paper-input>
+         <paper-input id="password" name="password" label="Please enter your password" required autocomplete="name" aria-disabled="false"></paper-input>
     </fieldset>
      <fieldset id="diff-address-container">
-      <h2>What address would you like this shipped to?</h2>
+      <h2>Enter additional personal information (optional)</h2>
       <paper-input id="user-diffname" name="name" label="Ship to a different name?" autocomplete="name" aria-disabled="false"></paper-input>
       <paper-input id="diff-geo-address" onFocus="geolocate" type="text" autocomplete="street-address"></paper-input>
     </fieldset>
@@ -273,7 +253,7 @@ fieldset#cart {
   <script>
 Polymer({
 
-  is: 'checkout-form',
+  is: 'login-form',
 
   listeners: {
     'form.iron-form-submit': '_handleFormSubmit'
