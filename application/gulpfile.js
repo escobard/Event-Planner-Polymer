@@ -18,6 +18,9 @@ gulp.task('default', ['copy-html', 'copy-images', 'styles', 'lint', 'scripts'], 
 	gulp.watch('components/signup.html').on('change', browserSync.reload);
 	gulp.watch('components/main-app.html').on('change', browserSync.reload);
 	gulp.watch('components/event-planner.html').on('change', browserSync.reload);
+	gulp.watch('components/event-login.html').on('change', browserSync.reload);	
+	gulp.watch('components/event-login-form.html').on('change', browserSync.reload);	
+	gulp.watch('components/event-registration-form.html').on('change', browserSync.reload);
 	gulp.watch('components/event-planner-editor.html').on('change', browserSync.reload);
 });
 
