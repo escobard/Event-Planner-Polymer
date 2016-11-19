@@ -31,9 +31,9 @@ gulp.task('public', [
 ]);
 
 gulp.task('scripts', function() {
-  gulp.src('./components/js/main.js')
-    .pipe(concat('main.js'))
-    .pipe(gulp.dest('./public/components/js'));
+  gulp.src('./components/js/*.js')
+    .pipe(concat('all.js'))
+    .pipe(gulp.dest('./public/components/js/'));
 });
 
 // copy js files over to public folder
