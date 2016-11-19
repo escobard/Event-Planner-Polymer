@@ -35,7 +35,6 @@ gulp.task('public', [
 gulp.task('scripts', function() {
   gulp.src('./components/js/*.js')
     .pipe(concat('all.js'))
-    .pipe(uglify())
     .pipe(gulp.dest('./public/components/js/'));
 });
 
@@ -43,7 +42,6 @@ gulp.task('scripts', function() {
 gulp.task('scripts-public', function() {
 	gulp.src('./components/js/main.js')
 		.pipe(concat('main.js'))
-		.pipe(uglify())
 		.pipe(gulp.dest('./public/components/js'));
 });
 
