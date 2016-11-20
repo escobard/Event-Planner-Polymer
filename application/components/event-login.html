@@ -41,7 +41,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         text-transform: none;
       }
     </style>
-    <paper-button raised onclick="animated.open()">Sign In</paper-button>
+    <paper-button id="login" raised onclick="animated.open()">Sign In</paper-button>
     <paper-dialog id="animated" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
       <h2>Dialog Title</h2>
         <event-registration-form></event-registration-form>
@@ -50,6 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <iron-icon icon="account-circle"></iron-icon>
       <span>Sign in with Google</span>
     </paper-button>
+
   </template>
   <script>
     Polymer({
@@ -71,4 +72,5 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     });
   </script>
+
 </dom-module>

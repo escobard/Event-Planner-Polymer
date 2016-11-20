@@ -280,16 +280,6 @@ Polymer({
   },
   // based function where user change events will go
   _userChange: function(){  },
-
-  // creates account registration
-  _register: function() {
-       var name =  this.username,
-       var email = this.useremail,
-       var password = this.userpassword
-      if (!this.$form.validate()) {
-        firebase.auth().createUserWithEmailAndPassword(email.value, password.value);
-      }
-    },
 });
   </script>
 
