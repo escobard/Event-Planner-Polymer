@@ -209,15 +209,16 @@ fieldset.style-scope.checkout-form {
 
 </style>
 <firebase-document
-  id="document"
-  path="/accounts"
+  id="document2"
+  app-name="event-planner"
+  path="[[editableNoteId]]"
   data="{{createAccount}}"></firebase-document>
   <form is="iron-form" id="form">
 		<fieldset>
        <h2>Register your user account by adding the following information</h2>
-	       <paper-input id="user-name" name="name" label="What's your Username?" required autocomplete="name" aria-disabled="false" autofocus value="{[username]}" error-message="Please enter your name correctly"></paper-input>
-         <paper-input id="email" name="email" label="Please enter your email" required autocomplete="name" aria-disabled="false" value="{[useremail]}" error-message="Please enter a valid Email Address"></paper-input>
-         <paper-input id="password" name="password" label="Please enter your password" required autocomplete="name" aria-disabled="false" value="{[userpassword]}" pattern="" error-message="Please enter a valid password">
+	       <paper-input id="user-name" name="name" label="What's your Username?" required autocomplete="name" aria-disabled="false" autofocus bind-value="{[username]}" error-message="Please enter your name correctly"></paper-input>
+         <paper-input id="email" name="email" label="Please enter your email" required autocomplete="name" aria-disabled="false" bind-value="{[useremail]}" error-message="Please enter a valid Email Address"></paper-input>
+         <paper-input id="password" name="password" label="Please enter your password" required autocomplete="name" aria-disabled="false" bind-value="{[userpassword]}" pattern="" error-message="Please enter a valid password">
          </paper-input>
          <!--
           commenting second password out until registration working
@@ -237,19 +238,8 @@ fieldset.style-scope.checkout-form {
 Polymer({
 
   is: 'event-registration-form',
-
-  listeners: {
-    'form.iron-form-submit': '_handleFormSubmit'
-  },
-  _submit: function() {
-    this.$.form.submit();
-  },
-  _handleFormSubmit: function() {
-    console.log('Form submitted successfully! You are so rich now!');
-  },
-
   properties: {
-    username: {
+      username: {
       type: String,
       notify: true,
       value: ''
@@ -269,6 +259,16 @@ Polymer({
       observer: 'userChange'
     }
   },
+  listeners: {
+    'form.iron-form-submit': '_handleFormSubmit'
+  },
+  _submit: function() {
+    this.$.form.submit();
+  },
+  _handleFormSubmit: function() {
+    console.log('Form submitted successfully! You are so rich now!');
+  },
+
   
   // clears form fields
   _clearfields: function (){
