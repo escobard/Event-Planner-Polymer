@@ -9,7 +9,7 @@
 <link rel="import" href="bower_components/gold-email-input/gold-email-input.html">
 <link rel="import" href="bower_components/gold-cc-cvc-input/gold-cc-cvc-input.html">
 <link rel="import" href="bower_components/gold-cc-expiration-input/gold-cc-expiration-input.html">
-
+       
 <dom-module id="event-registration-form">
 <template>
 <style>
@@ -211,7 +211,7 @@ fieldset.style-scope.checkout-form {
 <firebase-document
   id="document"
   app-name="event-planner"
-  path="/notes"
+  path="/notes/"
   data="{{createAccount}}">
   </firebase-document>
   <form is="iron-form" id="form">
@@ -221,6 +221,7 @@ fieldset.style-scope.checkout-form {
          <paper-input id="email" name="email" label="Please enter your email" required autocomplete="name" aria-disabled="false" bind-value="{[useremail]}" error-message="Please enter a valid Email Address"></paper-input>
          <paper-input id="password" name="password" label="Please enter your password" required autocomplete="name" aria-disabled="false" bind-value="{[userpassword]}" pattern="" error-message="Please enter a valid password">
          </paper-input>
+
          <!--
           commenting second password out until registration working
           <paper-input id="password-confirm" name="password-confirm" label="Please enter your password" required autocomplete="name" aria-disabled="false"></paper-input>-->
@@ -232,6 +233,8 @@ fieldset.style-scope.checkout-form {
     </fieldset>
   	<paper-button on-tap="_clearfields">Clear fields</paper-button>
     <paper-button on-tap="_register">Register</paper-button>
+    <paper-button on-tap="_createUser">Register</paper-button>
+
   </form>
 </template>
 
@@ -240,7 +243,7 @@ Polymer({
 
   is: 'event-registration-form',
   properties: {
-      username: {
+    username: {
       type: String,
       notify: true,
       value: ''
@@ -278,26 +281,15 @@ Polymer({
   // based function where user change events will go
   _userChange: function(){  },
 
-  _register: function(event) {
-      /*validation function to be added later
-      if (!this.$form.validate()) {
-        return;
-      } */
-    console.log('event-registration-form','_register','event=', event);  
-
-      this.createAccount = {
-        name: this.username,
-        email: this.useremail,
-        password: this.userpassword
-      };
-
-      // setting as password as null for now
-      this.userpassword = null;
-      // creating function when returned
-      this.fire('registered');
-    }
-
   // creates account registration
+  _register: function() {
+       var name =  this.username,
+       var email = this.useremail,
+       var password = this.userpassword
+      if (!this.$form.validate()) {
+        firebase.auth().createUserWithEmailAndPassword(email.value, password.value);
+      }
+    },
 });
   </script>
 

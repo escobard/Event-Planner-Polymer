@@ -71,7 +71,7 @@
     data="{{notes}}">
 	</firebase-query>
 
-
+         
 	<!--  Docs: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#26
 	docs cont: https://github.com/PolymerLabs/note-app-elements/blob/master/na-note.html -->
 	<div class="notes">
@@ -111,7 +111,6 @@
       toEditableId: function(noteId) {
       return this.notesPath + '/' + noteId;
     	},
-
       // https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#23
       // https://github.com/PolymerLabs/note-app-elements/blob/master/na-behavior.html#L27-L29
       get isEditable() {
