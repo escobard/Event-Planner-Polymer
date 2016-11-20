@@ -224,8 +224,8 @@ fieldset.style-scope.checkout-form {
       <paper-input id="user-diffname" name="name" label="Ship to a different name?" autocomplete="name" aria-disabled="false"></paper-input>
       <paper-input id="diff-geo-address" onFocus="geolocate" type="text" autocomplete="street-address"></paper-input>
     </fieldset>
-  	<paper-button on-tap="clearfields">Clear fields</paper-button>
-    <paper-button on-tap="register">Register</paper-button>
+  	<paper-button on-tap="_clearfields">Clear fields</paper-button>
+    <paper-button on-tap="_register">Register</paper-button>
   </form>
 </template>
 
@@ -237,15 +237,61 @@ Polymer({
   listeners: {
     'form.iron-form-submit': '_handleFormSubmit'
   },
-
   _submit: function() {
     this.$.form.submit();
   },
-
   _handleFormSubmit: function() {
     console.log('Form submitted successfully! You are so rich now!');
-  }
+  },
 
+  properties: {
+    username: {
+      type: String,
+      notify: true,
+      value: ''
+    },
+    useremail: {
+      type: String,
+      notify: true,
+      value: ''
+    },
+    userpassword: {
+      type: String,
+      notify: true,
+      value: ''
+    },   
+    account: {
+      type: Object,
+      observer: 'userChange'
+    }
+  },
+  // clears form fields
+  _clearfields: function (){
+    this.$.form.reset();
+  },
+  // based function where user change events will go
+  _userChange: function(){  },
+
+  _register: function(event) {
+      /*validation function to be added later
+      if (!this.$form.validate()) {
+        return;
+      } */
+    console.log('event-registration-form','_register','event=', event);  
+
+      this.account = {
+        name: this.username,
+        email: this.useremail,
+        password: this.userpassword
+      };
+
+      // setting as password as null for now
+      this.userpassword = null;
+      // creating function when returned
+      this.fire('registered');
+    }
+
+  // creates account registration
 });
   </script>
 
