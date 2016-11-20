@@ -209,10 +209,11 @@ fieldset.style-scope.checkout-form {
 
 </style>
 <firebase-document
-  id="document2"
+  id="document"
   app-name="event-planner"
-  path="[[editableNoteId]]"
-  data="{{createAccount}}"></firebase-document>
+  path="/notes"
+  data="{{createAccount}}">
+  </firebase-document>
   <form is="iron-form" id="form">
 		<fieldset>
        <h2>Register your user account by adding the following information</h2>

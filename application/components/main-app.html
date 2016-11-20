@@ -15,6 +15,17 @@
 	<!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 -->
 	<event-login on-sign-in="signIn" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login>
 
+    <!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#17 -->
+  <!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 -->
+  <!--  This creates authentication, where the id is the selector for this authenticator, allows logins-->
+  <firebase-auth
+    id="auth"
+    app-name="event-planner"
+    provider="google"
+    signed-in="{{signedIn}}"
+    user="{{user}}">
+  </firebase-auth>
+
 	<!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#22 -->
 	<!--  Docs on :  https://elements.polymer-project.org/elements/paper-fab -->
 	<paper-fab
@@ -40,18 +51,6 @@
     data="{{notes}}"
     persisted-data="{{persistedNotes}}">
 	</app-indexeddb-mirror>
-
-
-	<!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#17 -->
-	<!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 -->
-  <!--  This creates authentication, where the id is the selector for this authenticator, allows logins-->
-	<firebase-auth
-    id="auth"
-    app-name="event-planner"
-    provider="google"
-    signed-in="{{signedIn}}"
-    user="{{user}}">
-	</firebase-auth>
 	
 	<!--  Docs: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#23 
 	docs cont: https://github.com/firebase/polymerfire -->
