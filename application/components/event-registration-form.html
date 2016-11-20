@@ -208,6 +208,10 @@ fieldset.style-scope.checkout-form {
 }
 
 </style>
+<firebase-document
+  id="document"
+  path="/accounts"
+  data="{{createAccount}}"></firebase-document>
   <form is="iron-form" id="form">
 		<fieldset>
        <h2>Register your user account by adding the following information</h2>
@@ -265,6 +269,7 @@ Polymer({
       observer: 'userChange'
     }
   },
+  
   // clears form fields
   _clearfields: function (){
     this.$.form.reset();
@@ -279,7 +284,7 @@ Polymer({
       } */
     console.log('event-registration-form','_register','event=', event);  
 
-      this.account = {
+      this.createAccount = {
         name: this.username,
         email: this.useremail,
         password: this.userpassword
