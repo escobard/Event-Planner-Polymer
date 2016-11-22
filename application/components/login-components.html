@@ -111,7 +111,7 @@ h2.style-scope.login-components {
       <ul>
         
         <li><paper-button on-tap="signIn" id="register">Register</paper-button></li>
-        <li><paper-button on-tap="signIn" id="login">login</paper-button></li>
+        <li><paper-button on-tap="signIn2" id="login">login</paper-button></li>
         <li><a id="signout">signout</a></li>
       </ul>
             <script type = "text/javascript">
@@ -159,6 +159,9 @@ firebase.auth().signOut().then(function() {
 Polymer({
   is: 'login-components',
   signIn: function() {
+        this.fire('sign-in', null, { bubbles: true});
+  },
+  signIn2: function() {
         this.fire('sign-in', null, { bubbles: true});
   }
 });

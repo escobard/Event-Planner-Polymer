@@ -111,7 +111,7 @@
 
       // more on this here: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#21
       signIn: function() {
-      	this.$.auth.signInWithPopup();
+      	this.$.auth.signInWithEmailAndPassword(email, password);
       },
       // more on this here: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#21
       signIn2: function() {
