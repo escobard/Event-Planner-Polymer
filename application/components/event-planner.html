@@ -79,6 +79,8 @@
 
     </style>
     <template is="dom-if" if="[[editable]]">
+
+     <!--  applying paper inputs breaks this code, will have to revise-->
       <input is="iron-input"
           bind-value="{{title}}">
       </input>
