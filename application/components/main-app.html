@@ -16,7 +16,10 @@
 	<na-toolbar signed-in="[[signedIn]]" on-sign-out="signOut"></na-toolbar>
 
 	<!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 -->
-	<event-login on-sign-in="signIn" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login>
+
+	<!--  Google login disabled indefinetly, can enable again later
+  <event-login-google on-sign-in="signIn" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-google> -->
+  <event-login-pw on-sign-in="signIn2" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-pw>
 
     <!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#17 -->
   <!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 -->
@@ -25,13 +28,6 @@
     id="auth"
     app-name="event-planner"
     provider="google"
-    signed-in="{{signedIn}}"
-    user="{{user}}">
-  </firebase-auth>
-  <firebase-auth
-    id="authpw"
-    app-name="event-planner"
-    provider="password"
     signed-in="{{signedIn}}"
     user="{{user}}">
   </firebase-auth>
@@ -111,11 +107,11 @@
 
       // more on this here: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#21
       signIn: function() {
-      	this.$.auth.signInWithEmailAndPassword(email, password);
+      	this.$.auth.signInWithPopup();
       },
       // more on this here: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#21
       signIn2: function() {
-        this.$.authpw.signInWithPopup();
+        this.$.auth.signInWithEmailAndPassword(email, password);
       },
 
       // https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#23
