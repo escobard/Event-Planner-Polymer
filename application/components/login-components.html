@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Welcome to Firebase Hosting</title>
-
-<!-- he head has been added to global deps -->
+<!-- the head has been added to global deps -->
 
 <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
 <script>
@@ -21,7 +15,11 @@
         <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
     <link rel='stylesheet' type='text/css' href='/resources/tutorial/css/example.css'>
-    <style media="screen">
+    
+<dom-module id="login-components">
+
+<template>
+<style media="screen">
       body {
         font-family: Roboto, Arial, sans-serif;
         background: #ECEFF1;
@@ -74,12 +72,6 @@
         box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
       }
     </style>
-
-
-
-
-  </head>
-  <body>
     <div id="message">
       <h1>Welcome to Firebase Hosting</h1>
       <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
@@ -150,5 +142,12 @@ firebase.auth().signOut().then(function() {
 
             </script>
     </div>
-  </body>
-</html>
+
+</template>
+
+  <script>
+Polymer({
+  is: 'login-components',
+});
+  </script>
+</dom-module>
