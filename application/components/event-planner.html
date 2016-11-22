@@ -79,17 +79,39 @@
 
     </style>
     <template is="dom-if" if="[[editable]]">
-      <paper-input id="title" name="name" label="What's the name of your event?" required autocomplete="name" aria-disabled="false" bind-value="{{title}}"></paper-input>
-      <paper-input id="host" name="title" label="Enter your Host's name" required autocomplete="name" aria-disabled="false" bind-value="{{host}}"></paper-input>
-      <paper-input id="event-type" name="event-type" label="Select your event type" required autocomplete="name" aria-disabled="false" bind-value="{{event-type}}"></paper-input>
-      <paper-input id="startdate" name="startdate" label="When will your event start?" required autocomplete="name" aria-disabled="false" bind-value="{{startdate}}"></paper-input>
-      <paper-input id="enddate" name="enddate" label="When will your event end?" required autocomplete="name" aria-disabled="false" bind-value="{{enddate}}"></paper-input>
-      <paper-input id="location" name="location" label="Enter your event's location" required autocomplete="name" aria-disabled="false" bind-value="{{location}}"></paper-input>
-      <paper-input id="opt-msg" name="opt-msg" required autocomplete="name" aria-disabled="false" bind-value="{{opt-msg}}"></paper-input>
+      <input is="iron-input"
+          bind-value="{{title}}">
+      </input>
+
+      <input is="iron-input"
+          bind-value="{{subtitle}}">
+      </input>
+
+      <input is="iron-input"
+          bind-value="{{event-type}}">
+      </input>
+
+       <input is="iron-input"
+          bind-value="{{startdate}}">
+      </input>
+
+      <input is="iron-input"
+          bind-value="{{enddate}}">
+      </input>
+
+      <input is="iron-input"
+          bind-value="{{location}}">
+      </input>  
+
       <!--  coded out area for the guest list, will add last 
       <input is="iron-input"
           bind-value="{{guestlist}}">
       </input>-->
+
+      <iron-autogrow-textarea
+          bind-value="{{body}}">
+      </iron-autogrow-textarea>
+
     </template>
 
     <!--  if is not editable-->
