@@ -18,12 +18,14 @@
 	<!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 -->
 
 	<!--  Google login disabled indefinetly, can enable again later
-  <event-login-google on-sign-in="signIn" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-google> -->
   <event-login-pw on-sign-in="signIn2" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-pw>
+  <event-login-google on-sign-in="signIn" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-google> -->
+ <event-login-google on-sign-in="signIn" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-google>
 
     <!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#17 -->
   <!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 -->
   <!--  This creates authentication, where the id is the selector for this authenticator, allows logins-->
+  
   <firebase-auth
     id="auth"
     app-name="event-planner"
@@ -95,7 +97,9 @@
     		</event-planner>
   		</template>
 	</div>
+
   </template>
+
 
   <script>
     Polymer({

@@ -1,20 +1,7 @@
 <!-- the head has been added to global deps -->
-        <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
     <link rel='stylesheet' type='text/css' href='/resources/tutorial/css/example.css'>
-    
-<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyCzhnmg4lArK8DY7jrk-BKMKi91p3Fw3hc",
-    authDomain: "event-planner-e6ee3.firebaseapp.com",
-    databaseURL: "https://event-planner-e6ee3.firebaseio.com",
-    storageBucket: "event-planner-e6ee3.appspot.com",
-    messagingSenderId: "838628542575"
-  };
-  firebase.initializeApp(config);
-</script>
+
 <dom-module id="login-components">
 
 <template>
@@ -111,11 +98,11 @@ h2.style-scope.login-components {
          <!-- refactor code here so that register triggers 'on tap' -->
 
         <li><paper-button id="register">Register</paper-button></li>
-        <li><paper-button on-tap="signIn2">login</paper-button></li>
+        <li><paper-button id="login">login</paper-button></li>
         <li><a id="signout">signout</a></li>
       </ul>
             <script type = "text/javascript">
-var ref = new Firebase('https://event-planner-e6ee3.firebaseio.com');
+var ref = Firebase('https://event-planner-e6ee3.firebaseio.com');
 var email = "myeqwemal45@email.com";
 var password = "mypassqewrword3";
 var rButton = document.getElementById("register");
@@ -158,6 +145,7 @@ firebase.auth().signOut().then(function() {
   <script>
 Polymer({
   is: 'login-components',
+  
   signIn: function() {
         this.fire('sign-in', null, { bubbles: true});
   },
