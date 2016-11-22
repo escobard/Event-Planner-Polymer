@@ -114,19 +114,38 @@ h2.style-scope.login-components {
         <li><a id="signout">signout</a></li>
       </ul>
             <script type = "text/javascript">
+
+// MODEL
+
+// this will be replaced when the global application callback is in place
 var ref = Firebase('https://event-planner-e6ee3.firebaseio.com');
-var email = "myeqwa245@email.com";
-var password = "mypasswrword3";
+
+// VIEW
+
+// selects view elements
 var rButton = document.getElementById("register");
 var lButton = document.getElementById("login");
 var soButton = document.getElementById("signout");
 
+var rName = document.getElementById("user-name");
+var rEmail = document.getElementById("email");
+var rPass = document.getElementById("password");
+
+// variables to handle form inputs for the login / reg form
+var name = rName.value;
+var email = rEmail.value;
+var password = rPass.value;
+
+// CONTROLLER
+
+// event listeners for registration / login form
 rButton.addEventListener("click", function(){
   firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
    console.log(error.code);
    console.log(error.message);
 });
   console.log("SUCCESS! ACCOUNT CREATED!");
+  // need to find a way to AUTOMATICALLY login once user is subscribed
 });
 
 lButton.addEventListener("click", function(){
