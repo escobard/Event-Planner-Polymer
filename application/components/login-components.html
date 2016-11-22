@@ -109,14 +109,13 @@ h2.style-scope.login-components {
 
   </form>
       <ul>
-
-        <li><a id="register">Register</a></li>
-        <li><a id="login">login</a></li>
+        
+        <li><paper-button on-tap="signIn" id="register">Register</paper-button></li>
+        <li><paper-button on-tap="signIn" id="login">login</paper-button></li>
         <li><a id="signout">signout</a></li>
       </ul>
             <script type = "text/javascript">
 var ref = new Firebase('https://event-planner-e6ee3.firebaseio.com');
-var grabEmail
 var email = "myemal45@email.com";
 var password = "mypassword3";
 var rButton = document.getElementById("register");
@@ -159,6 +158,9 @@ firebase.auth().signOut().then(function() {
   <script>
 Polymer({
   is: 'login-components',
+  signIn: function() {
+        this.fire('sign-in', null, { bubbles: true});
+  }
 });
   </script>
 </dom-module>

@@ -28,6 +28,13 @@
     signed-in="{{signedIn}}"
     user="{{user}}">
   </firebase-auth>
+  <firebase-auth
+    id="authpw"
+    app-name="event-planner"
+    provider="password"
+    signed-in="{{signedIn}}"
+    user="{{user}}">
+  </firebase-auth>
 
 	<!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#22 -->
 	<!--  Docs on :  https://elements.polymer-project.org/elements/paper-fab -->
@@ -105,6 +112,10 @@
       // more on this here: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#21
       signIn: function() {
       	this.$.auth.signInWithPopup();
+      },
+      // more on this here: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#21
+      signIn2: function() {
+        this.$.authpw.signInWithPopup();
       },
 
       // https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#23
