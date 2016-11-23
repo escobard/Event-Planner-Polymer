@@ -87,7 +87,8 @@ h2.style-scope.login-components {
         <form is="iron-form" id="form">
     <fieldset>
        <h2>Register your user account by adding the following information</h2>
-         <paper-input id="user-name" name="name" label="What's your Username?" required autocomplete="name" aria-disabled="false" autofocus bind-value="{[username]}" error-message="Please enter your name correctly"></paper-input>
+       <input type="text" id="uname"></input>
+         <paper-input id="user-name" name="name" label="What's your Username?" inputElement="#test" required autocomplete="name" aria-disabled="false" autofocus bind-value="{[username]}" error-message="Please enter your name correctly"></paper-input>
          <paper-input id="email" name="email" label="Please enter your email" required autocomplete="name" aria-disabled="false" bind-value="{[useremail]}" error-message="Please enter a valid Email Address"></paper-input>
          <paper-input id="password" name="password" label="Please enter your password" required autocomplete="name" aria-disabled="false" bind-value="{[userpassword]}" pattern="" error-message="Please enter a valid password">
          </paper-input>
@@ -104,16 +105,19 @@ h2.style-scope.login-components {
     <paper-button on-tap="_clearfields">Clear fields</paper-button>
     <paper-button on-tap="_register">Register</paper-button>
     <paper-button on-tap="_createUser">Register</paper-button>
+    <paper-button on-tap="_values">Check Values</paper-button
 
   </form>
       <ul>
          <!-- refactor code here so that register triggers 'on tap' -->
 
         <li><paper-button on-tap="signIn2" id="register">Register</paper-button></li>
-        <li><paper-button on-tap="signIn2" id="login">login</paper-button></li>
+        <li><paper-button on-tap="signIn2" id="login">login</paper-button>
+        <paper-button id="ccheck">check</paper-button></li>
         <li><a id="signout">signout</a></li>
       </ul>
-            <script type = "text/javascript">
+    </div>
+<script>
 
 // MODEL
 
@@ -126,21 +130,31 @@ var ref = Firebase('https://event-planner-e6ee3.firebaseio.com');
 var rButton = document.getElementById("register");
 var lButton = document.getElementById("login");
 var soButton = document.getElementById("signout");
+var cButton = document.getElementById("ccheck");
 
-var rName = document.getElementById("user-name");
-var rEmail = document.getElementById("email");
-var rPass = document.getElementById("password");
+//handles login form values
+var uName = document.getElementById("uname");
+var uNameVal= this.uName.value;
+var rName = document.querySelector('#user-name input').value;
+var rEmail = document.querySelector('#email input').value;
+var rPass = document.querySelector('#password input').value;
 
-// variables to handle form inputs for the login / reg form
-var name = rName.value;
-var email = rEmail.value;
-var password = rPass.value;
-
+// these must be globalyl defined otherwise they will not authorize
+var email = rEmail;
+var password = rPass;
 // CONTROLLER
 
 // event listeners for registration / login form
 rButton.addEventListener("click", function(){
+  email = rEmail;
+  password = rEmail;
   firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+   console.log(error.code);
+   console.log(error.message);
+});
+
+// this needs to be formatted to automatically login
+  firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
    console.log(error.code);
    console.log(error.message);
 });
@@ -149,6 +163,8 @@ rButton.addEventListener("click", function(){
 });
 
 lButton.addEventListener("click", function(){
+  email = rEmail;
+  password = rEmail;
 firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
    console.log(error.code);
    console.log(error.message);
@@ -165,12 +181,22 @@ firebase.auth().signOut().then(function() {
 });
 });
 
+// check values
+cButton.addEventListener("click", function(){
+uName = document.getElementById("uname");
+ rName = document.querySelector('#user-name input').value;
+rEmail = document.querySelector('#email input').value;
+rPass = document.querySelector('#password input').value;
+  console.log(rName);
+  console.log(rEmail);
+  console.log(rPass);
+  console.log("test");
+  // need to find a way to AUTOMATICALLY login once user is subscribed
+});
 
 
 
             </script>
-    </div>
-
 </template>
 
   <script>
