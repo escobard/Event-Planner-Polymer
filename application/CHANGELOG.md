@@ -1,7 +1,12 @@
 ** Changelog for Event Planning Application
 
+v0.4
+- prototype to add optional field values to the MVC
+
 v0.3
-- prototype for password / email authentication with firebase
+- added email / password validation
+- disabled google login for now
+- base function and styles for registration form
 
 v0.2
 - base function and styles created for event-planner templates
