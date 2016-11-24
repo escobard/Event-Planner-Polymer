@@ -1,7 +1,10 @@
 ** Changelog for Event Planning Application
 
+v0.5
+- prototype to add validation
+
 v0.4
-- prototype to add optional field values to the MVC
+- added optional field values to the MVC
 
 v0.3
 - added email / password validation
