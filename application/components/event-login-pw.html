@@ -131,7 +131,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var cButton = document.getElementById("ccheck");
 
     //handles login form values
-    var uName = document.getElementById("uname");
     var rName = document.querySelector('#reg-user-name input').value;
     var rEmail = document.querySelector('#reg-email input').value;
     var rPass = document.querySelector('#reg-password input').value;
@@ -209,12 +208,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: false
         }
       },
-  signIn: function() {
+      signIn: function() {
         this.fire('sign-in', null, { bubbles: true});
-  },
-  signIn2: function() {
+      },
+      signIn2: function() {
         this.fire('sign-in', null, { bubbles: true});
-  }
+      }
     });
   </script>
 

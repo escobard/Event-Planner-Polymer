@@ -3,6 +3,7 @@
 v0.5
 - prototype to add validation
 - prototype to add global JS
+- prototype to add navbar styles
 
 v0.4
 - added optional field values to the MVC

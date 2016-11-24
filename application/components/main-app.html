@@ -1,12 +1,8 @@
 <link rel="import" href="bower_components/note-app-elements/na-elements.html">
 <link rel="import" href="bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
 <link rel="import" href="bower_components/polymerfire/polymerfire.html">
-
-
 <dom-module id="main-app">
-
   <template>
-
 	<style include="note-app-shared-styles">
   .event-planner-0 {
     width: 80%;
@@ -15,22 +11,20 @@
   body {
     margin:0;
   }
-</style>
+  </style>
 
 	<!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 -->
 	<na-toolbar signed-in="[[signedIn]]" on-sign-out="signOut"></na-toolbar>
 
 	<!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 -->
-
 	<!--  Google login disabled indefinetly, can enable again later
   <event-login-pw on-sign-in="signIn2" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-pw>
   <event-login-google on-sign-in="signIn" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-google> -->
  <event-login-pw on-sign-in="signIn2" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-pw>
 
-    <!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#17 -->
+  <!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#17 -->
   <!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 -->
   <!--  This creates authentication, where the id is the selector for this authenticator, allows logins-->
-  
   <firebase-auth
     id="auth"
     app-name="event-planner"
@@ -83,7 +77,6 @@
     path="/notes/[[user.uid]]"
     data="{{notes}}">
 	</firebase-query>
-
          
 	<!--  Docs: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#26
 	docs cont: https://github.com/PolymerLabs/note-app-elements/blob/master/na-note.html -->
@@ -104,10 +97,7 @@
     		</event-planner>
   		</template>
 	</div>
-
   </template>
-
-
   <script>
     Polymer({
       is: 'main-app',
@@ -136,9 +126,7 @@
       // https://github.com/PolymerLabs/note-app-elements/blob/master/na-behavior.html#L27-L29
       get isEditable() {
       return this.online;
-
     	}
     });
   </script>
-
 </dom-module>
