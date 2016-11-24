@@ -87,7 +87,6 @@ h2.style-scope.login-components {
         <form is="iron-form" id="form">
     <fieldset>
        <h2>Register your user account by adding the following information</h2>
-       <input type="text" id="uname"></input>
          <paper-input id="user-name" name="name" label="What's your Username?" inputElement="#test" required autocomplete="name" aria-disabled="false" autofocus bind-value="{[username]}" error-message="Please enter your name correctly"></paper-input>
          <paper-input id="email" name="email" label="Please enter your email" required autocomplete="name" aria-disabled="false" bind-value="{[useremail]}" error-message="Please enter a valid Email Address"></paper-input>
          <paper-input id="password" name="password" label="Please enter your password" required autocomplete="name" aria-disabled="false" bind-value="{[userpassword]}" pattern="" error-message="Please enter a valid password">
@@ -98,9 +97,12 @@ h2.style-scope.login-components {
           <paper-input id="password-confirm" name="password-confirm" label="Please enter your password" required autocomplete="name" aria-disabled="false"></paper-input>-->
     </fieldset>
      <fieldset id="diff-address-container">
-      <h2>Enter additional personal information (optional)</h2>
-      <paper-input id="user-diffname" name="name" label="Ship to a different name?" autocomplete="name" aria-disabled="false"></paper-input>
-      <paper-input id="diff-geo-address" onFocus="geolocate" type="text" autocomplete="street-address"></paper-input>
+      <h2>Enter yourpersonal information (optional)</h2>
+      <paper-input id="reg-occupation" name="name" label="What's your occupation?" autocomplete="name" aria-disabled="false"></paper-input>
+      <paper-input id="reg-birthday" onFocus="geolocate" type="text" label="When were you born?" autocomplete="street-address"></paper-input>
+      <paper-input id="reg-address" type="text" label="Where do you live?" autocomplete="street-address"></paper-input>
+      <!--Make this a text box -->
+      <paper-input id="diff-geo-address" onFocus="geolocate" type="text" label="How will you be using this application?" autocomplete="street-address"></paper-input>
     </fieldset>
     <paper-button on-tap="_clearfields">Clear fields</paper-button>
     <paper-button on-tap="_register">Register</paper-button>
@@ -144,6 +146,7 @@ var password = rPass;
 // CONTROLLER
 
 // event listeners for registration / login form
+// will be adding these as promises in the future
 rButton.addEventListener("click", function(){
   email = rEmail;
   password = rPass;
