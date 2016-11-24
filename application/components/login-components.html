@@ -146,7 +146,7 @@ var password = rPass;
 // event listeners for registration / login form
 rButton.addEventListener("click", function(){
   email = rEmail;
-  password = rEmail;
+  password = rPass;
   firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
    console.log(error.code);
    console.log(error.message);
@@ -163,7 +163,7 @@ rButton.addEventListener("click", function(){
 
 lButton.addEventListener("click", function(){
   email = rEmail;
-  password = rEmail;
+  password = rPass;
 firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
    console.log(error.code);
    console.log(error.message);
