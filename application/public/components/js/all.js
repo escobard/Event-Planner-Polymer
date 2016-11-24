@@ -1,3 +1,15 @@
+/*=========================================================================== 
+
+This document contains the main javascript for the event planner application
+
+============================================================================*/
+
+/*=========================================================================== 
+
+Google Geolocate API 
+
+============================================================================*/
+
 // This example displays an address form, using the autocomplete feature
       // of the Google Places API to help users fill in the information.
 
@@ -69,124 +81,9 @@
         }
       };
 
-// Set up the logic to change the progress bar
-// From the instructor notes on : https://classroom.udacity.com/nanodegrees/nd802/parts/8021345401/modules/555574864975460/lessons/5243991811/concepts/54564686870923
+// this is the firefox prompt for geolocation, necessary for some firefox versions 
 
-var progressBar = document.querySelector('paper-progress');
-
-// updated progress bar when ship to a different address is ticked
-var progressBarDiffAddress = document.querySelector('#progress-diff-address');
-
-function ProgressTracker (inputs, progressBar) {
-  var self = this;
-  this.progressBar = progressBar;
-  this.inputs = inputs;
-
-  this.inputs.forEach(function (input) {
-    input.element = document.querySelector(input.selector);
-    input.added = false;
-    input.isValid = null;
-
-    input.element.oninput = function () {
-      input.isValid = self.determineStatus(input);
-      self.adjustProgressIfNecessary(input);
-    };
-  });
-};
-
-ProgressTracker.prototype = {
-  determineStatus: function (input) {
-    var isValid = false;
-    
-    if (input.element.value.length > 0) {
-      isValid = true;
-    } else {
-      isValid = false;
-    }
-
-    try {
-      isValid = isValid && input.element.validate();
-    } catch (e) {
-      console.log(e);
-    }
-    return isValid;
-  },
-  adjustProgressIfNecessary: function (input) {
-    var newAmount = this.progressBar.value;
-
-    if (input.added && !input.isValid) {
-      newAmount = newAmount - input.amount;
-      input.added = false;
-    } else if (!input.added && input.isValid) {
-      newAmount = newAmount + input.amount;
-      input.added = true;
-    }
-    this.progressBar.value = newAmount;
-  }
-};
-
-// If you're feeling ambitious, you could add the logic to handle changed billing addresses here!
-var inputs = [
-  {
-    selector: '#user-name',
-    amount: 20
-  }, {
-    selector: '#geo-address',
-    amount: 20
-  }, {
-    selector: '#cc-number',
-    amount: 20
-  }, {
-    selector: '#cc-expiration',
-    amount: 20
-  }, {
-    selector: '#cc-cvc',
-    amount: 20
-  }
-];
-
-var inputsDiff = [
-  {
-    selector: '#user-diffname',
-    amount: 50
-  }, {
-    selector: '#diff-geo-address',
-    amount: 50
-  }  
-];
-
-var progressTracker = new ProgressTracker(inputs, progressBar);
-
-// JavaScript code for the different address field activation and associated functions
-function diffAddressCheck() {
-
-// Selects our Queries
-  var checkContainer = document.getElementById('diff-address');
-  var normalProgressBar = document.querySelector('#progress-normal');
-  var diffAddressContainer = document.querySelector('#diff-address-container');
-  var diffAddressProgress = document.querySelector('#progress-diff-address');
-
-// checks the form's paper-check element's state
-  checkContainer.addEventListener('change', function (e) {
-  
-// if the check's parent element is 'active' run this if statement
-    if (this.active) {
-      diffAddressContainer.classList.add("active");
-      diffAddressProgress.classList.add("active");
-      normalProgressBar.classList.add("inactive");
-      var progressTrackerNewAddress = new ProgressTracker(inputsDiff, progressBarDiffAddress);
-    } 
-
-// otherwise check for these classes and remove if present
-    else {
-      diffAddressContainer.classList.remove("active");
-      diffAddressProgress.classList.remove("active");
-      normalProgressBar.classList.remove("inactive");
-    }
-  })
-} 
-
-//loads this function on window load
+      //loads this function on window load
 window.addEventListener("load", diffAddressCheck, false);
 
 function prompt(window, pref, message, callback) {
@@ -251,19 +148,153 @@ prompt(window,
        "extensions.foo-addon.allowGeolocation",
        "Foo Add-on wants to know your location.",
        function callback(allowed) { alert(allowed); });
-function getWindowHeight() {
-	return window.innerHeight;
-}
+/*=========================================================================== 
 
-getWindowHeight();
-a
-function notePlaceholder(argument) {
-	var noteTitle = document.querySelector('input.na-note');
-	var noteText = document.querySelector('textarea.iron-autogrow-textarea');
-	noteTitle.placeholder = "Enter your note's title";
-	noteText.placeholder = "What's this note about?";
-}
-window.addEventListener("load", notePlaceholder, false);
+Google Geolocate API end
+
+============================================================================*/
+
+/*=========================================================================== 
+
+Progress Bar
+
+============================================================================*/
+
+// Set up the logic to change the progress bar
+// originally derived from the instructor notes on : https://classroom.udacity.com/nanodegrees/nd802/parts/8021345401/modules/555574864975460/lessons/5243991811/concepts/54564686870923
+
+var progressBar = document.querySelector('paper-progress');
+
+// updated progress bar when ship to a different address is ticked
+var progressBarDiffAddress = document.querySelector('#progress-diff-address');
+
+function ProgressTracker (inputs, progressBar) {
+  var self = this;
+  this.progressBar = progressBar;
+  this.inputs = inputs;
+
+  this.inputs.forEach(function (input) {
+    input.element = document.querySelector(input.selector);
+    input.added = false;
+    input.isValid = null;
+
+    input.element.oninput = function () {
+      input.isValid = self.determineStatus(input);
+      self.adjustProgressIfNecessary(input);
+    };
+  });
+};
+
+ProgressTracker.prototype = {
+  determineStatus: function (input) {
+    var isValid = false;
+    
+    if (input.element.value.length > 0) {
+      isValid = true;
+    } else {
+      isValid = false;
+    }
+
+    try {
+      isValid = isValid && input.element.validate();
+    } catch (e) {
+      console.log(e);
+    }
+    return isValid;
+  },
+  adjustProgressIfNecessary: function (input) {
+    var newAmount = this.progressBar.value;
+
+    if (input.added && !input.isValid) {
+      newAmount = newAmount - input.amount;
+      input.added = false;
+    } else if (!input.added && input.isValid) {
+      newAmount = newAmount + input.amount;
+      input.added = true;
+    }
+    this.progressBar.value = newAmount;
+  }
+};
+
+var inputs = [
+  {
+    selector: '#user-name',
+    amount: 20
+  }, {
+    selector: '#geo-address',
+    amount: 20
+  }, {
+    selector: '#cc-number',
+    amount: 20
+  }, {
+    selector: '#cc-expiration',
+    amount: 20
+  }, {
+    selector: '#cc-cvc',
+    amount: 20
+  }
+];
+
+var inputsDiff = [
+  {
+    selector: '#user-diffname',
+    amount: 50
+  }, {
+    selector: '#diff-geo-address',
+    amount: 50
+  }  
+];
+
+var progressTracker = new ProgressTracker(inputs, progressBar);
+
+/*=========================================================================== 
+
+Progress Bar end
+
+============================================================================*/
+
+/*=========================================================================== 
+
+Different Address (will have to be changed to fit both optional fields)
+
+============================================================================*/
+
+// JavaScript code for the different address field activation and associated functions
+function diffAddressCheck() {
+
+// Selects our Queries
+  var checkContainer = document.getElementById('diff-address');
+  var normalProgressBar = document.querySelector('#progress-normal');
+  var diffAddressContainer = document.querySelector('#diff-address-container');
+  var diffAddressProgress = document.querySelector('#progress-diff-address');
+
+// checks the form's paper-check element's state
+  checkContainer.addEventListener('change', function (e) {
+  
+// if the check's parent element is 'active' run this if statement
+    if (this.active) {
+      diffAddressContainer.classList.add("active");
+      diffAddressProgress.classList.add("active");
+      normalProgressBar.classList.add("inactive");
+      var progressTrackerNewAddress = new ProgressTracker(inputsDiff, progressBarDiffAddress);
+    } 
+
+// otherwise check for these classes and remove if present
+    else {
+      diffAddressContainer.classList.remove("active");
+      diffAddressProgress.classList.remove("active");
+      normalProgressBar.classList.remove("inactive");
+    }
+  })
+} 
+
+/*=========================================================================== 
+
+Different Address end
+
+============================================================================*/
+
+
 importScripts('../bower_components/platinum-sw/service-worker.js');
 /**
  * @license
