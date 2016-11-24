@@ -28,15 +28,6 @@
         color: rgb(3,155,229);
       }
 
-      #message {
-        max-width: 400px;
-        margin: 40px auto;
-        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2),0 1px 1px 0 rgba(0,0,0,0.14),0 2px 1px -1px rgba(0,0,0,0.12);
-        border-radius: 2px;
-        background: white;
-        padding: 16px 24px;
-      }
-
       #message h1 {
         font-size: 22px;
         font-weight: 500;
@@ -56,7 +47,7 @@
         text-align: center;
       }
 
-      #message li a {
+      #message li paper-button {
         display: inline-block;
         padding: 8px;
         text-transform: uppercase;
@@ -97,12 +88,12 @@ h2.style-scope.login-components {
           <paper-input id="password-confirm" name="password-confirm" label="Please enter your password" required autocomplete="name" aria-disabled="false"></paper-input>-->
     </fieldset>
      <fieldset id="diff-address-container">
-      <h2>Enter yourpersonal information (optional)</h2>
+      <h2>Enter your personal information (optional)</h2>
       <paper-input id="reg-occupation" name="name" label="What's your occupation?" autocomplete="name" aria-disabled="false"></paper-input>
-      <paper-input id="reg-birthday" onFocus="geolocate" type="text" label="When were you born?" autocomplete="street-address"></paper-input>
-      <paper-input id="reg-address" type="text" label="Where do you live?" autocomplete="street-address"></paper-input>
+      <paper-input id="reg-birthday" type="text" label="When were you born?" autocomplete="street-address"></paper-input>
+      <paper-input id="reg-address" onFocus="geolocate" type="text" label="Where do you live?" autocomplete="street-address"></paper-input>
       <!--Make this a text box -->
-      <paper-input id="diff-geo-address" onFocus="geolocate" type="text" label="How will you be using this application?" autocomplete="street-address"></paper-input>
+      <paper-input id="diff-geo-address" onFocus="geolocate" type="text-area" label="How will you be using this application?" autocomplete="street-address"></paper-input>
     </fieldset>
     <paper-button on-tap="_clearfields">Clear fields</paper-button>
     <paper-button on-tap="_register">Register</paper-button>
@@ -115,7 +106,7 @@ h2.style-scope.login-components {
         <li><paper-button on-tap="signIn2" id="register">Register</paper-button></li>
         <li><paper-button on-tap="signIn2" id="login">login</paper-button>
         <paper-button id="ccheck">check</paper-button></li>
-        <li><a id="signout">signout</a></li>
+        <li><paper-button id="signout">signout</a></li>
       </ul>
     </div>
 <script>
