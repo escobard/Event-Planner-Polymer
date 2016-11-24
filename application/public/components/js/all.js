@@ -91,7 +91,6 @@ Google Geolocate API end
 
 ============================================================================*/
 
-
 /*=========================================================================== 
 
 Progress Bar
@@ -105,23 +104,6 @@ var progressBar = document.querySelector('paper-progress');
 
 // updated progress bar when ship to a different address is ticked
 var progressBarDiffAddress = document.querySelector('#progress-diff-address');
-
-function ProgressTracker (inputs, progressBar) {
-  var self = this;
-  this.progressBar = progressBar;
-  this.inputs = inputs;
-
-  this.inputs.forEach(function (input) {
-    input.element = document.querySelector(input.selector);
-    input.added = false;
-    input.isValid = null;
-
-    input.element.oninput = function () {
-      input.isValid = self.determineStatus(input);
-      self.adjustProgressIfNecessary(input);
-    };
-  });
-};
 
 ProgressTracker.prototype = {
   determineStatus: function (input) {
@@ -238,84 +220,7 @@ Different Address end
 MVC start - migrate all code into an MVC structure if possible
 
 ============================================================================*/
-function mainApplication(){
 
-// MODEL
-// this will be replaced when the global application callback is in place
-var ref = Firebase('https://event-planner-e6ee3.firebaseio.com');
-
-// VIEW
-
-// selects view elements
-var rButton = document.getElementById("register");
-var lButton = document.getElementById("login");
-var soButton = document.getElementById("signout");
-var cButton = document.getElementById("ccheck");
-
-//handles login form values
-var rName = document.querySelector('#user-name input').value;
-var rEmail = document.querySelector('#email input').value;
-var rPass = document.querySelector('#password input').value;
-
-// these must be globalyl defined otherwise they will not authorize
-var email = rEmail;
-var password = rPass;
-
-// CONTROLLER
-
-// event listeners for registration / login form
-// will be adding these as promises in the future
-window.rButton.addEventListener("click", function(){
-  email = rEmail;
-  password = rPass;
-  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-   console.log(error.code);
-   console.log(error.message);
-});
-
-// this needs to be formatted to automatically login
-  firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-   console.log(error.code);
-   console.log(error.message);
-});
-  console.log("SUCCESS! ACCOUNT CREATED!");
-  // need to find a way to AUTOMATICALLY login once user is subscribed
-});   
-
-document.lButton.addEventListener("click", function(){
-  email = rEmail;
-  password = rPass;
-firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-   console.log(error.code);
-   console.log(error.message);
-});
-   console.log("SUCCESS! LOGGED IN!");
-});
-
-document.soButton.addEventListener("click", function(){
-firebase.auth().signOut().then(function() {
-   console.log("Logged out!")
-}, function(error) {
-   console.log(error.code);
-   console.log(error.message);
-});
-});
-
-// check values
-document.cButton.addEventListener("click", function(){
-uName = document.getElementById("uname");
- rName = document.querySelector('#user-name input').value;
-rEmail = document.querySelector('#email input').value;
-rPass = document.querySelector('#password input').value;
-  console.log(rName);
-  console.log(rName);
-  console.log(rEmail);
-  console.log(rPass);
-  console.log("test");
-  // need to find a way to AUTOMATICALLY login once user is subscribed
-});
-};
-window.addEventListener("load", mainApplication, false);
 /*=========================================================================== 
 
 MVC end

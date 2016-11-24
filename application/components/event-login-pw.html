@@ -16,6 +16,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="bower_components/iron-overlay-behavior/iron-overlay-behavior.html">
 <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="event-registration-form.html">
+<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCzhnmg4lArK8DY7jrk-BKMKi91p3Fw3hc",
+    authDomain: "event-planner-e6ee3.firebaseapp.com",
+    databaseURL: "https://event-planner-e6ee3.firebaseio.com",
+    storageBucket: "event-planner-e6ee3.appspot.com",
+    messagingSenderId: "838628542575"
+  };
+  firebase.initializeApp(config);
+</script>
 <dom-module id="event-login-pw">
   <template>
     <style>
@@ -40,12 +52,154 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         vertical-align: middle;
         text-transform: none;
       }
+      ul {
+        list-style: none;
+        margin: 16px 0 0;
+        padding: 0;
+        text-align: center;
+      }
+      li paper-button {
+        display: inline-block;
+        padding: 8px;
+        text-transform: uppercase;
+        text-decoration: none;
+        font-weight: 500;
+        background: rgb(3,155,229);
+        color: white;
+        border: 1px solid rgb(3,155,229);
+        border-radius: 3px;
+        font-size: 14px;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+      }
+      fieldset {
+        display: block;
+        border: 0;
+      }
+      form {
+        width: 100%;
+        max-width: 400px;
+      }
+      h2 {
+        white-space: initial;
+      }
     </style>
     
     <paper-button id="signIn2" raised onclick="animated.open()">Sign In</paper-button>
     <paper-dialog id="animated" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-        <login-components></login-components>
+        <form is="iron-form" id="form">
+    <fieldset>
+       <h2>Register your user account by adding the following information</h2>
+         <paper-input id="user-name" name="name" label="What's your Username?" inputElement="#test" required autocomplete="name" aria-disabled="false" autofocus bind-value="{[username]}" error-message="Please enter your name correctly"></paper-input>
+         <paper-input id="email" name="email" label="Please enter your email" required autocomplete="name" aria-disabled="false" bind-value="{[useremail]}" error-message="Please enter a valid Email Address"></paper-input>
+         <paper-input id="password" name="password" label="Please enter your password" required autocomplete="name" aria-disabled="false" bind-value="{[userpassword]}" pattern="" error-message="Please enter a valid password">
+         </paper-input>
+
+         <!--
+          commenting second password out until registration working
+          <paper-input id="password-confirm" name="password-confirm" label="Please enter your password" required autocomplete="name" aria-disabled="false"></paper-input>-->
+    </fieldset>
+     <fieldset id="diff-address-container">
+      <h2>Enter your personal information (optional)</h2>
+      <paper-input id="reg-occupation" name="name" label="What's your occupation?" autocomplete="name" aria-disabled="false"></paper-input>
+      <paper-input id="reg-birthday" type="text" label="When were you born?" autocomplete="street-address"></paper-input>
+      <paper-input id="reg-address" onFocus="geolocate" type="text" label="Where do you live?" autocomplete="street-address"></paper-input>
+      <!--Make this a text box -->
+      <paper-input id="diff-geo-address" onFocus="geolocate" type="text-area" label="How will you be using this application?" autocomplete="street-address"></paper-input>
+    </fieldset>
+    <paper-button on-tap="_clearfields">Clear fields</paper-button>
+    <paper-button on-tap="_register">Register</paper-button>
+    <paper-button on-tap="_values">Check Values</paper-button>
+
+  </form>
+      <ul>
+         <!-- refactor code here so that register triggers 'on tap' --> 
+
+        <li><paper-button on-tap="signIn2" id="register">Register</paper-button></li>
+        <li><paper-button on-tap="signIn2" id="login">Login</paper-button>
+        <li><paper-button id="ccheck">Check</paper-button></li>
+        <li><paper-button id="signout">Signout</paper-button></li>
+      </ul>
+
     </paper-dialog>
+    <script>
+
+// MODEL
+// this will be replaced when the global application callback is in place
+var ref = Firebase('https://event-planner-e6ee3.firebaseio.com');
+
+// VIEW
+
+// selects view elements
+var rButton = document.getElementById("register");
+var lButton = document.getElementById("login");
+var soButton = document.getElementById("signout");
+var cButton = document.getElementById("ccheck");
+
+//handles login form values
+var uName = document.getElementById("uname");
+var rName = document.querySelector('#user-name input').value;
+var rEmail = document.querySelector('#email input').value;
+var rPass = document.querySelector('#password input').value;
+
+// these must be globalyl defined otherwise they will not authorize
+var email = rEmail;
+var password = rPass;
+// CONTROLLER
+
+// event listeners for registration / login form
+// will be adding these as promises in the future
+rButton.addEventListener("click", function(){
+  email = rEmail;
+  password = rPass;
+  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+   console.log(error.code);
+   console.log(error.message);
+});
+
+// this needs to be formatted to automatically login
+  firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+   console.log(error.code);
+   console.log(error.message);
+});
+  console.log("SUCCESS! ACCOUNT CREATED!");
+  // need to find a way to AUTOMATICALLY login once user is subscribed
+});   
+
+lButton.addEventListener("click", function(){
+  email = rEmail;
+  password = rPass;
+firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+   console.log(error.code);
+   console.log(error.message);
+});
+   console.log("SUCCESS! LOGGED IN!");
+});
+
+soButton.addEventListener("click", function(){
+firebase.auth().signOut().then(function() {
+   console.log("Logged out!")
+}, function(error) {
+   console.log(error.code);
+   console.log(error.message);
+});
+});
+
+// check values
+cButton.addEventListener("click", function(){
+uName = document.getElementById("uname");
+ rName = document.querySelector('#user-name input').value;
+rEmail = document.querySelector('#email input').value;
+rPass = document.querySelector('#password input').value;
+  console.log(rName);
+  console.log(rEmail);
+  console.log(rPass);
+  console.log("test");
+  // need to find a way to AUTOMATICALLY login once user is subscribed
+});
+
+
+
+            </script>
   </template>
   <script>
     Polymer({
@@ -62,9 +216,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: false
         }
       },
-      signIn2: function() {
+  signIn: function() {
         this.fire('sign-in', null, { bubbles: true});
-      }
+  },
+  signIn2: function() {
+        this.fire('sign-in', null, { bubbles: true});
+  }
     });
   </script>
 
