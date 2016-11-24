@@ -2,6 +2,7 @@
 
 v0.5
 - prototype to add validation
+- prototype to add global JS
 
 v0.4
 - added optional field values to the MVC

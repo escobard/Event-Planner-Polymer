@@ -1,16 +1,21 @@
 <link rel="import" href="bower_components/note-app-elements/na-elements.html">
 <link rel="import" href="bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
 <link rel="import" href="bower_components/polymerfire/polymerfire.html">
-<script src="js/placeholder-fix.js"></script>
+
 
 <dom-module id="main-app">
 
   <template>
 
-	<style include="note-app-shared-styles">            .event-planner-0 {
+	<style include="note-app-shared-styles">
+  .event-planner-0 {
     width: 80%;
     margin: 15px auto;
-}</style>
+  }
+  body {
+    margin:0;
+  }
+</style>
 
 	<!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 -->
 	<na-toolbar signed-in="[[signedIn]]" on-sign-out="signOut"></na-toolbar>

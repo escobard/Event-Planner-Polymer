@@ -97,18 +97,97 @@ h2.style-scope.login-components {
     </fieldset>
     <paper-button on-tap="_clearfields">Clear fields</paper-button>
     <paper-button on-tap="_register">Register</paper-button>
-    <paper-button on-tap="_values">Check Values</paper-button
+    <paper-button on-tap="_values">Check Values</paper-button>
 
   </form>
       <ul>
          <!-- refactor code here so that register triggers 'on tap' --> 
 
-        <li><pazer-button on-tap="signIn2" id="register">Register</paper-button></li>
-        <li><paper-button on-tap="signIn2" id="login">login</paper-button>
-        <li><paper-button id="ccheck">check</paper-button></li>
-        <li><paper-button id="signout">signout</a></li>
+        <li><paper-button on-tap="signIn2" id="register">Register</paper-button></li>
+        <li><paper-button on-tap="signIn2" id="login">Login</paper-button>
+        <li><paper-button id="ccheck">Check</paper-button></li>
+        <li><paper-button id="signout">Signout</paper-button></li>
       </ul>
     </div>
+<script>
+
+// MODEL
+// this will be replaced when the global application callback is in place
+var ref = Firebase('https://event-planner-e6ee3.firebaseio.com');
+
+// VIEW
+
+// selects view elements
+var rButton = document.getElementById("register");
+var lButton = document.getElementById("login");
+var soButton = document.getElementById("signout");
+var cButton = document.getElementById("ccheck");
+
+//handles login form values
+var uName = document.getElementById("uname");
+var rName = document.querySelector('#user-name input').value;
+var rEmail = document.querySelector('#email input').value;
+var rPass = document.querySelector('#password input').value;
+
+// these must be globalyl defined otherwise they will not authorize
+var email = rEmail;
+var password = rPass;
+// CONTROLLER
+
+// event listeners for registration / login form
+// will be adding these as promises in the future
+rButton.addEventListener("click", function(){
+  email = rEmail;
+  password = rPass;
+  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+   console.log(error.code);
+   console.log(error.message);
+});
+
+// this needs to be formatted to automatically login
+  firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+   console.log(error.code);
+   console.log(error.message);
+});
+  console.log("SUCCESS! ACCOUNT CREATED!");
+  // need to find a way to AUTOMATICALLY login once user is subscribed
+});   
+
+lButton.addEventListener("click", function(){
+  email = rEmail;
+  password = rPass;
+firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+   console.log(error.code);
+   console.log(error.message);
+});
+   console.log("SUCCESS! LOGGED IN!");
+});
+
+soButton.addEventListener("click", function(){
+firebase.auth().signOut().then(function() {
+   console.log("Logged out!")
+}, function(error) {
+   console.log(error.code);
+   console.log(error.message);
+});
+});
+
+// check values
+cButton.addEventListener("click", function(){
+uName = document.getElementById("uname");
+ rName = document.querySelector('#user-name input').value;
+rEmail = document.querySelector('#email input').value;
+rPass = document.querySelector('#password input').value;
+  console.log(rName);
+  console.log(rEmail);
+  console.log(rPass);
+  console.log("test");
+  // need to find a way to AUTOMATICALLY login once user is subscribed
+});
+
+
+
+            </script>
 </template>
 
   <script>
