@@ -15,7 +15,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="bower_components/iron-overlay-behavior/iron-overlay-behavior.html">
 <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="event-registration-form.html">
 <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
 <script>
   // Initialize Firebase
@@ -131,9 +130,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var cButton = document.getElementById("ccheck");
 
     //handles login form values
-    var rName = document.querySelector('#reg-user-name input').value;
-    var rEmail = document.querySelector('#reg-email input').value;
-    var rPass = document.querySelector('#reg-password input').value;
+    var rName = document.querySelector('#reg-user-name input');
+    var rEmail = document.querySelector('#reg-email input');
+    var rPass = document.querySelector('#reg-password input');
 
     // these must be globalyl defined otherwise they will not authorize
     var email = rEmail;
@@ -142,16 +141,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     // event listeners for registration / login form
     // will be adding these as promises in the future
+    // need to add each of these as a variable in each scope for these to work properly in EVENT LISTENERS
     rButton.addEventListener("click", function(){
-      email = rEmail;
-      password = rPass;
+      email = rEmail.value;
+      password = rPass.value;
       firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-       console.log(error.code);
-       console.log(error.message);
-    });
-
-    // this needs to be formatted to automatically login
-      firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
        console.log(error.code);
        console.log(error.message);
     });
@@ -160,8 +154,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });   
 
     lButton.addEventListener("click", function(){
-      email = rEmail;
-      password = rPass;
+      email = rEmail.value;
+      password = rPass.value;
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
        console.log(error.code);
        console.log(error.message);
@@ -180,13 +174,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     // check values
     cButton.addEventListener("click", function(){
-    uName = document.getElementById("uname");
-     rName = document.querySelector('#reg-user-name input').value;
-    rEmail = document.querySelector('#reg-email input').value;
-    rPass = document.querySelector('#reg-password input').value;
-      console.log(rName);
-      console.log(rEmail);
-      console.log(rPass);
+      checkName = rName.value;
+      checkEmail = rEmail.value;
+      checkPass = rPass.value;
+      console.log(checkName);
+      console.log(checkEmail);
+      console.log(checkPass);
       console.log("test");
       // need to find a way to AUTOMATICALLY login once user is subscribed
     });
