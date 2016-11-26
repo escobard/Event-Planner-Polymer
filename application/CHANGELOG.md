@@ -1,9 +1,10 @@
 ** Changelog for Event Planning Application
 
 v0.5
-- prototype to add validation
-- prototype to add global JS
-- prototype to add navbar styles
+- added validation for registration and login form
+- added some css style fixes
+- added unique toolbar
+- fixed registration field bugs
 
 v0.4
 - added optional field values to the MVC
