@@ -424,3 +424,19 @@ module.exports = {
   ],
   navigateFallback: '../../index.html'
 };
+
+/*=========================================================================== 
+
+Validation
+
+============================================================================*/
+
+
+function formValidation(){
+
+	// sets the variables to check input values
+	var name = rName.value;
+	var email = rEmail.value;
+	var password = rPass.value;
+	var secondpassword = rSecondPass.value;
+};
