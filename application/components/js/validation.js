@@ -22,33 +22,70 @@ function formValidation(){
 	var passwordErrors = new checkErrors();
 	var spasswordErrors = new checkErrors();
 
-	// checks password requirements
+	// checks name validation
+	// IMPORTANT to reuse validation in different places, try to add the arguments for each check function to the input value and the error object, for example:
+	// function checkName(input, errorObject);
+	// or more specific example for name check: function checkName(name, nameErrors);
+	// this way, the functions can be re-used for the events
+	function checkName() {
+		// if password length is less than 16
+    if (name.length < 2) {
+
+    // add the following message to his objects issues array
+      nameErrors.add("fewer than 2 characters");
+    } 
+    // if name length is over 100
+    else if (name.length > 40) {
+      nameErrors.add("greater than 40 characters");
+    }
+    // if name value does not (or !) match one symbol
+    if (name.match(/[\!\@\#\$\%\^\&\*]/g)) {
+      nameErrors.add("must not contain a symbol (!, @, #, $, %, ^, &, *)");
+    }
+    // if name has a number
+    if (name.match(/\d/g)) {
+      nameErrors.add("must not contain a number");
+    }
+    // if password does not have alphanumerical characters, numbers, or the allowed symbols
+    var illegalChars = name.match(/[^A-z0-9\!\@\#\$\%\^\&\*]/g)
+
+    if (illegalChars) {
+    // adds a function for each found illegal character, and adds it to the issues array, which then returns an issue message for each illegal charcater
+      illegalChars.forEach(function (illegalChar) {
+        nameErrors.add("includes illegal character: " + illegalChar);
+      });
+    }
+    };
+
+	// checks email validation
+
+	// checks password validation 
 	function checkPassword() {
 		// if password length is less than 16
     if (password.length < 8) {
 
     // add the following message to his objects issues array
-      passwordIssues.add("fewer than 8 characters");
+      passwordErrors.add("fewer than 8 characters");
     } 
     // if password length is over 100
     else if (password.length > 30) {
-      passwordIssues.add("greater than 30 characters");
+      passwordErrors.add("greater than 30 characters");
     }
     // if password value does not (or !) match one symbol
     if (!password.match(/[\!\@\#\$\%\^\&\*]/g)) {
-      passwordIssues.add("must contain a symbol (!, @, #, $, %, ^, &, *)");
+      passwordErrors.add("must contain a symbol (!, @, #, $, %, ^, &, *)");
     }
     // if password does not have a number
     if (!password.match(/\d/g)) {
-      passwordIssues.add("must contain a number");
+      passwordErrors.add("must contain a number");
     }
     // if password does not have a lowercase later
     if (!password.match(/[a-z]/g)) {
-      passwordIssues.add("must contain a lowercase letter");
+      passwordErrors.add("must contain a lowercase letter");
     }
     // if password does not have an uppercase letter
     if (!password.match(/[A-Z]/g)) {
-      passwordIssues.add("must contain an uppercase letter");
+      passwordErrors.add("must contain an uppercase letter");
     }
     // if password does not have alphanumerical characters, numbers, or the allowed symbols
     var illegalChars = password.match(/[^A-z0-9\!\@\#\$\%\^\&\*]/g)
@@ -56,16 +93,16 @@ function formValidation(){
     if (illegalChars) {
     // adds a function for each found illegal character, and adds it to the issues array, which then returns an issue message for each illegal charcater
       illegalChars.forEach(function (illegalChar) {
-        passwordIssues.add("includes illegal character: " + illegalChar);
+        passwordErrors.add("includes illegal character: " + illegalChar);
       });
     }
 	};
 
-	// checks that password match
+	// checks the second password validation
 	if (password === spassword && password.length > 0) {
 		checkPassword();
 	}else {
-		spasswordIssues.add("Password must be exact!");
+		spasswordErrors.add("Password must be exact!");
 	};
 
 	// retrieves all issues 
