@@ -142,6 +142,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // event listeners for registration / login form
     // will be adding these as promises in the future
     // need to add each of these as a variable in each scope for these to work properly in EVENT LISTENERS
+    // due to .value being assigned GLOBALLY and not being re-assigned once again within the function scope
     rButton.addEventListener("click", function(){
       email = rEmail.value;
       password = rPass.value;
