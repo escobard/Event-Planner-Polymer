@@ -5,9 +5,13 @@
     <!-- Older Chrome configuration -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Notes">
-    <title>Event Planner Application - v.0.4</title>
+    <title>Event Planner Application - v.0.5</title>
     <link rel="import" href="components/global-dependencies.html">
-    
+      <style>
+  body {
+    margin:0;
+  }
+</style>
   </head>
   <body>
       <platinum-sw-register
@@ -15,7 +19,7 @@
         skip-waiting
         clients-claim
         reload-on-install
-        href="sw-import.js">
+        href="components/js/sw-import.j">
       <platinum-sw-cache
         default-cache-strategy="networkFirst">
       </platinum-sw-cache>
@@ -30,7 +34,6 @@
 
        <!-- This is the call to our form template, uncomment when ready to use
      <checkout-form></checkout-form>-->
-       <script src="components/js/app.js"> </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtStNsFJnuTo2aG1-9mKf5T7OXEbchdpM&libraries=places&callback=initAutocomplete"
         async defer></script>
         

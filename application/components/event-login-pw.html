@@ -15,17 +15,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="bower_components/iron-overlay-behavior/iron-overlay-behavior.html">
 <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="event-registration-form.html">
+<link rel="import" href="bower_components/iron-form/iron-form.html">
+<link rel="import" href="bower_components/iron-label/iron-label.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+
+<link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+<link rel="import" href="bower_components/paper-card/paper-card.html">
+<link rel="import" href="bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="bower_components/paper-input/paper-textarea.html">
+<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCzhnmg4lArK8DY7jrk-BKMKi91p3Fw3hc",
+    authDomain: "event-planner-e6ee3.firebaseapp.com",
+    databaseURL: "https://event-planner-e6ee3.firebaseio.com",
+    storageBucket: "event-planner-e6ee3.appspot.com",
+    messagingSenderId: "838628542575"
+  };
+  firebase.initializeApp(config);
+</script>
 <dom-module id="event-login-pw">
   <template>
     <style>
+    :required:focus {
+  box-shadow: 0  0 3px rgba(255,0,0,0.5); 
+}
       :host {
         position: absolute;
         top: 46px;
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: var(--paper-purple-500);
+        background-color: rgb(3, 140, 207);
         transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 1;
         color: var(--paper-purple-50);
@@ -40,12 +65,225 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         vertical-align: middle;
         text-transform: none;
       }
+      ul {
+        list-style: none;
+        margin: 16px 0 0;
+        padding: 0;
+        text-align: center;
+      }
+      li paper-button {
+        display: inline-block;
+        padding: 8px;
+        text-transform: uppercase;
+        text-decoration: none;
+        font-weight: 500;
+        background: rgb(3,155,229);
+        color: white;
+        border: 1px solid rgb(3,155,229);
+        border-radius: 3px;
+        font-size: 14px;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+      }
+      fieldset {
+        display: block;
+        border: 0;
+      }
+      form {
+        width: 100%;
+        max-width: 400px;
+      }
+      h2 {
+        white-space: initial;
+      }
     </style>
-    
     <paper-button id="signIn2" raised onclick="animated.open()">Sign In</paper-button>
     <paper-dialog id="animated" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-        <login-components></login-components>
-    </paper-dialog>
+      <form is="iron-form" id="form">
+        <fieldset>
+         <h2>Register your user account by adding the following information</h2>
+         <paper-input 
+          type="text" 
+          id="reg-user-name"
+          name="name" 
+          label="What's your Username?"
+          autocomplete="name"
+          autofocus 
+          required 
+          pattern="\s*+[a-zA-Z]*"
+          minlength="2"
+          auto-validate
+          error-message="Please enter your name correctly">
+          </paper-input>
+         <gold-email-input
+          id="reg-email"
+          name="email"
+          label="Please enter your email" 
+          required 
+          autocomplete="email" 
+          aria-disabled="false" 
+          bind-value="{[useremail]}" 
+          auto-validate 
+          error-message="Please enter a valid Email Address">
+          </gold-email-input>
+         <paper-input 
+         type="password" 
+         id="regpassword" 
+         label="Please enter your password" 
+         required 
+         value="{{passvalue}}"
+         on-input="passchange"
+         pattern="[[passvalidate]]"
+         autocomplete="password" 
+         min-length="8"
+         auto-validate
+         error-message="Please enter a password matching the requirements"
+         char-counter>
+         </paper-input>
+         <iron-label>Make sure your password fits all requirements:</iron-label>
+         <paper-checkbox
+            id="passwordLower"
+            disabled>
+            Must contain a lower case letter
+           </paper-checkbox>
+           <paper-checkbox
+            id="passwordUpper"
+            disabled>
+            Must contain an upper case letter
+           </paper-checkbox>
+           <paper-checkbox
+            id="passwordNumber"
+            disabled>
+            Must contain one number
+           </paper-checkbox>
+           <paper-checkbox
+            id="passwordSymbol"
+            disabled>
+            Must contain at least one symbol
+           </paper-checkbox>
+           <paper-checkbox
+            id="passwordMin"
+            disabled>
+            Must contain at least 8 characters
+           </paper-checkbox>
+          <paper-input 
+          type="password" 
+          id="second-password" 
+          name="password-confirm" 
+          label="Please confirm your password" 
+          required 
+          autocomplete="password" 
+          aria-disabled="false" 
+          validator=""
+          error-message="Make sure both passwords match"
+          char-counter>
+          </paper-input>
+        </fieldset>
+        <fieldset id="diff-address-container">
+          <h2>Enter your personal information (optional)</h2>
+          <paper-input id="reg-occupation" name="name" label="What's your occupation?" autocomplete="organization-title" aria-disabled="false" autovalidate></paper-input>
+          <paper-input id="reg-birthday" type="text" label="When were you born?" autocomplete="bday"></paper-input>
+          <paper-input id="reg-appuse" type="text" label="How will you be using this application?" ></paper-input>
+          <!--Make this a text box -->
+          <paper-input id="diff-geo-address" onFocus="geolocate" type="text" label="What's your street address?" autocomplete="street-address"></paper-input>
+        </fieldset>
+        <paper-button on-tap="_clearfields">Clear fields</paper-button>
+        <paper-button on-tap="_register">Register</paper-button>
+        <paper-button on-tap="_values">Check Values</paper-button>
+    </form>
+    <ul>
+         <!-- refactor code here so that register triggers 'on tap' --> 
+        <li><paper-button on-tap="signIn2" id="register">Register</paper-button></li>
+        <li><paper-button on-tap="signIn2" id="login">Login</paper-button>
+        <li><paper-button id="ccheck">Check</paper-button></li>
+        <li><paper-button id="signout">Signout</paper-button></li>
+      </ul>
+  </paper-dialog>
+  <script>
+  /*=========================================================================== 
+
+  Model
+
+  ============================================================================*/
+    // this will be replaced when the global application callback is in place
+    var ref = Firebase('https://event-planner-e6ee3.firebaseio.com');
+
+  /*=========================================================================== 
+
+  View
+
+  ============================================================================*/
+    // selects view elements
+    var rButton = document.getElementById("register");
+    var lButton = document.getElementById("login");
+    var soButton = document.getElementById("signout");
+    var cButton = document.getElementById("ccheck");
+
+    //handles login form values
+    var rName = document.querySelector('#reg-user-name input');
+    var rEmail = document.querySelector('#reg-email input');
+    var rPass = document.querySelector('#regpassword input');
+    var rPassError = document.querySelector('#regpassword paper-input-container .add-on-content');
+    var rSecondPass = document.querySelector('#second-password input');
+
+    // these must be globalyl defined otherwise they will not authorize
+    var email = rEmail;
+    var password = rPass;
+
+  /*=========================================================================== 
+
+  Controller
+
+  ============================================================================*/
+
+    // login functions
+
+    // event listeners for registration / login form
+    // will be adding these as promises in the future
+    // need to add each of these as a variable in each scope for these to work properly in EVENT LISTENERS
+    // due to .value being assigned GLOBALLY and not being re-assigned once again within the function scope
+    rButton.addEventListener("click",  function(){
+      email = rEmail.value;
+      password = rPass.value;
+      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+       console.log(error.code);
+       console.log(error.message);
+    });
+      console.log("SUCCESS! ACCOUNT CREATED!");
+      // need to find a way to AUTOMATICALLY login once user is subscribed 
+
+    }); 
+
+    lButton.addEventListener("click", function(){
+      email = rEmail.value;
+      password = rPass.value;
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+       console.log(error.code);
+       console.log(error.message);
+    });
+       console.log("SUCCESS! LOGGED IN!");
+    });
+
+    soButton.addEventListener("click", function(){
+    firebase.auth().signOut().then(function() {
+       console.log("Logged out!")
+    }, function(error) {
+       console.log(error.code);
+       console.log(error.message);
+    });
+    });
+
+    // check values
+    cButton.addEventListener("click", function(){
+      checkName = rName.value;
+      checkEmail = rEmail.value;
+      checkPass = rPass.value;
+      console.log(checkName);
+      console.log(checkEmail);
+      console.log(checkPass);
+      console.log("test");
+      // need to find a way to AUTOMATICALLY login once user is subscribed
+    });
+  </script>
   </template>
   <script>
     Polymer({
@@ -60,11 +298,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Boolean,
           reflectToAttribute: true,
           value: false
+        },
+        passvalue: String,
+        passvalidate: String,
+        valueState: {
+          type: Object,
+          value: {
+          }
         }
+      },
+      signIn: function() {
+        this.fire('sign-in', null, { bubbles: true});
       },
       signIn2: function() {
         this.fire('sign-in', null, { bubbles: true});
-      }
+      },
+      passchange: function (){
+        this.valueState.passvalue = this.passValidation();
+        this.passvalidate = this.valueState.passvalue ? this.passvalue : '';
+        this.$.regpassword.validate();
+      },
+      passValidation: function (){
+        var value = this.$.regpassword.value;
+          this.$.passwordMin.checked = value.length >= 8;
+          this.$.passwordLower.checked = /[a-z]/.test(value);
+          this.$.passwordUpper.checked = /[A-Z]/.test(value);
+          this.$.passwordNumber.checked = /[0-9]/.test(value);
+          this.$.passwordSymbol.checked = /[\!\@\#\$\%\^\&\*]/.test(value);
+          return this.$.passwordMin.checked && this.$.passwordLower.checked &&
+            this.$.passwordUpper.checked && this.$.passwordNumber.checked &&
+            this.$.passwordNumber.checked && this.$.passwordSymbol.checked;
+        },
     });
   </script>
 
