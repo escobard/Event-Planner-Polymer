@@ -90,11 +90,52 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <form is="iron-form" id="form">
         <fieldset>
          <h2>Register your user account by adding the following information</h2>
-         <paper-input type="text" id="reg-user-name" name="name" label="What's your Username?" autocomplete="name" autofocus bind-value="{[username]}" required auto-validate error-message="Please enter your name correctly"></paper-input>
-         <gold-email-input id="reg-email" name="email" label="Please enter your email" required autocomplete="email" aria-disabled="false" bind-value="{[useremail]}" auto-validate error-message="Please enter a valid Email Address"></gold-email-input>
-         <paper-input type="password" id="reg-password" name="password" label="Please enter your password" required autocomplete="password" aria-disabled="false" bind-value="{[userpassword]}" pattern="" error-message="Please enter a valid password">
+         <paper-input 
+          type="text" 
+          id="reg-user-name"
+          name="name" 
+          label="What's your Username?"
+          autocomplete="name"
+          autofocus 
+          required 
+          pattern="[a-zA-Z]*"
+          minlength="2"
+          auto-validate
+          error-message="Please enter your name correctly">
+          </paper-input>
+         <gold-email-input
+          id="reg-email"
+          name="email"
+          label="Please enter your email" 
+          required 
+          autocomplete="email" 
+          aria-disabled="false" 
+          bind-value="{[useremail]}" 
+          auto-validate 
+          error-message="Please enter a valid Email Address">
+          </gold-email-input>
+         <paper-input 
+         type="password" 
+         id="reg-password" 
+         name="password" 
+         label="Please enter your password" 
+         required autocomplete="password" 
+         aria-disabled="false" 
+         bind-value="{[userpassword]}" 
+         pattern="" 
+         error-message="Please enter a valid password" 
+         char-counter>
          </paper-input>
-          <paper-input type="password" id="second-password" name="password-confirm" label="Please confirm your password" required autocomplete="password" aria-disabled="false"></paper-input>
+          <paper-input 
+          type="password" 
+          id="second-password" 
+          name="password-confirm" 
+          label="Please confirm your password" 
+          required 
+          autocomplete="password" 
+          aria-disabled="false" 
+          char-counter>
+          </paper-input>
         </fieldset>
         <fieldset id="diff-address-container">
           <h2>Enter your personal information (optional)</h2>
