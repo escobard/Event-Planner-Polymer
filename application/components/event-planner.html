@@ -79,15 +79,68 @@
 
     </style>
     <template is="dom-if" if="[[editable]]">
-      <paper-input type="text" id="event-title" label="What's your event called?" placeholder="{{title}}" bind-value="{{title}}"></paper-input>
-      <paper-input type="text" id="event-subtitle" label="Enter an event subtitle (optional)" placeholder="{{subtitle}}" bind-value="{{subtitle}}"></paper-input>
-      <paper-input type="text" id="event-type" label="Select your event type" placeholder="{{event-type}}" bind-value="{{event-type}}"></paper-input>
-      <paper-input type="text" id="event-start" label="When is your event starting?" placeholder="{{startdate}}" bind-value="{{startdate}}"></paper-input>
-      <paper-input type="text" id="event-end" label="When is your event ending?" placeholder="{{enddate}}" bind-value="{{enddate}}"></paper-input>
-      <paper-input type="text" onFocus="geolocate" id="geo-address" label="Where will your event take place?" placeholder="{{location}}" bind-value="{{location}}"></paper-input>
-      <paper-input type="text-area" id="event-guest-message" label="Enter a message for your guests (optional)" placeholder="{{guestmessage}}" bind-value="{{guestmessage}}"></paper-input>
-      <paper-input type="text" id="event-guest-list" label="Enter your guest names (optional)" placeholder="{{guestlist}}" bind-value="{{guestlist}}"></paper-input>
-
+      <paper-input 
+       type="text" 
+       id="event-title" 
+       label="What's your event called?" 
+       required
+       minlength="2"
+       auto-validate
+       pattern="\s*+[a-zA-Z]*" <---- THIS IS AWESOME REGEX
+       error-message="Event name can only contain alphanumerical characters"
+       placeholder="{{title}}" 
+       bind-value="{{title}}">
+      </paper-input>
+      <paper-input
+       type="text" 
+       id="event-subtitle" 
+       label="Enter an event subtitle (optional)" 
+       placeholder="{{subtitle}}" 
+       bind-value="{{subtitle}}">
+      </paper-input>
+      <paper-input
+       type="text"
+       id="event-type" 
+       label="Select your event type" 
+       placeholder="{{event-type}}" 
+       bind-value="{{event-type}}">
+      </paper-input>
+      <paper-input
+       type="text" 
+       id="event-start" 
+       label="When is your event starting?" 
+       placeholder="{{startdate}}" 
+       bind-value="{{startdate}}">
+      </paper-input>
+      <paper-input
+       type="text"
+       id="event-end" 
+       label="When is your event ending?" 
+       placeholder="{{enddate}}" 
+       bind-value="{{enddate}}">
+      </paper-input>
+      <paper-input
+       type="text"
+       onFocus="geolocate" 
+       id="geo-address" 
+       label="Where will your event take place?" 
+       placeholder="{{location}}" 
+       bind-value="{{location}}">
+      </paper-input>
+      <paper-input
+       type="text-area" 
+       id="event-guest-message" 
+       label="Enter a message for your guests (optional)" 
+       placeholder="{{guestmessage}}" 
+       bind-value="{{guestmessage}}">
+      </paper-input>
+      <paper-input
+       type="text" 
+       id="event-guest-list" 
+       label="Enter your guest names (optional)" 
+       placeholder="{{guestlist}}" 
+       bind-value="{{guestlist}}">
+      </paper-input>
     </template>
 
     <!--  if is not editable-->
