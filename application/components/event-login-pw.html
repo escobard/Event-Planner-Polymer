@@ -36,7 +36,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: var(--paper-purple-500);
+        background-color: rgb(3,155,229);
         transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 1;
         color: var(--paper-purple-50);
@@ -91,9 +91,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          <paper-input id="reg-email" name="email" label="Please enter your email" required autocomplete="name" aria-disabled="false" bind-value="{[useremail]}" error-message="Please enter a valid Email Address"></paper-input>
          <paper-input id="reg-password" name="password" label="Please enter your password" required autocomplete="name" aria-disabled="false" bind-value="{[userpassword]}" pattern="" error-message="Please enter a valid password">
          </paper-input>
-         <!--
-          commenting second password out until registration working
-          <paper-input id="password-confirm" name="password-confirm" label="Please enter your password" required autocomplete="name" aria-disabled="false"></paper-input>-->
+          <paper-input id="password-confirm" name="password-confirm" label="Please enter your password" required autocomplete="name" aria-disabled="false"></paper-input>
         </fieldset>
         <fieldset id="diff-address-container">
           <h2>Enter your personal information (optional)</h2>
@@ -117,12 +115,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </ul>
   </paper-dialog>
   <script>
-    // MODEL
+  /*=========================================================================== 
+
+  Model
+
+  ============================================================================*/
     // this will be replaced when the global application callback is in place
     var ref = Firebase('https://event-planner-e6ee3.firebaseio.com');
 
-    // VIEW
+  /*=========================================================================== 
 
+  View
+
+  ============================================================================*/
     // selects view elements
     var rButton = document.getElementById("register");
     var lButton = document.getElementById("login");
@@ -133,11 +138,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var rName = document.querySelector('#reg-user-name input');
     var rEmail = document.querySelector('#reg-email input');
     var rPass = document.querySelector('#reg-password input');
+    var rSecondPass = document.querySelector('#reg-password input');
 
     // these must be globalyl defined otherwise they will not authorize
     var email = rEmail;
     var password = rPass;
-    // CONTROLLER
+
+  /*=========================================================================== 
+
+  Controller
+
+  ============================================================================*/
+
+    // login functions
 
     // event listeners for registration / login form
     // will be adding these as promises in the future
@@ -185,6 +198,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       // need to find a way to AUTOMATICALLY login once user is subscribed
     });
 
+    /*=========================================================================== 
+
+    Validation
+
+    ============================================================================*/
+
+
+    function formValidation(){
+  
+};
   </script>
   </template>
   <script>
