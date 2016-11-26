@@ -180,11 +180,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </fieldset>
         <fieldset id="diff-address-container">
           <h2>Enter your personal information (optional)</h2>
-          <paper-input id="reg-occupation" name="name" label="What's your occupation?" autocomplete="name" aria-disabled="false" autovalidate></paper-input>
-          <paper-input id="reg-birthday" type="text" label="When were you born?" autocomplete="street-address"></paper-input>
-          <paper-input id="reg-address" onFocus="geolocate" type="text" label="Where do you live?" autocomplete="street-address"></paper-input>
+          <paper-input id="reg-occupation" name="name" label="What's your occupation?" autocomplete="organization-title" aria-disabled="false" autovalidate></paper-input>
+          <paper-input id="reg-birthday" type="text" label="When were you born?" autocomplete="bday"></paper-input>
+          <paper-input id="reg-appuse" type="text" label="How will you be using this application?" ></paper-input>
           <!--Make this a text box -->
-          <paper-input id="diff-geo-address" onFocus="geolocate" type="text-area" label="How will you be using this application?" autocomplete="street-address"></paper-input>
+          <paper-input id="diff-geo-address" onFocus="geolocate" type="text" label="What's your street address?" autocomplete="street-address"></paper-input>
         </fieldset>
         <paper-button on-tap="_clearfields">Clear fields</paper-button>
         <paper-button on-tap="_register">Register</paper-button>
@@ -283,8 +283,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       console.log("test");
       // need to find a way to AUTOMATICALLY login once user is subscribed
     });
-
-    
   </script>
   </template>
   <script>
