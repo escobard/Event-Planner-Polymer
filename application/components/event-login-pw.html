@@ -88,14 +88,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <fieldset>
          <h2>Register your user account by adding the following information</h2>
          <paper-input id="reg-user-name" name="name" label="What's your Username?" inputElement="#test" required autocomplete="name" aria-disabled="false" autofocus bind-value="{[username]}" error-message="Please enter your name correctly"></paper-input>
-         <paper-input id="reg-email" name="email" label="Please enter your email" required autocomplete="name" aria-disabled="false" bind-value="{[useremail]}" error-message="Please enter a valid Email Address"></paper-input>
-         <paper-input id="reg-password" name="password" label="Please enter your password" required autocomplete="name" aria-disabled="false" bind-value="{[userpassword]}" pattern="" error-message="Please enter a valid password">
+         <paper-input id="reg-email" name="email" label="Please enter your email" required autocomplete="email" aria-disabled="false" bind-value="{[useremail]}" error-message="Please enter a valid Email Address"></paper-input>
+         <paper-input id="reg-password" name="password" label="Please enter your password" required autocomplete="password" aria-disabled="false" bind-value="{[userpassword]}" pattern="" error-message="Please enter a valid password">
          </paper-input>
-          <paper-input id="second-password" name="password-confirm" label="Please confirm your password" required autocomplete="name" aria-disabled="false"></paper-input>
+          <paper-input id="second-password" name="password-confirm" label="Please confirm your password" required autocomplete="password" aria-disabled="false"></paper-input>
         </fieldset>
         <fieldset id="diff-address-container">
           <h2>Enter your personal information (optional)</h2>
-          <paper-input id="reg-occupation" name="name" label="What's your occupation?" autocomplete="name" aria-disabled="false"></paper-input>
+          <paper-input id="reg-occupation" name="name" label="What's your occupation?" autocomplete="name" aria-disabled="false" autovalidate></paper-input>
           <paper-input id="reg-birthday" type="text" label="When were you born?" autocomplete="street-address"></paper-input>
           <paper-input id="reg-address" onFocus="geolocate" type="text" label="Where do you live?" autocomplete="street-address"></paper-input>
           <!--Make this a text box -->
@@ -168,7 +168,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       // need to find a way to AUTOMATICALLY login once user is subscribed 
 
     }*/
-    formValidation);   
+    formValidation());   
 
     lButton.addEventListener("click", function(){
       email = rEmail.value;
@@ -206,9 +206,39 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Validation
 
     ============================================================================*/
-      
+     // constructor object to join form validation issues
+    function checkErrors(){
+
+      // creates the array storing validation errors
+      this.errors = [];
+
+    }
+
+    checkErrors.prototype = {
+
+      // pushes all found errors into the errors array
+      add: function (error){
+        this.errors.push(error)
+      },
+
+      // checks all found errors together
+      check: function() {
+        var valmessage = "";
+        switch (this.errors.length) {
+          case 0:
+          break;
+          case 1:
+          valmessage = "Please review the following error: " + this.errors[0];
+          break;
+          default:
+          valmessage = "Please review the following errors: " + this.issues.join(" ,");
+          break;
+        }
+        return valmessage;
+      }
+    }; 
     // begins checking registration form validation
-    function formValidation(){
+    rButton.onclick = function (){
 
       // sets the variables to check input values
       var name = rName.value;
@@ -324,18 +354,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       };
 
-      // checks the second password validation
-      if (password === secondPassword && password.length > 0) {
-        checkPassword();
-      }else {
-        secondPasswordErrors.add("Password must be exact!");
-      };
 
       // retrieves all issues 
-      var nameErrorsCheck = nameErrors.check();
-      var emailErrorsCheck = emailErrors.check();
-      var passwordErrorsCheck = passwordErrors.check();
-      var secondPasswordErrorsCheck = secondPasswordErrors.check();
+      var nameErrorsCheck = nameErrors.check()
+      var emailErrorsCheck = emailErrors.check()
+      var passwordErrorsCheck = passwordErrors.check()
+      var secondPasswordErrorsCheck = secondPasswordErrors.check()
 
       // sets the custom validity for each of the input's errors
       rName.setCustomValidity(nameErrorsCheck);
@@ -349,38 +373,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     };
 
-    // constructor object to join form validation issues
-    function checkErrors(){
-
-      // creates the array storing validation errors
-      this.errors = [];
-
-    }
-
-    checkErrors.prototype = {
-
-      // pushes all found errors into the errors array
-      add: function (error){
-        this.errors.push(error)
-      },
-
-      // checks all found errors together
-      check: function() {
-        var valmessage = "";
-        switch (this.errors.length) {
-          case 0:
-          break;
-          case 1:
-          valmessage = "Please review the following error: " + this.errors[0];
-          break;
-          default:
-          valmessage = "Please review the following errors: " + this.issues.join(" ,");
-          break;
-        }
-        return valmessage;
-      }
-
-    };
+    
     /*=========================================================================== 
 
     Validation end 
