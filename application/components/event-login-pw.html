@@ -30,6 +30,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="event-login-pw">
   <template>
     <style>
+    :required:focus {
+  box-shadow: 0  0 3px rgba(255,0,0,0.5); 
+}
       :host {
         position: absolute;
         top: 46px;
@@ -104,7 +107,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-button on-tap="_clearfields">Clear fields</paper-button>
         <paper-button on-tap="_register">Register</paper-button>
         <paper-button on-tap="_values">Check Values</paper-button>
-
+    </form>
+    <form>
+       <input name="valname" id="valname" type="text" required></input>
+        <input name="valemail" id="valemail" type="text" required></input>
+        <input name="valpass" id="valpass" type="text" required></input>
+        <input name="valspass" id="valspass" type="text" required></input>
+        <input name="valsubmit" id="valsubmit" type="submit"></input>
     </form>
     <ul>
          <!-- refactor code here so that register triggers 'on tap' --> 
@@ -156,7 +165,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // will be adding these as promises in the future
     // need to add each of these as a variable in each scope for these to work properly in EVENT LISTENERS
     // due to .value being assigned GLOBALLY and not being re-assigned once again within the function scope
-    rButton.addEventListener("click", /* function(){
+    /*rButton.addEventListener("click",  function(){
       Commented out for now to check validation 
      email = rEmail.value;
       password = rPass.value;
@@ -167,8 +176,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       console.log("SUCCESS! ACCOUNT CREATED!");
       // need to find a way to AUTOMATICALLY login once user is subscribed 
 
-    }*/
-    formValidation());   
+    }
+    formValidation());   */
 
     lButton.addEventListener("click", function(){
       email = rEmail.value;
@@ -206,6 +215,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Validation
 
     ============================================================================*/
+    var vName = document.getElementById('valname');
+    var vEmail = document.getElementById('valemail');
+    var vPass = document.getElementById('valpass');
+    var vSecondPass = document.getElementById('valspass');
+    var vSubmit = document.getElementById('valsubmit');
      // constructor object to join form validation issues
     function checkErrors(){
 
@@ -238,13 +252,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     }; 
     // begins checking registration form validation
-    rButton.onclick = function (){
+    vSubmit.onclick = function formValidation(){
 
       // sets the variables to check input values
-      var name = rName.value;
-      var email = rEmail.value;
-      var password = rPass.value;
-      var secondPassword = rSecondPass.value;
+      var name = vName.value;
+      var email = vEmail.value;
+      var password = vPass.value;
+      var secondPassword = vSecondPass.value;
 
       // checks for issues for each input 
       var nameErrors = new checkErrors();
