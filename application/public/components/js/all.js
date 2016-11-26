@@ -454,6 +454,7 @@ function formValidation(){
 	// function checkName(input, errorObject);
 	// or more specific example for name check: function checkName(name, nameErrors);
 	// this way, the functions can be re-used for the events
+	// Test this method out after checking that validation does actually work
 	function checkName() {
 		// if password length is less than 16
     if (name.length < 2) {
@@ -485,6 +486,31 @@ function formValidation(){
     };
 
 	// checks email validation
+	function checkEmail() {
+		// if email length is less than 16
+    if (email.length < 7) {
+
+    // add the following message to his objects issues array
+      emailErrors.add("fewer than 8 characters");
+    } 
+    // if email value does not match @ symbol
+    if (!email.match(/\@/g)) {
+      emailErrors.add("must contain @ symbol");
+    }
+    // if password does not have a lowercase later
+    if (!email.match(/\./g)) {
+      emailErrors.add("must contain domain identifier (.com, .ca, .org, etc.)");
+    }
+    // if password does not have alphanumerical characters, numbers, or the allowed symbols
+    var illegalChars = email.match(/[^A-z\@\.]/g)
+
+    if (illegalChars) {
+    // adds a function for each found illegal character, and adds it to the issues array, which then returns an issue message for each illegal charcater
+      illegalChars.forEach(function (illegalChar) {
+        emailErrors.add("includes illegal character: " + illegalChar);
+      });
+    }
+	};
 
 	// checks password validation 
 	function checkPassword() {
@@ -582,3 +608,8 @@ checkIssues.prototype = {
 	}
 
 };
+/*=========================================================================== 
+
+Validation end 
+
+============================================================================*/

@@ -3,10 +3,7 @@
 Validation
 
 ============================================================================*/
-	rName.setCustomValidity();
-	rEmail.setCustomValidity();
-	rPass.setCustomValidity();
-	rSecondPass.setCustomValidity();
+	
 // begins checking registration form validation
 function formValidation(){
 
@@ -181,3 +178,8 @@ checkIssues.prototype = {
 	}
 
 };
+/*=========================================================================== 
+
+Validation end 
+
+============================================================================*/

@@ -91,7 +91,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          <paper-input id="reg-email" name="email" label="Please enter your email" required autocomplete="name" aria-disabled="false" bind-value="{[useremail]}" error-message="Please enter a valid Email Address"></paper-input>
          <paper-input id="reg-password" name="password" label="Please enter your password" required autocomplete="name" aria-disabled="false" bind-value="{[userpassword]}" pattern="" error-message="Please enter a valid password">
          </paper-input>
-          <paper-input id="password-confirm" name="password-confirm" label="Please enter your password" required autocomplete="name" aria-disabled="false"></paper-input>
+          <paper-input id="second-password" name="password-confirm" label="Please confirm your password" required autocomplete="name" aria-disabled="false"></paper-input>
         </fieldset>
         <fieldset id="diff-address-container">
           <h2>Enter your personal information (optional)</h2>
@@ -108,7 +108,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </form>
     <ul>
          <!-- refactor code here so that register triggers 'on tap' --> 
-        <li><paper-button on-tap="signIn2" id="register">Register</paper-button></li>
+        <li><paper-button id="register">Register</paper-button></li>
         <li><paper-button on-tap="signIn2" id="login">Login</paper-button>
         <li><paper-button id="ccheck">Check</paper-button></li>
         <li><paper-button id="signout">Signout</paper-button></li>
@@ -138,7 +138,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var rName = document.querySelector('#reg-user-name input');
     var rEmail = document.querySelector('#reg-email input');
     var rPass = document.querySelector('#reg-password input');
-    var rSecondPass = document.querySelector('#reg-password input');
+    var rSecondPass = document.querySelector('#second-password input');
 
     // these must be globalyl defined otherwise they will not authorize
     var email = rEmail;
@@ -156,16 +156,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // will be adding these as promises in the future
     // need to add each of these as a variable in each scope for these to work properly in EVENT LISTENERS
     // due to .value being assigned GLOBALLY and not being re-assigned once again within the function scope
-    rButton.addEventListener("click", function(){
-      email = rEmail.value;
+    rButton.addEventListener("click", /* function(){
+      Commented out for now to check validation 
+     email = rEmail.value;
       password = rPass.value;
       firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
        console.log(error.code);
        console.log(error.message);
     });
       console.log("SUCCESS! ACCOUNT CREATED!");
-      // need to find a way to AUTOMATICALLY login once user is subscribed
-    });   
+      // need to find a way to AUTOMATICALLY login once user is subscribed 
+
+    }*/
+    formValidation);   
 
     lButton.addEventListener("click", function(){
       email = rEmail.value;
@@ -198,16 +201,191 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       // need to find a way to AUTOMATICALLY login once user is subscribed
     });
 
-    /*=========================================================================== 
+        /*=========================================================================== 
 
     Validation
 
     ============================================================================*/
-
-
+      
+    // begins checking registration form validation
     function formValidation(){
-  
-};
+
+      // sets the variables to check input values
+      var name = rName.value;
+      var email = rEmail.value;
+      var password = rPass.value;
+      var secondPassword = rSecondPass.value;
+
+      // checks for issues for each input 
+      var nameErrors = new checkErrors();
+      var emailErrors = new checkErrors();
+      var passwordErrors = new checkErrors();
+      var secondPasswordErrors = new checkErrors();
+
+      // checks name validation
+      // IMPORTANT to reuse validation in different places, try to add the arguments for each check function to the input value and the error object, for example:
+      // function checkName(input, errorObject);
+      // or more specific example for name check: function checkName(name, nameErrors);
+      // this way, the functions can be re-used for the events
+      // Test this method out after checking that validation does actually work
+      function checkName() {
+        // if password length is less than 16
+        if (name.length < 2) {
+
+        // add the following message to his objects issues array
+          nameErrors.add("fewer than 2 characters");
+        } 
+        // if name length is over 100
+        else if (name.length > 40) {
+          nameErrors.add("greater than 40 characters");
+        }
+        // if name value does not (or !) match one symbol
+        if (name.match(/[\!\@\#\$\%\^\&\*]/g)) {
+          nameErrors.add("must not contain a symbol (!, @, #, $, %, ^, &, *)");
+        }
+        // if name has a number
+        if (name.match(/\d/g)) {
+          nameErrors.add("must not contain a number");
+        }
+        // if password does not have alphanumerical characters, numbers, or the allowed symbols
+        var illegalChars = name.match(/[^A-z0-9\!\@\#\$\%\^\&\*]/g)
+
+        if (illegalChars) {
+        // adds a function for each found illegal character, and adds it to the issues array, which then returns an issue message for each illegal charcater
+          illegalChars.forEach(function (illegalChar) {
+            nameErrors.add("includes illegal character: " + illegalChar);
+          });
+        }
+        };
+
+      // checks email validation
+      function checkEmail() {
+        // if email length is less than 16
+        if (email.length < 7) {
+
+        // add the following message to his objects issues array
+          emailErrors.add("fewer than 8 characters");
+        } 
+        // if email value does not match @ symbol
+        if (!email.match(/\@/g)) {
+          emailErrors.add("must contain @ symbol");
+        }
+        // if password does not have a lowercase later
+        if (!email.match(/\./g)) {
+          emailErrors.add("must contain domain identifier (.com, .ca, .org, etc.)");
+        }
+        // if password does not have alphanumerical characters, numbers, or the allowed symbols
+        var illegalChars = email.match(/[^A-z\@\.]/g)
+
+        if (illegalChars) {
+        // adds a function for each found illegal character, and adds it to the issues array, which then returns an issue message for each illegal charcater
+          illegalChars.forEach(function (illegalChar) {
+            emailErrors.add("includes illegal character: " + illegalChar);
+          });
+        }
+      };
+
+      // checks password validation 
+      function checkPassword() {
+        // if password length is less than 16
+        if (password.length < 8) {
+
+        // add the following message to his objects issues array
+          passwordErrors.add("fewer than 8 characters");
+        } 
+        // if password length is over 100
+        else if (password.length > 30) {
+          passwordErrors.add("greater than 30 characters");
+        }
+        // if password value does not (or !) match one symbol
+        if (!password.match(/[\!\@\#\$\%\^\&\*]/g)) {
+          passwordErrors.add("must contain a symbol (!, @, #, $, %, ^, &, *)");
+        }
+        // if password does not have a number
+        if (!password.match(/\d/g)) {
+          passwordErrors.add("must contain a number");
+        }
+        // if password does not have a lowercase later
+        if (!password.match(/[a-z]/g)) {
+          passwordErrors.add("must contain a lowercase letter");
+        }
+        // if password does not have an uppercase letter
+        if (!password.match(/[A-Z]/g)) {
+          passwordErrors.add("must contain an uppercase letter");
+        }
+        // if password does not have alphanumerical characters, numbers, or the allowed symbols
+        var illegalChars = password.match(/[^A-z0-9\!\@\#\$\%\^\&\*]/g)
+
+        if (illegalChars) {
+        // adds a function for each found illegal character, and adds it to the issues array, which then returns an issue message for each illegal charcater
+          illegalChars.forEach(function (illegalChar) {
+            passwordErrors.add("includes illegal character: " + illegalChar);
+          });
+        }
+      };
+
+      // checks the second password validation
+      if (password === secondPassword && password.length > 0) {
+        checkPassword();
+      }else {
+        secondPasswordErrors.add("Password must be exact!");
+      };
+
+      // retrieves all issues 
+      var nameErrorsCheck = nameErrors.check();
+      var emailErrorsCheck = emailErrors.check();
+      var passwordErrorsCheck = passwordErrors.check();
+      var secondPasswordErrorsCheck = secondPasswordErrors.check();
+
+      // sets the custom validity for each of the input's errors
+      rName.setCustomValidity(nameErrorsCheck);
+      rEmail.setCustomValidity(emailErrorsCheck);
+      rPass.setCustomValidity(passwordErrorsCheck);
+      rSecondPass.setCustomValidity(secondPasswordErrorsCheck);
+
+      // checks to confirm all inputs are validated
+      if (nameErrorsCheck.length + emailErrorsCheck.length + passwordErrorsCheck.length + secondPasswordErrorsCheck.length === 0) {
+        alert("Your account has been created!");
+      }
+    };
+
+    // constructor object to join form validation issues
+    function checkErrors(){
+
+      // creates the array storing validation errors
+      this.errors = [];
+
+    }
+
+    checkErrors.prototype = {
+
+      // pushes all found errors into the errors array
+      add: function (error){
+        this.errors.push(error)
+      },
+
+      // checks all found errors together
+      check: function() {
+        var valmessage = "";
+        switch (this.errors.length) {
+          case 0:
+          break;
+          case 1:
+          valmessage = "Please review the following error: " + this.errors[0];
+          break;
+          default:
+          valmessage = "Please review the following errors: " + this.issues.join(" ,");
+          break;
+        }
+        return valmessage;
+      }
+
+    };
+    /*=========================================================================== 
+
+    Validation end 
+
+    ============================================================================*/
   </script>
   </template>
   <script>
