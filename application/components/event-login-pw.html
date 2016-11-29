@@ -141,13 +141,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           autocomplete="name"
           autofocus 
           required 
-          pattern="\s*+[a-zA-Z]*"
+          pattern="[a-zA-Z]*\s*[a-zA-Z]*"
           minlength="2"
           auto-validate
           error-message="Please enter your name correctly - Only letters and spaces allowed">
          </paper-input>
          <gold-email-input
-          class="loginEmail"
+          id="regEmail"
           name="email"
           label="Please enter your email" 
           required 
@@ -159,7 +159,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          </gold-email-input>
          <paper-input 
          type="password" 
-         class="loginPassword" 
+         id="regPassword" 
          label="Please enter your password" 
          required 
          value="{{passvalue}}"
@@ -252,8 +252,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     //handles login form values
     var rName = document.querySelector('#regUserName input');
-    var rEmail = document.querySelector('.loginEmail input');
-    var rPass = document.querySelector('.loginPassword input');
+    var rEmail = document.querySelector('#regEmail input');
+    var rPass = document.querySelector('#regPassword input');
     var rPassError = document.querySelector('#regPassword paper-input-container .add-on-content');
     var rSecondPass = document.querySelector('#second-password input');
 
@@ -348,15 +348,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       passchange: function (){
         this.valueState.passvalue = this.passValidation();
         this.passvalidate = this.valueState.passvalue ? this.passvalue : '';
-        this.$.loginPassword.validate();
+        this.$.regPassword.validate();
       },
       passValidation: function (){
-        var value = this.$.loginPassword.value;
+        var value = this.$.regPassword.value;
           this.$.passwordMin.checked = value.length >= 8;
           this.$.passwordLower.checked = /[a-z]/.test(value);
           this.$.passwordUpper.checked = /[A-Z]/.test(value);
           this.$.passwordNumber.checked = /[0-9]/.test(value);
-          this.$.passwordSymbol.checked = /[\*\&\^\%\$\@\!\-\+\=\'\"]/.test(value);
+          this.$.passwordSymbol.checked = /[\+\=\'\"\)\(\*\)\&\^\%\$\#\@\!]/.test(value);
           return this.$.passwordMin.checked && this.$.passwordLower.checked &&
             this.$.passwordUpper.checked && this.$.passwordNumber.checked &&
             this.$.passwordNumber.checked && this.$.passwordSymbol.checked;
