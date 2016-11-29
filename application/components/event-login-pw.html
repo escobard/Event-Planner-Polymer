@@ -71,7 +71,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 0;
         text-align: center;
       }
-      li paper-button {
+      paper-button {
         display: inline-block;
         padding: 8px;
         text-transform: uppercase;
@@ -88,34 +88,72 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
         border: 0;
       }
-      form {
-        width: 100%;
-        max-width: 400px;
-      }
       h2 {
         white-space: initial;
       }
+      paper-dialog {
+      min-width: 700px;
+      }
+      label.style-scope.event-login-pw {
+          margin-top: 10px;
+          margin-bottom: 10px;
+          display: block;
+      }
     </style>
-    <paper-button id="signIn2" raised onclick="animated.open()">Sign In</paper-button>
-    <paper-dialog id="animated" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-      <form is="iron-form" id="form">
+    <paper-button id="signInPw" raised onclick="logIn.open()">Click here to begin</paper-button>
+    <paper-dialog id="logIn" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+      <h1>Login to your account</h1>
+      <form is="iron-form" id="loginForm">
         <fieldset>
-         <h2>Register your user account by adding the following information</h2>
+          <gold-email-input
+              id="loginEmail"
+              name="email"
+              label="Please enter your email" 
+              required 
+              autocomplete="email" 
+              aria-disabled="false" 
+              bind-value="{[useremail]}" 
+              auto-validate 
+              error-message="Please enter a valid Email Address">
+          </gold-email-input>
+          <paper-input 
+             type="password" 
+             id="loginPassword" 
+             label="Please enter your password" 
+             required 
+             auto-validate
+             value="{{passvalue}}"
+             on-input="passchange"
+             pattern="[[passvalidate]]"
+             autocomplete="password" 
+             min-length="8"
+             error-message="Please enter a password matching the requirements"
+             char-counter>
+          </paper-input>
+        </fieldset>
+        <paper-button on-tap="signIn2" id="login">Click here to Login</paper-button>
+        <paper-button id="signInRegistration" raised onclick="registrationForm.open()">Don't have an account? Click here to register</paper-button>
+      </form>
+    </paper-dialog>
+    <paper-dialog id="registrationForm" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+      <form is="iron-form" id="regForm">
+        <fieldset>
+         <h1>Register your user account by adding the following information</h1>
          <paper-input 
           type="text" 
-          id="reg-user-name"
+          id="regUserName"
           name="name" 
-          label="What's your Username?"
+          label="What would you like your nickname to be?"
           autocomplete="name"
           autofocus 
           required 
-          pattern="\s*+[a-zA-Z]*"
+          pattern="[a-zA-Z]*\s*[a-zA-Z]*"
           minlength="2"
           auto-validate
-          error-message="Please enter your name correctly">
-          </paper-input>
+          error-message="Please enter your name correctly - Only letters and spaces allowed">
+         </paper-input>
          <gold-email-input
-          id="reg-email"
+          id="regEmail"
           name="email"
           label="Please enter your email" 
           required 
@@ -124,10 +162,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           bind-value="{[useremail]}" 
           auto-validate 
           error-message="Please enter a valid Email Address">
-          </gold-email-input>
+         </gold-email-input>
          <paper-input 
          type="password" 
-         id="regpassword" 
+         id="regPassword" 
          label="Please enter your password" 
          required 
          value="{{passvalue}}"
@@ -139,7 +177,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          error-message="Please enter a password matching the requirements"
          char-counter>
          </paper-input>
-         <iron-label>Make sure your password fits all requirements:</iron-label>
+         <label>Make sure your password fits all requirements:</label>
          <paper-checkbox
             id="passwordLower"
             disabled>
@@ -186,17 +224,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <!--Make this a text box -->
           <paper-input id="diff-geo-address" onFocus="geolocate" type="text" label="What's your street address?" autocomplete="street-address"></paper-input>
         </fieldset>
-        <paper-button on-tap="_clearfields">Clear fields</paper-button>
-        <paper-button on-tap="_register">Register</paper-button>
-        <paper-button on-tap="_values">Check Values</paper-button>
+        <paper-button on-tap="signIn2" id="register">Click here to create your account</paper-button>
     </form>
-    <ul>
-         <!-- refactor code here so that register triggers 'on tap' --> 
-        <li><paper-button on-tap="signIn2" id="register">Register</paper-button></li>
-        <li><paper-button on-tap="signIn2" id="login">Login</paper-button>
+    <!-- field check and sign out buttons commented out until needed
+     <ul>
+         
+        <li></li>
         <li><paper-button id="ccheck">Check</paper-button></li>
         <li><paper-button id="signout">Signout</paper-button></li>
-      </ul>
+      </ul>-->
   </paper-dialog>
   <script>
   /*=========================================================================== 
@@ -219,10 +255,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var cButton = document.getElementById("ccheck");
 
     //handles login form values
-    var rName = document.querySelector('#reg-user-name input');
-    var rEmail = document.querySelector('#reg-email input');
-    var rPass = document.querySelector('#regpassword input');
-    var rPassError = document.querySelector('#regpassword paper-input-container .add-on-content');
+    var rName = document.querySelector('#regUserName input');
+    var rEmail = document.querySelector('#regEmail input');
+    var rPass = document.querySelector('#regPassword input');
+    var lEmail = document.querySelector('#loginEmail input');
+    var lPass = document.querySelector('#loginPassword input');
+    var rPassError = document.querySelector('#regPassword paper-input-container .add-on-content');
     var rSecondPass = document.querySelector('#second-password input');
 
     // these must be globalyl defined otherwise they will not authorize
@@ -241,6 +279,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // will be adding these as promises in the future
     // need to add each of these as a variable in each scope for these to work properly in EVENT LISTENERS
     // due to .value being assigned GLOBALLY and not being re-assigned once again within the function scope
+    
     rButton.addEventListener("click",  function(){
       email = rEmail.value;
       password = rPass.value;
@@ -253,16 +292,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     }); 
 
+    // will need to add a promise here when this is refactored into the polymer base code
     lButton.addEventListener("click", function(){
-      email = rEmail.value;
-      password = rPass.value;
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+      email = lEmail.value;
+      password = lPass.value;
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(console.log("SUCCESS! LOGGED IN!"))
+    .catch(function(error) {
        console.log(error.code);
        console.log(error.message);
     });
-       console.log("SUCCESS! LOGGED IN!");
+       
     });
-
+    /* check and logout button commented out until needed
     soButton.addEventListener("click", function(){
     firebase.auth().signOut().then(function() {
        console.log("Logged out!")
@@ -283,6 +325,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       console.log("test");
       // need to find a way to AUTOMATICALLY login once user is subscribed
     });
+    */
   </script>
   </template>
   <script>
@@ -310,21 +353,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       signIn: function() {
         this.fire('sign-in', null, { bubbles: true});
       },
-      signIn2: function() {
+      signIn2: function signIn2() {
         this.fire('sign-in', null, { bubbles: true});
       },
       passchange: function (){
         this.valueState.passvalue = this.passValidation();
         this.passvalidate = this.valueState.passvalue ? this.passvalue : '';
-        this.$.regpassword.validate();
+        this.$.regPassword.validate();
+        this.$.loginPassword.validate();
       },
       passValidation: function (){
-        var value = this.$.regpassword.value;
+        var value = this.$.regPassword.value || this.$.loginPassword.value;
           this.$.passwordMin.checked = value.length >= 8;
           this.$.passwordLower.checked = /[a-z]/.test(value);
           this.$.passwordUpper.checked = /[A-Z]/.test(value);
           this.$.passwordNumber.checked = /[0-9]/.test(value);
-          this.$.passwordSymbol.checked = /[\!\@\#\$\%\^\&\*]/.test(value);
+          this.$.passwordSymbol.checked = /[\+\=\&\^\%\$\#\@\!]/.test(value);
           return this.$.passwordMin.checked && this.$.passwordLower.checked &&
             this.$.passwordUpper.checked && this.$.passwordNumber.checked &&
             this.$.passwordNumber.checked && this.$.passwordSymbol.checked;
