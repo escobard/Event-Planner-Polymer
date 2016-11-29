@@ -94,6 +94,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       paper-dialog {
       min-width: 700px;
       }
+      label.style-scope.event-login-pw {
+          margin-top: 10px;
+          margin-bottom: 10px;
+          display: block;
+      }
     </style>
     <paper-button id="signInPw" raised onclick="logIn.open()">Click here to begin</paper-button>
     <paper-dialog id="logIn" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
@@ -172,7 +177,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          error-message="Please enter a password matching the requirements"
          char-counter>
          </paper-input>
-         <iron-label>Make sure your password fits all requirements:</iron-label>
+         <label>Make sure your password fits all requirements:</label>
          <paper-checkbox
             id="passwordLower"
             disabled>
@@ -219,16 +224,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <!--Make this a text box -->
           <paper-input id="diff-geo-address" onFocus="geolocate" type="text" label="What's your street address?" autocomplete="street-address"></paper-input>
         </fieldset>
-        <paper-button on-tap="_clearfields">Clear fields</paper-button>
-        <paper-button on-tap="_register">Register</paper-button>
-        <paper-button on-tap="_values">Check Values</paper-button>
+        <paper-button on-tap="signIn2" id="register">Click here to create your account</paper-button>
     </form>
-    <ul>
-         <!-- refactor code here so that register triggers 'on tap' --> 
-        <li><paper-button on-tap="signIn2" id="register">Register</paper-button></li>
+    <!-- field check and sign out buttons commented out until needed
+     <ul>
+         
+        <li></li>
         <li><paper-button id="ccheck">Check</paper-button></li>
         <li><paper-button id="signout">Signout</paper-button></li>
-      </ul>
+      </ul>-->
   </paper-dialog>
   <script>
   /*=========================================================================== 
@@ -300,7 +304,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });
        
     });
-
+    /* check and logout button commented out until needed
     soButton.addEventListener("click", function(){
     firebase.auth().signOut().then(function() {
        console.log("Logged out!")
@@ -321,6 +325,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       console.log("test");
       // need to find a way to AUTOMATICALLY login once user is subscribed
     });
+    */
   </script>
   </template>
   <script>
