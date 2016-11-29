@@ -127,6 +127,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </paper-input>
         </fieldset>
       </form>
+      <li><paper-button on-tap="signIn2" id="login">Login</paper-button></li>
       <paper-button id="signInRegistration" raised onclick="registrationForm.open()">Don't have an account? Click here to register</paper-button>
     </paper-dialog>
     <paper-dialog id="registrationForm" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
@@ -225,7 +226,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <ul>
          <!-- refactor code here so that register triggers 'on tap' --> 
         <li><paper-button on-tap="signIn2" id="register">Register</paper-button></li>
-        <li><paper-button on-tap="signIn2" id="login">Login</paper-button>
         <li><paper-button id="ccheck">Check</paper-button></li>
         <li><paper-button id="signout">Signout</paper-button></li>
       </ul>
@@ -254,6 +254,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var rName = document.querySelector('#regUserName input');
     var rEmail = document.querySelector('#regEmail input');
     var rPass = document.querySelector('#regPassword input');
+    var lEmail = document.querySelector('#loginEmail input');
+    var lPass = document.querySelector('#loginPassword input');
     var rPassError = document.querySelector('#regPassword paper-input-container .add-on-content');
     var rSecondPass = document.querySelector('#second-password input');
 
@@ -287,13 +289,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }); 
 
     lButton.addEventListener("click", function(){
-      email = rEmail.value;
-      password = rPass.value;
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+      email = lEmail.value;
+      password = lPass.value;
+    firebase.auth().signInWithEmailAndPassword(email, password).then(console.log("SUCCESS! LOGGED IN!")).catch(function(error) {
        console.log(error.code);
        console.log(error.message);
     });
-       console.log("SUCCESS! LOGGED IN!");
+       
     });
 
     soButton.addEventListener("click", function(){
