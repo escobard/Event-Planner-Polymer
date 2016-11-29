@@ -96,9 +96,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         white-space: initial;
       }
     </style>
-    <paper-button id="signInPw" raised onclick="animated.open()">Sign In</paper-button>
+    <paper-button id="signInPw" raised onclick="logIn.open()">Click here to begin</paper-button>
     <paper-dialog id="logIn" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-    <gold-email-input
+    <h2>Login to your account</h2>
+    <fieldset>
+      <gold-email-input
           id="loginEmail"
           name="email"
           label="Please enter your email" 
@@ -108,8 +110,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           bind-value="{[useremail]}" 
           auto-validate 
           error-message="Please enter a valid Email Address">
-          </gold-email-input>
-         <paper-input 
+      </gold-email-input>
+      <paper-input 
          type="password" 
          id="loginPassword" 
          label="Please enter your password" 
@@ -122,9 +124,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          auto-validate
          error-message="Please enter a password matching the requirements"
          char-counter>
-         </paper-input>
+      </paper-input>
+      </fieldset>
+         <paper-button id="signInRegistration" raised onclick="registrationForm.open()">Don't have an account? Click here to register</paper-button>
     </paper-dialog>
-    <paper-dialog id="animated" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+    <paper-dialog id="registrationForm" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
       <form is="iron-form" id="form">
         <fieldset>
          <h2>Register your user account by adding the following information</h2>
