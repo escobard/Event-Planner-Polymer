@@ -273,6 +273,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // will be adding these as promises in the future
     // need to add each of these as a variable in each scope for these to work properly in EVENT LISTENERS
     // due to .value being assigned GLOBALLY and not being re-assigned once again within the function scope
+    
     rButton.addEventListener("click",  function(){
       email = rEmail.value;
       password = rPass.value;
@@ -356,7 +357,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.$.passwordLower.checked = /[a-z]/.test(value);
           this.$.passwordUpper.checked = /[A-Z]/.test(value);
           this.$.passwordNumber.checked = /[0-9]/.test(value);
-          this.$.passwordSymbol.checked = /[\+\=\'\"\)\(\*\)\&\^\%\$\#\@\!]/.test(value);
+          this.$.passwordSymbol.checked = /[\+\=\&\^\%\$\#\@\!]/.test(value);
           return this.$.passwordMin.checked && this.$.passwordLower.checked &&
             this.$.passwordUpper.checked && this.$.passwordNumber.checked &&
             this.$.passwordNumber.checked && this.$.passwordSymbol.checked;
