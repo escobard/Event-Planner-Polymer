@@ -116,12 +116,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
              id="loginPassword" 
              label="Please enter your password" 
              required 
+             auto-validate
              value="{{passvalue}}"
              on-input="passchange"
              pattern="[[passvalidate]]"
              autocomplete="password" 
              min-length="8"
-             auto-validate
              error-message="Please enter a password matching the requirements"
              char-counter>
           </paper-input>
@@ -355,9 +355,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.valueState.passvalue = this.passValidation();
         this.passvalidate = this.valueState.passvalue ? this.passvalue : '';
         this.$.regPassword.validate();
+        this.$.loginPassword.validate();
       },
       passValidation: function (){
-        var value = this.$.regPassword.value;
+        var value = this.$.regPassword.value || this.$.loginPassword.value;
           this.$.passwordMin.checked = value.length >= 8;
           this.$.passwordLower.checked = /[a-z]/.test(value);
           this.$.passwordUpper.checked = /[A-Z]/.test(value);
