@@ -71,7 +71,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 0;
         text-align: center;
       }
-      li paper-button {
+      paper-button {
         display: inline-block;
         padding: 8px;
         text-transform: uppercase;
@@ -90,10 +90,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
       form {
         width: 100%;
-        max-width: 400px;
+        max-width: 700px;
       }
       h2 {
         white-space: initial;
+      }
+      paper-dialog {
+      min-width: 700px;
       }
     </style>
     <paper-button id="signInPw" raised onclick="logIn.open()">Click here to begin</paper-button>
