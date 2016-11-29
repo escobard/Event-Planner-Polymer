@@ -1,5 +1,8 @@
 ** Changelog for Event Planning Application
 
+v0.6
+- prototype to add proper login functions
+
 v0.5
 - added validation for registration and login form
 - added some css style fixes

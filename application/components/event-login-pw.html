@@ -96,26 +96,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         white-space: initial;
       }
     </style>
-    <paper-button id="signIn2" raised onclick="animated.open()">Sign In</paper-button>
-    <paper-dialog id="animated" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-      <form is="iron-form" id="form">
-        <fieldset>
-         <h2>Register your user account by adding the following information</h2>
-         <paper-input 
-          type="text" 
-          id="reg-user-name"
-          name="name" 
-          label="What's your Username?"
-          autocomplete="name"
-          autofocus 
-          required 
-          pattern="\s*+[a-zA-Z]*"
-          minlength="2"
-          auto-validate
-          error-message="Please enter your name correctly">
-          </paper-input>
-         <gold-email-input
-          id="reg-email"
+    <paper-button id="signInPw" raised onclick="animated.open()">Sign In</paper-button>
+    <paper-dialog id="logIn" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+    <gold-email-input
+          id="loginEmail"
           name="email"
           label="Please enter your email" 
           required 
@@ -127,7 +111,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </gold-email-input>
          <paper-input 
          type="password" 
-         id="regpassword" 
+         id="loginPassword" 
+         label="Please enter your password" 
+         required 
+         value="{{passvalue}}"
+         on-input="passchange"
+         pattern="[[passvalidate]]"
+         autocomplete="password" 
+         min-length="8"
+         auto-validate
+         error-message="Please enter a password matching the requirements"
+         char-counter>
+         </paper-input>
+    </paper-dialog>
+    <paper-dialog id="animated" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+      <form is="iron-form" id="form">
+        <fieldset>
+         <h2>Register your user account by adding the following information</h2>
+         <paper-input 
+          type="text" 
+          id="regUserName"
+          name="name" 
+          label="What's your Username?"
+          autocomplete="name"
+          autofocus 
+          required 
+          pattern="\s*+[a-zA-Z]*"
+          minlength="2"
+          auto-validate
+          error-message="Please enter your name correctly">
+          </paper-input>
+         <gold-email-input
+          id="regEmail"
+          name="email"
+          label="Please enter your email" 
+          required 
+          autocomplete="email" 
+          aria-disabled="false" 
+          bind-value="{[useremail]}" 
+          auto-validate 
+          error-message="Please enter a valid Email Address">
+          </gold-email-input>
+         <paper-input 
+         type="password" 
+         id="regPassword" 
          label="Please enter your password" 
          required 
          value="{{passvalue}}"
@@ -219,10 +246,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var cButton = document.getElementById("ccheck");
 
     //handles login form values
-    var rName = document.querySelector('#reg-user-name input');
-    var rEmail = document.querySelector('#reg-email input');
-    var rPass = document.querySelector('#regpassword input');
-    var rPassError = document.querySelector('#regpassword paper-input-container .add-on-content');
+    var rName = document.querySelector('#regUserName input');
+    var rEmail = document.querySelector('#regEmail input');
+    var rPass = document.querySelector('#regPassword input');
+    var rPassError = document.querySelector('#regPassword paper-input-container .add-on-content');
     var rSecondPass = document.querySelector('#second-password input');
 
     // these must be globalyl defined otherwise they will not authorize
@@ -316,10 +343,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       passchange: function (){
         this.valueState.passvalue = this.passValidation();
         this.passvalidate = this.valueState.passvalue ? this.passvalue : '';
-        this.$.regpassword.validate();
+        this.$.regPassword.validate();
       },
       passValidation: function (){
-        var value = this.$.regpassword.value;
+        var value = this.$.regPassword.value;
           this.$.passwordMin.checked = value.length >= 8;
           this.$.passwordLower.checked = /[a-z]/.test(value);
           this.$.passwordUpper.checked = /[A-Z]/.test(value);
