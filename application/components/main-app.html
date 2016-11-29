@@ -11,11 +11,22 @@
   body {
     margin:0;
   }
+  paper-progress {
+        width: 100% !important;
+        height: 25px !important;
+        --paper-progress-transition-duration: 0.08s;
+        --paper-progress-transition-timing-function: ease;
+        --paper-progress-transition-transition-delay: 0s;
+        --paper-progress-height: 25px;
+      }
   </style>
 
 	<!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 -->
 	<event-toolbar disabled="[[!signedIn]]" signed-in="[[signedIn]]" on-sign-out="signOut"></event-toolbar>
-
+  <paper-progress id="progress-login" class="transiting" value="0"></paper-progress>
+  <paper-progress id="progress-reg" class="transiting" value="0"></paper-progress>
+  <paper-progress id="progress-reg-optional" class="transiting" value="0"></paper-progress>
+  <paper-progress id="progress-event" class="transiting" value="0"></paper-progress>
 	<!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 -->
 	<!--  Google login disabled indefinetly, can enable again later
   <event-login-pw on-sign-in="signIn2" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-pw>
@@ -97,6 +108,7 @@
     		</event-planner>
   		</template>
 	</div>
+
   </template>
   <script>
     Polymer({
