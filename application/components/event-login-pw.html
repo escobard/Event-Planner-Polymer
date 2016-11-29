@@ -88,10 +88,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
         border: 0;
       }
-      form {
-        width: 100%;
-        max-width: 700px;
-      }
       h2 {
         white-space: initial;
       }
@@ -101,55 +97,57 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
     <paper-button id="signInPw" raised onclick="logIn.open()">Click here to begin</paper-button>
     <paper-dialog id="logIn" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-    <h2>Login to your account</h2>
-    <fieldset>
-      <gold-email-input
-          id="loginEmail"
-          name="email"
-          label="Please enter your email" 
-          required 
-          autocomplete="email" 
-          aria-disabled="false" 
-          bind-value="{[useremail]}" 
-          auto-validate 
-          error-message="Please enter a valid Email Address">
-      </gold-email-input>
-      <paper-input 
-         type="password" 
-         id="loginPassword" 
-         label="Please enter your password" 
-         required 
-         value="{{passvalue}}"
-         on-input="passchange"
-         pattern="[[passvalidate]]"
-         autocomplete="password" 
-         min-length="8"
-         auto-validate
-         error-message="Please enter a password matching the requirements"
-         char-counter>
-      </paper-input>
-      </fieldset>
-         <paper-button id="signInRegistration" raised onclick="registrationForm.open()">Don't have an account? Click here to register</paper-button>
+      <h1>Login to your account</h1>
+      <form is="iron-form" id="loginForm">
+        <fieldset>
+          <gold-email-input
+              id="loginEmail"
+              name="email"
+              label="Please enter your email" 
+              required 
+              autocomplete="email" 
+              aria-disabled="false" 
+              bind-value="{[useremail]}" 
+              auto-validate 
+              error-message="Please enter a valid Email Address">
+          </gold-email-input>
+          <paper-input 
+             type="password" 
+             id="loginPassword" 
+             label="Please enter your password" 
+             required 
+             value="{{passvalue}}"
+             on-input="passchange"
+             pattern="[[passvalidate]]"
+             autocomplete="password" 
+             min-length="8"
+             auto-validate
+             error-message="Please enter a password matching the requirements"
+             char-counter>
+          </paper-input>
+        </fieldset>
+      </form>
+      <paper-button id="signInRegistration" raised onclick="registrationForm.open()">Don't have an account? Click here to register</paper-button>
     </paper-dialog>
     <paper-dialog id="registrationForm" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-      <form is="iron-form" id="form">
+      <form is="iron-form" id="regForm">
         <fieldset>
-         <h2>Register your user account by adding the following information</h2>
+         <h1>Register your user account by adding the following information</h1>
          <paper-input 
           type="text" 
           id="regUserName"
           name="name" 
-          label="What's your Username?"
+          label="What would you like your nickname to be?"
           autocomplete="name"
           autofocus 
           required 
           pattern="\s*+[a-zA-Z]*"
           minlength="2"
           auto-validate
-          error-message="Please enter your name correctly">
-          </paper-input>
+          error-message="Please enter your name correctly - Only letters and spaces allowed">
+         </paper-input>
          <gold-email-input
-          id="regEmail"
+          class="loginEmail"
           name="email"
           label="Please enter your email" 
           required 
@@ -158,10 +156,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           bind-value="{[useremail]}" 
           auto-validate 
           error-message="Please enter a valid Email Address">
-          </gold-email-input>
+         </gold-email-input>
          <paper-input 
          type="password" 
-         id="regPassword" 
+         class="loginPassword" 
          label="Please enter your password" 
          required 
          value="{{passvalue}}"
@@ -254,8 +252,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     //handles login form values
     var rName = document.querySelector('#regUserName input');
-    var rEmail = document.querySelector('#regEmail input');
-    var rPass = document.querySelector('#regPassword input');
+    var rEmail = document.querySelector('.loginEmail input');
+    var rPass = document.querySelector('.loginPassword input');
     var rPassError = document.querySelector('#regPassword paper-input-container .add-on-content');
     var rSecondPass = document.querySelector('#second-password input');
 
@@ -350,15 +348,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       passchange: function (){
         this.valueState.passvalue = this.passValidation();
         this.passvalidate = this.valueState.passvalue ? this.passvalue : '';
-        this.$.regPassword.validate();
+        this.$.loginPassword.validate();
       },
       passValidation: function (){
-        var value = this.$.regPassword.value;
+        var value = this.$.loginPassword.value;
           this.$.passwordMin.checked = value.length >= 8;
           this.$.passwordLower.checked = /[a-z]/.test(value);
           this.$.passwordUpper.checked = /[A-Z]/.test(value);
           this.$.passwordNumber.checked = /[0-9]/.test(value);
-          this.$.passwordSymbol.checked = /[\!\@\#\$\%\^\&\*]/.test(value);
+          this.$.passwordSymbol.checked = /[\*\&\^\%\$\@\!\-\+\=\'\"]/.test(value);
           return this.$.passwordMin.checked && this.$.passwordLower.checked &&
             this.$.passwordUpper.checked && this.$.passwordNumber.checked &&
             this.$.passwordNumber.checked && this.$.passwordSymbol.checked;
