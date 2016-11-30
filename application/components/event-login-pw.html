@@ -22,7 +22,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="bower_components/paper-input/paper-input.html">
 <link rel="import" href="bower_components/paper-button/paper-button.html">
 <link rel="import" href="bower_components/paper-card/paper-card.html">
-<link rel="import" href="bower_components/paper-progress/paper-progress.html">
 <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="bower_components/paper-input/paper-textarea.html">
@@ -46,7 +45,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 }
       :host {
         position: absolute;
-        top: 46px;
+        top: 77px;
         left: 0;
         right: 0;
         bottom: 0;
@@ -88,8 +87,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
         border: 0;
       }
-      h2 {
+      h1 {
         white-space: initial;
+        text-align: center;
       }
       paper-dialog {
       min-width: 700px;
@@ -99,7 +99,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           margin-bottom: 10px;
           display: block;
       }
+      paper-dialog paper-button {
+          width: 98%;
+          text-align: center;
+          margin: auto !important;
+          display: block !important;
+          float: none;
+      }
+      p#signInRegistration {
+    text-align: center;
+      }
+
+      p#signInRegistration span {
+          color: #039be5;
+          cursor: pointer;
+      }
     </style>
+
     <paper-button id="signInPw" raised onclick="logIn.open()">Click here to begin</paper-button>
     <paper-dialog id="logIn" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
       <h1>Login to your account</h1>
@@ -132,7 +148,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </paper-input>
         </fieldset>
         <paper-button on-tap="signIn2" id="login">Click here to Login</paper-button>
-        <paper-button id="signInRegistration" raised onclick="registrationForm.open()">Don't have an account? Click here to register</paper-button>
+        <p id="signInRegistration">Don't have an account? <span onclick="registrationForm.open()">Click here to register</span></p>
       </form>
     </paper-dialog>
     <paper-dialog id="registrationForm" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
@@ -205,7 +221,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            </paper-checkbox>
           <paper-input 
           type="password" 
-          id="second-password" 
+          id="regSecondPass" 
           name="password-confirm" 
           label="Please confirm your password" 
           required 
@@ -261,11 +277,72 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var lEmail = document.querySelector('#loginEmail input');
     var lPass = document.querySelector('#loginPassword input');
     var rPassError = document.querySelector('#regPassword paper-input-container .add-on-content');
-    var rSecondPass = document.querySelector('#second-password input');
+    var rSecondPass = document.querySelector('#regSecondPass input');
 
     // these must be globalyl defined otherwise they will not authorize
     var email = rEmail;
     var password = rPass;
+
+    // sets up the progress bar selector elements
+    
+    //sets up login progress bar selector 
+    var progressBar = document.querySelector('paper-progress');
+
+    //sets up progress bar for registration
+    var progressBarRegistration = document.querySelector('#progress-reg');
+
+    // updates progress bar for registration optional values
+    var progressBarRegistrationOpt = document.querySelector('#progress-reg-optional');
+
+    // selectors for activation elements
+    var loginProgressBar = document.querySelector('#progress-login');
+    var regProgressContainer = document.querySelector('#diff-address-container');
+    var regProgressBar = document.querySelector('#progress-reg');
+
+    // login form inputs
+    var inputs = [
+      {
+        selector: '#loginEmail',
+        amount: 50
+      }, {
+        selector: '#loginPassword',
+        amount: 50
+      }
+    ];
+
+    // registration form inputs
+    var inputsReg = [
+      {
+        selector: '#regUserName',
+        amount: 25
+      }, {
+        selector: '#regEmail',
+        amount: 25
+      }, {
+        selector: '#regPassword',
+        amount: 25
+      }, {
+        selector: '#regSecondPass',
+        amount: 25
+      }    
+    ];
+
+    // registration form inputs
+    var inputsRegOpt = [
+      {
+        selector: '#reg-occupation',
+        amount: 25
+      }, {
+        selector: '#reg-birthday',
+        amount: 25
+      }, {
+        selector: '#reg-appuse',
+        amount: 25
+      }, {
+        selector: '#diff-geo-address',
+        amount: 25
+      }    
+    ];
 
   /*=========================================================================== 
 
@@ -326,8 +403,111 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       // need to find a way to AUTOMATICALLY login once user is subscribed
     });
     */
+
+    // Progress Bar
+    // Set up the logic to change the progress bar
+    // originally derived from the instructor notes on : https://classroom.udacity.com/nanodegrees/nd802/parts/8021345401/modules/555574864975460/lessons/5243991811/concepts/54564686870923
+
+
+    // initiates the progress tracker function
+
+    function ProgressTracker (inputs, progressBar) {
+      var self = this;
+      this.progressBar = progressBar;
+      this.inputs = inputs;
+
+      this.inputs.forEach(function (input) {
+        input.element = document.querySelector(input.selector);
+        input.added = false;
+        input.isValid = null;
+
+        input.element.oninput = function () {
+          input.isValid = self.determineStatus(input);
+          self.adjustProgressIfNecessary(input);
+        };
+      });
+    };
+
+    ProgressTracker.prototype = {
+      determineStatus: function (input) {
+        var isValid = false;
+        
+        if (input.element.value.length > 0) {
+          isValid = true;
+        } else {
+          isValid = false;
+        }
+
+        try {
+          isValid = isValid && input.element.validate();
+        } catch (e) {
+          console.log(e);
+        }
+        return isValid;
+      },
+      adjustProgressIfNecessary: function (input) {
+        var newAmount = this.progressBar.value;
+
+        if (input.added && !input.isValid) {
+          newAmount = newAmount - input.amount;
+          input.added = false;
+        } else if (!input.added && input.isValid) {
+          newAmount = newAmount + input.amount;
+          input.added = true;
+        }
+        this.progressBar.value = newAmount;
+      }
+    };
+
+    // login bar progress tracker
+    var progressTracker = new ProgressTracker(inputs, progressBar);
+
+    // registration progress tracker
+    var progressBarReg = new ProgressTracker(inputsReg, progressBarRegistration);
+
+    // registration optional progress tracker
+    var progressBarReg = new ProgressTracker(inputsRegOpt, progressBarRegistrationOpt);
+    // Registration form check (will have to be changed to fit both optional fields)
+    // JavaScript code for the different address field activation and associated functions
+    /* Need to fix this so that it shows up the reg bar and hides login bar when reg form active
+    function regProgressCheck() {
+
+    // Selects our Queries
+      var checkReg = document.getElementById('registrationForm');
+
+    // checks the form's paper-check element's state
+      checkReg.addEventListener('change', function (e) {
+      
+    // if the check's parent element is 'active' run this if statement
+        if (this.active) {
+          regProgressContainer.classList.add("active");
+          regProgressBar.classList.add("active");
+          loginProgressBar.classList.add("inactive");
+          
+        } 
+
+    // otherwise check for these classes and remove if present
+        else {
+          regProgressContainer.classList.remove("active");
+          regProgressBar.classList.remove("active");
+          loginProgressBar.classList.remove("inactive");
+        }
+      })
+    } 
+          //loads this function on window load
+    window.addEventListener("load", regProgressCheck, false);
+
+    // Different Address end
+    // Progress Bar end */
+  /*=========================================================================== 
+
+  Controller end
+
+  ============================================================================*/
   </script>
+
   </template>
+  <script src="js/app.js"></script>
   <script>
     Polymer({
       is: 'event-login-pw',
