@@ -1,8 +1,9 @@
 ** Changelog for Event Planning Application
 
 v0.7
-- prototype to add progress bars for forms.
-- prototype for CSS cleanup
+- added progress bars for login / reg forms.
+- cleaned up login / reg form CSS
+- re-structured login JS logic into MVC
 
 v0.6
 - added proper login functions
