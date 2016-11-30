@@ -87,8 +87,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
         border: 0;
       }
-      h2 {
+      h1 {
         white-space: initial;
+        text-align: center;
       }
       paper-dialog {
       min-width: 700px;
@@ -97,6 +98,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           margin-top: 10px;
           margin-bottom: 10px;
           display: block;
+      }
+      paper-button#login {
+          width: 96%;
+          margin: auto;
+          display: block;
+          text-align: center;
+      }
+      p#signInRegistration {
+    text-align: center;
+      }
+
+      p#signInRegistration span {
+          color: #039be5;
       }
     </style>
 
@@ -132,7 +146,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </paper-input>
         </fieldset>
         <paper-button on-tap="signIn2" id="login">Click here to Login</paper-button>
-        <paper-button id="signInRegistration" raised onclick="registrationForm.open()">Don't have an account? Click here to register</paper-button>
+        <p id="signInRegistration">Don't have an account? <span onclick="registrationForm.open()">Click here to register</span></p>
       </form>
     </paper-dialog>
     <paper-dialog id="registrationForm" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
@@ -339,7 +353,7 @@ Progress Bar
 var progressBar = document.querySelector('paper-progress');
 
 // updated progress bar when ship to a different address is ticked
-var progressBarDiffAddress = document.querySelector('#progress-diff-address');
+var progressBarDiffAddress = document.querySelector('#progress-reg');
 
 // initiates the progress tracker function
 
@@ -432,7 +446,7 @@ function diffAddressCheck() {
   var checkContainer = document.getElementById('diff-address');
   var normalProgressBar = document.querySelector('#progress-normal');
   var diffAddressContainer = document.querySelector('#diff-address-container');
-  var diffAddressProgress = document.querySelector('#progress-diff-address');
+  var diffAddressProgress = document.querySelector('#progress-reg');
 
 // checks the form's paper-check element's state
   checkContainer.addEventListener('change', function (e) {
