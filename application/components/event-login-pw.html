@@ -221,7 +221,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            </paper-checkbox>
           <paper-input 
           type="password" 
-          id="second-password" 
+          id="regSecondPass" 
           name="password-confirm" 
           label="Please confirm your password" 
           required 
@@ -277,7 +277,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var lEmail = document.querySelector('#loginEmail input');
     var lPass = document.querySelector('#loginPassword input');
     var rPassError = document.querySelector('#regPassword paper-input-container .add-on-content');
-    var rSecondPass = document.querySelector('#second-password input');
+    var rSecondPass = document.querySelector('#regSecondPass input');
 
     // these must be globalyl defined otherwise they will not authorize
     var email = rEmail;
@@ -355,7 +355,7 @@ Progress Bar
 var progressBar = document.querySelector('paper-progress');
 
 // updated progress bar when ship to a different address is ticked
-var progressBarDiffAddress = document.querySelector('#progress-reg');
+var progressBarRegistration = document.querySelector('#progress-reg');
 
 // initiates the progress tracker function
 
@@ -417,17 +417,28 @@ var inputs = [
   }
 ];
 
-var inputsDiff = [
+var inputsReg = [
   {
-    selector: '#user-diffname',
-    amount: 50
+    selector: '#regUserName',
+    amount: 25
   }, {
-    selector: '#diff-geo-address',
-    amount: 50
-  }  
+    selector: '#regEmail',
+    amount: 25
+  }, {
+    selector: '#regPassword',
+    amount: 25
+  }, {
+    selector: '#regSecondPass',
+    amount: 25
+  }    
 ];
 
 var progressTracker = new ProgressTracker(inputs, progressBar);
+  var loginProgressBar = document.querySelector('#progress-login');
+  var regProgressContainer = document.querySelector('#diff-address-container');
+  var regProgressBar = document.querySelector('#progress-reg');
+  var progressBarReg = new ProgressTracker(inputsReg, progressBarRegistration);
+
 
 /*=========================================================================== 
 
@@ -442,35 +453,33 @@ Different Address (will have to be changed to fit both optional fields)
 ============================================================================*/
 
 // JavaScript code for the different address field activation and associated functions
-function diffAddressCheck() {
+// Need to fix this so that it shows up the reg bar and hides login bar when reg form active
+function regProgressCheck() {
 
 // Selects our Queries
-  var checkContainer = document.getElementById('diff-address');
-  var normalProgressBar = document.querySelector('#progress-normal');
-  var diffAddressContainer = document.querySelector('#diff-address-container');
-  var diffAddressProgress = document.querySelector('#progress-reg');
+  var checkReg = document.getElementById('registrationForm');
 
 // checks the form's paper-check element's state
-  checkContainer.addEventListener('change', function (e) {
+  checkReg.addEventListener('change', function (e) {
   
 // if the check's parent element is 'active' run this if statement
     if (this.active) {
-      diffAddressContainer.classList.add("active");
-      diffAddressProgress.classList.add("active");
-      normalProgressBar.classList.add("inactive");
-      var progressTrackerNewAddress = new ProgressTracker(inputsDiff, progressBarDiffAddress);
+      regProgressContainer.classList.add("active");
+      regProgressBar.classList.add("active");
+      loginProgressBar.classList.add("inactive");
+      
     } 
 
 // otherwise check for these classes and remove if present
     else {
-      diffAddressContainer.classList.remove("active");
-      diffAddressProgress.classList.remove("active");
-      normalProgressBar.classList.remove("inactive");
+      regProgressContainer.classList.remove("active");
+      regProgressBar.classList.remove("active");
+      loginProgressBar.classList.remove("inactive");
     }
   })
 } 
       //loads this function on window load
-window.addEventListener("load", diffAddressCheck, false);
+window.addEventListener("load", regProgressCheck, false);
 /*=========================================================================== 
 
 Different Address end
