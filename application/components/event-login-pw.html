@@ -293,16 +293,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     //sets up login progress bar selector 
     var progressBar = document.querySelector('paper-progress');
 
-    //sets up progress bar for registration
-    var progressBarRegistration = document.querySelector('#progress-reg');
-
-    // updates progress bar for registration optional values
-    var progressBarRegistrationOpt = document.querySelector('#progress-reg-optional');
-
     // selectors for activation elements
     var loginProgressBar = document.querySelector('#progress-login');
-    var regProgressContainer = document.querySelector('#diff-address-container');
     var regProgressBar = document.querySelector('#progress-reg');
+    var regProgressBarOpt = document.querySelector('#progress-reg-optional');
 
     // login form inputs
     var inputs = [
@@ -388,15 +382,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });
 
     // adds logic for progress bar display
-    function ProgressCheck(button, container) {
+    function ProgressCheck(button, container, aProgress, dProgress) {
       button.addEventListener("click", function(){
         container.classList.add('active');
+        aProgress.classList.add('active');
+        dProgress.classList.add('disabled');
       });
     };
 
     // ProgressCheck objects
     
-    loginProgressCheck = new ProgressCheck(lFormButton,loginContainer);
+    loginProgressCheck = new ProgressCheck(lFormButton,loginContainer,loginProgressBar,regProgressBar);
     /* check and logout button commented out until needed
     soButton.addEventListener("click", function(){
     firebase.auth().signOut().then(function() {
@@ -480,10 +476,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var progressTracker = new ProgressTracker(inputs, progressBar);
 
     // registration progress tracker
-    var progressBarReg = new ProgressTracker(inputsReg, progressBarRegistration);
+    var progressBarReg = new ProgressTracker(inputsReg, regProgressBar);
 
     // registration optional progress tracker
-    var progressBarReg = new ProgressTracker(inputsRegOpt, progressBarRegistrationOpt);
+    var progressBarRegOpt = new ProgressTracker(inputsRegOpt, regProgressBarOpt);
     // Registration form check (will have to be changed to fit both optional fields)
     // JavaScript code for the different address field activation and associated functions
     /* Need to fix this so that it shows up the reg bar and hides login bar when reg form active
