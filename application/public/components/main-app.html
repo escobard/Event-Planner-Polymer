@@ -30,7 +30,7 @@
 	docs cont: https://github.com/PolymerLabs/note-app-elements/blob/master/na-editor.html -->
 	<na-editor
     id="editor"
-    note="{{editableEvent}}"
+    note="{{editableNote}}"
     on-close="commitChange">
 	</na-editor>
 	
@@ -59,8 +59,8 @@
 	<firebase-document
     id="document"
     app-name="notes"
-    path="[[editableEventId]]"
-    data="{{editableEvent}}">
+    path="[[editableNoteId]]"
+    data="{{editableNote}}">
 	</firebase-document>
 
 	<!--  Docs: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#25

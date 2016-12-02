@@ -74,7 +74,7 @@
 	docs cont: https://github.com/PolymerLabs/note-app-elements/blob/master/na-editor.html -->
 	<event-planner-editor
     id="editor"
-    note="{{editableEvent}}"
+    note="{{editableNote}}"
     on-close="commitChange">
 	</event-planner-editor>
 	
@@ -93,8 +93,8 @@
 	<firebase-document
     id="document"
     app-name="event-planner"
-    path="[[editableEventId]]"
-    data="{{editableEvent}}">
+    path="[[editableNoteId]]"
+    data="{{editableNote}}">
 	</firebase-document>
 
 	<!--  Docs: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#25

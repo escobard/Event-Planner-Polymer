@@ -87,8 +87,8 @@
        required
        minlength="2"
        auto-validate
-       pattern="\s*+[a-zA-Z0-9]*" <---- THIS IS AWESOME REGEX
-       error-message="Event name can only contain alphanumerical characters"
+       pattern="\s*[a-zA-Z0-9]*"
+       error-message="Event name can only contain alphanumerical characters and a single space"
        placeholder="{{title}}" 
        bind-value="{{title}}">
       </paper-input>
@@ -103,21 +103,30 @@
        type="text"
        id="event-type" 
        required
+       list="eventtypes"
        auto-validate
-       error-message="Please select an event type."
+       pattern="[a-zA-Z]*"
+       error-message="Select an event type or enter an event type that can only contain letters"
        label="Select your event type" 
        placeholder="{{event-type}}" 
        bind-value="{{event-type}}">
       </paper-input>
+      <datalist id="eventtypes">
+        <option value="Birthday"></option>
+        <option value="Corporate"></option>
+        <option value="Personal"></option>
+        <option value="Wedding"></option>
+        <option value="Other"></option>
+      </datalist>
       <paper-input
-       type="text" 
+       type="datetime-local" 
        id="event-start" 
        label="When is your event starting?" 
        placeholder="{{startdate}}" 
        bind-value="{{startdate}}">
       </paper-input>
       <paper-input
-       type="text"
+       type="datetime-local"
        id="event-end" 
        label="When is your event ending?" 
        placeholder="{{enddate}}" 
