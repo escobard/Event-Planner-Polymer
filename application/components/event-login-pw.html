@@ -148,7 +148,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <fieldset>
           <gold-email-input
               id="loginEmail"
-              name="email"
+              name="loginemail"
               label="Please enter your email" 
               required 
               autocomplete="email" 
@@ -184,9 +184,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          <paper-input 
           type="text" 
           id="regUserName"
-          name="name" 
+          name="nickname" 
           label="What would you like your nickname to be?"
-          autocomplete="name"
+          autocomplete="nickname"
           autofocus 
           required 
           pattern="[a-zA-Z]*\s*[a-zA-Z]*"
@@ -284,17 +284,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <fieldset id="personalInfoContainer">
           <paper-input
            id="reg-occupation" 
-           name="name" 
+           name="occupation" 
            label="What's your occupation?" 
            autocomplete="organization-title">
           </paper-input>
           <paper-input 
+           name="birthday"
            id="reg-birthday" 
            type="date" 
            label="When were you born?" 
            autocomplete="bday">
           </paper-input>
           <paper-input 
+           name="appuse"
            id="reg-appuse" 
            type="text"
            list="uses" 
@@ -311,7 +313,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <option value="Recreation"></option>
           </datalist>
           <!--Make this a text box -->
-          <paper-input id="diff-geo-address" onFocus="geolocate" type="text" label="What's your street address?" autocomplete="street-address"></paper-input>
+          <paper-input
+           name="streetaddress"
+           id="diff-geo-address" 
+           onFocus="geolocate" 
+           type="text" 
+           label="What's your street address?" 
+           autocomplete="street-address">
+          </paper-input>
         </fieldset>
         <paper-button on-tap="signIn2" id="register">Click here to create your account</paper-button>
     </form>

@@ -37,7 +37,9 @@
 
 	<!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 -->
 	<event-toolbar disabled="[[!signedIn]]" signed-in="[[signedIn]]" on-sign-out="signOut"></event-toolbar>
-  <paper-progress id="progress-login" class="transiting active" value="0"></paper-progress>
+
+  <!--  Need to find a ay to disable these when user not signed in -->
+  <paper-progress disabled="[[!online]]" id="progress-login" class="transiting active" value="0"></paper-progress>
   <paper-progress id="progress-reg" class="transiting" value="0"></paper-progress>
   <paper-progress id="progress-reg-optional" class="transiting" value="0"></paper-progress>
 
