@@ -14,7 +14,7 @@
   paper-progress {
         width: 100% !important;
         height: 25px !important;
-        --paper-progress-transition-duration: 0.5s;
+        --paper-progress-transition-duration: 0.7s;
         --paper-progress-transition-timing-function: ease;
         --paper-progress-transition-transition-delay: 0s;
         --paper-progress-height: 25px;
@@ -27,6 +27,12 @@
   paper-progress {
       display: none;
       }
+  paper-progress#progress-reg {
+        --paper-progress-active-color:rgb(255, 25, 51);
+      }
+  paper-progress#progress-reg-optional {
+        --paper-progress-active-color:rgb(218, 211, 16);
+      }
   </style>
 
 	<!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 -->
@@ -34,10 +40,12 @@
   <paper-progress id="progress-login" class="transiting active" value="0"></paper-progress>
   <paper-progress id="progress-reg" class="transiting" value="0"></paper-progress>
   <paper-progress id="progress-reg-optional" class="transiting" value="0"></paper-progress>
+
 	<!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 -->
 	<!--  Google login disabled indefinetly, can enable again later
   <event-login-pw on-sign-in="signIn2" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-pw>
   <event-login-google on-sign-in="signIn" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-google> -->
+
  <event-login-pw on-sign-in="signIn2" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-pw>
 
   <!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#17 -->
