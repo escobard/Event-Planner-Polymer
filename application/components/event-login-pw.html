@@ -91,7 +91,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         text-align: center;
       }
       paper-dialog {
-      min-width: 700px;
+      width: 700px;
       }
       label.style-scope.event-login-pw {
           margin-top: 10px;
@@ -131,11 +131,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       #regSecondPass {
           margin: 0 0 1% 1%;
       }
+      fieldset.checkboxes {
+          display: block;
+          width: 46%;
+          float: left;
+      }
     </style>
 
     <paper-button id="signInPw" raised onclick="logIn.open()">Click here to begin</paper-button>
     <paper-dialog id="logIn" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-      <h1>Login to your account</h1>
+      <h1>Login to your Account</h1>
       <form is="iron-form" id="loginForm">
         <fieldset>
           <gold-email-input
@@ -166,13 +171,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </paper-input>
         </fieldset>
         <paper-button on-tap="signIn2" id="login">Click here to Login</paper-button>
-        <p id="signInRegistration">Don't have an account? <span id="accountReg" onclick="registrationForm.open()">Click here to register</span></p>
+        <p id="signInRegistration">Don't have an Account? <span id="accountReg" onclick="registrationForm.open()">Click here to register</span></p>
       </form>
     </paper-dialog>
     <paper-dialog id="registrationForm" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
       <form is="iron-form" id="regForm">
         <fieldset>
-         <h1>Register your user account by adding the following information</h1>
+         <h1>Register your Account</h1>
          <paper-input 
           type="text" 
           id="regUserName"
@@ -226,7 +231,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           error-message="Make sure both passwords match"
           char-counter>
           </paper-input>
-         <label>Make sure your password fits all requirements:</label>
+          <h3>Make sure your password fits all requirements:</h3>
+          </fieldset>
+
+        <fieldset class="checkboxes">
+         
          <paper-checkbox
             id="passwordLower"
             invalid
@@ -245,6 +254,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             disabled>
             Must contain one number
            </paper-checkbox>
+          </fieldset>
+          <fieldset class="checkboxes">
            <paper-checkbox
             id="passwordSymbol"
             invalid
