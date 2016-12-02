@@ -84,6 +84,7 @@
        type="text" 
        id="event-title" 
        label="What's your event called?" 
+       name="eventtitle"
        required
        minlength="3"
        auto-validate
@@ -95,6 +96,7 @@
       <paper-input
        type="text" 
        id="event-subtitle" 
+       name="eventsubtitle"
        label="Enter an event subtitle (optional)" 
        placeholder="{{subtitle}}" 
        bind-value="{{subtitle}}">
@@ -102,9 +104,11 @@
       <paper-input
        type="text"
        id="event-type" 
+       name="eventtype"
        required
        list="eventtypes"
        auto-validate
+       min-length="3"
        pattern="[a-zA-Z\s*]*"
        error-message="Select an event type or enter an event type that can only contain letters and spaces"
        label="Select your event type" 
@@ -121,14 +125,24 @@
       <paper-input
        type="datetime-local" 
        id="event-start" 
+       name="eventstart"
        label="When is your event starting?" 
+       required
+       auto-validate
+       pattern="^(([0]?[1-9]|1[0-2])/([0-2]?[0-9]|3[0-1])/[1-2]\d{3}) (20|21|22|23|[0-1]?\d{1}):([0-5]?\d{1})$"
+       error-message="Please enter a valid date and time"
        placeholder="{{startdate}}" 
        bind-value="{{startdate}}">
       </paper-input>
       <paper-input
        type="datetime-local"
        id="event-end" 
+       name="eventend"
        label="When is your event ending?" 
+       required
+       auto-validate
+       pattern="^(([0]?[1-9]|1[0-2])/([0-2]?[0-9]|3[0-1])/[1-2]\d{3}) (20|21|22|23|[0-1]?\d{1}):([0-5]?\d{1})$"
+       error-message="Please enter a valid date and time"
        placeholder="{{enddate}}" 
        bind-value="{{enddate}}">
       </paper-input>
