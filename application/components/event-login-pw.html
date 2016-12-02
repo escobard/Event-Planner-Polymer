@@ -191,7 +191,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           label="Please enter your email" 
           required 
           autocomplete="email" 
-          aria-disabled="false" 
           bind-value="{[useremail]}" 
           auto-validate 
           error-message="Please enter a valid Email Address">
@@ -215,13 +214,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type="password" 
           id="regSecondPass" 
           class="regPasswords"
-          name="password-confirm" 
           label="Please confirm your password" 
           required 
+          value="{{passconfirmvalue}}"
+          on-input="passconfirmchange"
+          pattern="[[passconfirmvalidate]]"
           autocomplete="password" 
-          aria-disabled="false" 
-          validator=""
-          error-message="Make sure both passwords match"
+          auto-validate
+          error-message="Make sure both passwords match, and all other requirements are met"
           char-counter>
           </paper-input>
          <label>Make sure your password fits all requirements:</label>
@@ -250,7 +250,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             disabled>
             Must contain at least 8 characters
            </paper-checkbox>
-          
+           <paper-checkbox
+            id="passwordConfirmed"
+            disabled>
+            Make sure both passwords are the same
+           </paper-checkbox>
         </fieldset>
         <fieldset>
           <paper-checkbox id="personalInfo"><h2>Check to enter personal information (optional)</h2></paper-checkbox>
@@ -579,6 +583,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
         passvalue: String,
         passvalidate: String,
+        passconfirm: String,
+        passconfirmvalidate: String,
         valueState: {
           type: Object,
           value: {
@@ -597,17 +603,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.regPassword.validate();
         this.$.loginPassword.validate();
       },
+      passconfirmchange: function (){
+        this.valueState.passconfirmvalue = this.passConfirmValidation();
+        this.passconfirmvalidate = this.passconfirmvalue;
+        this.$.regSecondPass.validate();
+      },
       passValidation: function (){
         var value = this.$.regPassword.value || this.$.loginPassword.value;
+        var passconfirmValue = this.$.regSecondPass.value;
           this.$.passwordMin.checked = value.length >= 8;
           this.$.passwordLower.checked = /[a-z]/.test(value);
           this.$.passwordUpper.checked = /[A-Z]/.test(value);
           this.$.passwordNumber.checked = /[0-9]/.test(value);
           this.$.passwordSymbol.checked = /[\+\=\&\^\%\$\#\@\!]/.test(value);
+          this.$.passwordConfirmed.checked = value === passconfirmValue;
           return this.$.passwordMin.checked && this.$.passwordLower.checked &&
             this.$.passwordUpper.checked && this.$.passwordNumber.checked &&
-            this.$.passwordNumber.checked && this.$.passwordSymbol.checked;
+            this.$.passwordNumber.checked && this.$.passwordSymbol.checked && this.$.passwordConfirmed.checked;
         },
+      passConfirmValidation: function(){
+        this.$.regPassword.value === this.$.regSecondPass.validate();
+      }
     });
   </script>
 
