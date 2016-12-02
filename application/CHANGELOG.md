@@ -2,9 +2,9 @@
 
 v0.8
 - added registration form javascript logic
-- prototype to add more CSS fixes
+- added some more CSS fixes
 - finalized password validation, and registration validation
-- prototype to finalize event validation
+- finalized event inputs and validation
 - finalized progress bar logic for login / registration
 
 v0.7

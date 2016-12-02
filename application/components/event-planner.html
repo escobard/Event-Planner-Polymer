@@ -150,17 +150,18 @@
        type="text"
        onFocus="geolocate" 
        id="geo-address" 
+       name="eventaddress"
        minlength="10"
        required
        auto-validate
        error-message="Please enter a valid address"
-       pattern="\s*+[a-zA-Z0-9,]*"
        label="Where will your event take place?" 
        placeholder="{{location}}" 
        bind-value="{{location}}">
       </paper-input>
       <paper-input
        type="text-area" 
+       name="guestmessage"
        id="event-guest-message" 
        label="Enter a message for your guests (optional)" 
        placeholder="{{guestmessage}}" 
@@ -168,6 +169,7 @@
       </paper-input>
       <paper-input
        type="text" 
+       name="guestlist"
        id="event-guest-list" 
        label="Enter your guest names (optional)" 
        placeholder="{{guestlist}}" 
