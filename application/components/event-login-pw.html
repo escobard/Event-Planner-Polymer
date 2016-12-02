@@ -280,7 +280,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var soButton = document.getElementById("signout");
     var cButton = document.getElementById("ccheck");
     var lFormButton = document.getElementById("signInPw");
-    var lFormRegButton = document.getElementById("accountReg")
+    var lFormRegButton = document.getElementById("accountReg");
+    var pInfo = document.querySelector('#personalInfo');
 
     // handles login form values
     var rName = document.querySelector('#regUserName input');
@@ -293,7 +294,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     // container elements
     var loginContainer = document.querySelector('#logIn');
-    var pInfo = document.querySelector('#personalInfo');
+    var regContainer = document.querySelector('#registrationForm');
     var pInfoContainer = document.querySelector('#personalInfoContainer');
 
     // these must be globalyl defined otherwise they will not authorize
@@ -310,20 +311,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var regProgressBar = document.querySelector('#progress-reg');
     var regProgressBarOpt = document.querySelector('#progress-reg-optional');
 
-
-    // JavaScript code for the different address field activation and associated functions
-    function checkboxActivate(checkButton, checkContainer) {
-      checkButton.addEventListener('change', function () {
-        if (this.active) {
-          checkContainer.classList.add("active");
-        } 
-        else {
-          checkContainer.classList.remove("active");
-        }
-      })
-    }; 
-
-    pCheckbox = new checkboxActivate(pInfo, pInfoContainer);
     // login form inputs
     var inputs = [
       {
@@ -408,21 +395,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });
 
     // adds logic for progress bar display
-    function ProgressCheck(button, container, aProgress, sButton, sProgress) {
+    function ProgressCheck(button, container, aProgress, sProgress) {
       button.addEventListener("click", function(){
         container.classList.add('active');
         aProgress.classList.add('active');
+        sProgress.classList.remove('active')
       });
-      sButton.addEventListener("click", function(){
-        container.classList.remove('active');
-        aProgress.classList.remove('active');
-        sProgress.classList.add('active');
-      })
     };
 
     // ProgressCheck objects
-    
-    loginProgressCheck = new ProgressCheck(lFormButton,loginContainer,loginProgressBar,lFormRegButton,regProgressBar);
+    logProgressCheck = new ProgressCheck(lFormButton,loginContainer,loginProgressBar,regProgressBar);
+    regProgressCheck = new ProgressCheck(lFormRegButton,regContainer,regProgressBar,loginProgressBar);
+
+    //    optRegProgressCheck = new ProgressCheck(pInfo, pInfoContainer, regProgressBar, pInfo, regProgressBarOpt);
+
+        // checks if checkbox is checked then activates container
+    function checkboxActivate(checkButton, checkContainer) {
+      checkButton.addEventListener('change', function () {
+        if (this.active) {
+          checkContainer.classList.add("active");
+        } 
+        else {
+          checkContainer.classList.remove("active");
+        }
+      })
+    }; 
+
+    pCheckbox = new checkboxActivate(pInfo, pInfoContainer);
+
     /* check and logout button commented out until needed
     soButton.addEventListener("click", function(){
     firebase.auth().signOut().then(function() {
