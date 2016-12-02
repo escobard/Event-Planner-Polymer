@@ -406,14 +406,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // ProgressCheck objects
     logProgressCheck = new ProgressCheck(lFormButton,loginContainer,loginProgressBar,regProgressBar);
     regProgressCheck = new ProgressCheck(lFormRegButton,regContainer,regProgressBar,loginProgressBar);
+    regProgressCheckOpt = new ProgressCheck(pInfo,pInfoContainer,regProgressBarOpt,regProgressBar);
 
-    //    optRegProgressCheck = new ProgressCheck(pInfo, pInfoContainer, regProgressBar, pInfo, regProgressBarOpt);
-
-        // checks if checkbox is checked then activates container
+    // checks if checkbox is checked then activates container
     function checkboxActivate(checkButton, checkContainer) {
       checkButton.addEventListener('change', function () {
         if (this.active) {
           checkContainer.classList.add("active");
+
         } 
         else {
           checkContainer.classList.remove("active");
@@ -421,6 +421,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       })
     }; 
 
+    // checkboxActivate objects
     pCheckbox = new checkboxActivate(pInfo, pInfoContainer);
 
     /* check and logout button commented out until needed
