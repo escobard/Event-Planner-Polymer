@@ -85,10 +85,10 @@
        id="event-title" 
        label="What's your event called?" 
        required
-       minlength="2"
+       minlength="3"
        auto-validate
-       pattern="\s*[a-zA-Z0-9]*"
-       error-message="Event name can only contain alphanumerical characters and a single space"
+       pattern="[a-zA-Z0-9\s*]*"
+       error-message="Must be longer than 3 characters, be alphanumerical and spaces"
        placeholder="{{title}}" 
        bind-value="{{title}}">
       </paper-input>
@@ -105,8 +105,8 @@
        required
        list="eventtypes"
        auto-validate
-       pattern="[a-zA-Z]*"
-       error-message="Select an event type or enter an event type that can only contain letters"
+       pattern="[a-zA-Z\s*]*"
+       error-message="Select an event type or enter an event type that can only contain letters and spaces"
        label="Select your event type" 
        placeholder="{{event-type}}" 
        bind-value="{{event-type}}">
