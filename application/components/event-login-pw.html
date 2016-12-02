@@ -613,7 +613,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var value = this.$.regPassword.value || this.$.loginPassword.value;
         var passconfirmValue = this.$.regSecondPass.value;
         var passwordsMatch = value === passconfirmValue;
-        return passwordsMatch;
+        this.$.passwordConfirmed.checked = value === passconfirmValue;
+        return passwordsMatch && this.$.passwordConfirmed.checked;
       },
       passValidation: function (){
         var value = this.$.regPassword.value || this.$.loginPassword.value;
@@ -623,10 +624,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.$.passwordUpper.checked = /[A-Z]/.test(value);
           this.$.passwordNumber.checked = /[0-9]/.test(value);
           this.$.passwordSymbol.checked = /[\+\=\&\^\%\$\#\@\!]/.test(value);
-          this.$.passwordConfirmed.checked = value === passconfirmValue;
           return this.$.passwordMin.checked && this.$.passwordLower.checked &&
             this.$.passwordUpper.checked && this.$.passwordNumber.checked &&
-            this.$.passwordNumber.checked && this.$.passwordSymbol.checked && this.$.passwordConfirmed.checked;
+            this.$.passwordNumber.checked && this.$.passwordSymbol.checked;
         }
     });
   </script>
