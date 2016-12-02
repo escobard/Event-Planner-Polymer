@@ -618,19 +618,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       passValidation: function (){
         var value = this.$.regPassword.value || this.$.loginPassword.value;
-        passMin = this.$.passwordMin.checked = value.length >= 8;
-        passLow = this.$.passwordLower.checked = /[a-z]/.test(value);
-        passUpp = this.$.passwordUpper.checked = /[A-Z]/.test(value);
-        passNum = this.$.passwordNumber.checked = /[0-9]/.test(value);
-        passSym = this.$.passwordSymbol.checked = /[\+\=\&\^\%\$\#\@\!]/.test(value);
+        var passMin = this.$.passwordMin.checked = value.length >= 8;
+        var passLow = this.$.passwordLower.checked = /[a-z]/.test(value);
+        var passUpp = this.$.passwordUpper.checked = /[A-Z]/.test(value);
+        var passNum = this.$.passwordNumber.checked = /[0-9]/.test(value);
+        var passSym = this.$.passwordSymbol.checked = /[\+\=\&\^\%\$\#\@\!]/.test(value);
           return passMin && passLow && passUpp && passNum && passSym;
         },
       passConfirmValidation: function (){
         var value = this.$.regPassword.value || this.$.loginPassword.value;
         var passconfirmValue = this.$.regSecondPass.value;
         var passwordsMatch = value === passconfirmValue;
-        this.$.passwordConfirmed.checked = value === passconfirmValue;
-        return passwordsMatch && this.$.passwordConfirmed.checked;
+        var passCon = this.$.passwordConfirmed.checked = value === passconfirmValue;
+        return passwordsMatch && passCon;
       }
     });
   </script>
