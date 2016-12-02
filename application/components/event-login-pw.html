@@ -105,13 +105,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           display: block !important;
           float: none;
       }
-      p#signInRegistration {
-    text-align: center;
+      #signInRegistration {
+          text-align: center;
       }
 
-      p#signInRegistration span {
+      #signInRegistration span {
           color: #039be5;
           cursor: pointer;
+      }
+      #personalInfoContainer {
+          display: none;
+      }
+      #personalInfoContainer.active {
+          display: block;
+      }
+      paper-checkbox#personalInfo {
+          margin: 10px 0;
       }
     </style>
 
@@ -230,11 +239,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           error-message="Make sure both passwords match"
           char-counter>
           </paper-input>
+          <paper-checkbox id="personalInfo"><h2>Check to enter personal information (optional)</h2></paper-checkbox>
         </fieldset>
-        <paper-checkbox id="personalInfo">Would you like to enter personal information?</paper-checkbox>
-
+        
         <fieldset id="personalInfoContainer">
-          <h2>Enter your personal information (optional)</h2>
           <paper-input id="reg-occupation" name="name" label="What's your occupation?" autocomplete="organization-title" aria-disabled="false" autovalidate></paper-input>
           <paper-input id="reg-birthday" type="text" label="When were you born?" autocomplete="bday"></paper-input>
           <paper-input id="reg-appuse" type="text" label="How will you be using this application?" ></paper-input>
