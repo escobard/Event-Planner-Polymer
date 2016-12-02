@@ -214,14 +214,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type="password" 
           id="regSecondPass" 
           class="regPasswords"
+          name="password-confirm" 
           label="Please confirm your password" 
           required 
-          value="{{passconfirmvalue}}"
-          on-input="passconfirmchange"
-          pattern="[[passconfirmvalidate]]"
           autocomplete="password" 
+          value="{{passconfirmValue}}"
+          on-input="passconfirmchange"
+          pattern="[[passconfirm]]"
           auto-validate
-          error-message="Make sure both passwords match, and all other requirements are met"
+          error-message="Make sure both passwords match"
           char-counter>
           </paper-input>
          <label>Make sure your password fits all requirements:</label>
@@ -584,7 +585,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         passvalue: String,
         passvalidate: String,
         passconfirm: String,
-        passconfirmvalidate: String,
+        passconfirmvalue: String,
         valueState: {
           type: Object,
           value: {
@@ -600,13 +601,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       passchange: function (){
         this.valueState.passvalue = this.passValidation();
         this.passvalidate = this.valueState.passvalue ? this.passvalue : '';
+        this.passconfirm = this.passvalue;
         this.$.regPassword.validate();
         this.$.loginPassword.validate();
       },
-      passconfirmchange: function (){
+      passconfirmchange: function(){
         this.valueState.passconfirmvalue = this.passConfirmValidation();
-        this.passconfirmvalidate = this.passconfirmvalue;
         this.$.regSecondPass.validate();
+      },
+      passConfirmValidation: function (){
+        var value = this.$.regPassword.value || this.$.loginPassword.value;
+        var passconfirmValue = this.$.regSecondPass.value;
+        var passwordsMatch = value === passconfirmValue;
+        return passwordsMatch;
       },
       passValidation: function (){
         var value = this.$.regPassword.value || this.$.loginPassword.value;
@@ -620,10 +627,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           return this.$.passwordMin.checked && this.$.passwordLower.checked &&
             this.$.passwordUpper.checked && this.$.passwordNumber.checked &&
             this.$.passwordNumber.checked && this.$.passwordSymbol.checked && this.$.passwordConfirmed.checked;
-        },
-      passConfirmValidation: function(){
-        this.$.regPassword.value === this.$.regSecondPass.validate();
-      }
+        }
     });
   </script>
 
