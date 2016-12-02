@@ -148,7 +148,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </paper-input>
         </fieldset>
         <paper-button on-tap="signIn2" id="login">Click here to Login</paper-button>
-        <p id="signInRegistration">Don't have an account? <span onclick="registrationForm.open()">Click here to register</span></p>
+        <p id="signInRegistration">Don't have an account? <span id="accountReg" onclick="registrationForm.open()">Click here to register</span></p>
       </form>
     </paper-dialog>
     <paper-dialog id="registrationForm" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
@@ -271,6 +271,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var soButton = document.getElementById("signout");
     var cButton = document.getElementById("ccheck");
     var lFormButton = document.getElementById("signInPw");
+    var lFormRegButton = document.getElementById("accountReg")
 
     // handles login form values
     var rName = document.querySelector('#regUserName input');
@@ -382,17 +383,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });
 
     // adds logic for progress bar display
-    function ProgressCheck(button, container, aProgress, dProgress) {
+    function ProgressCheck(button, container, aProgress, sButton, sProgress) {
       button.addEventListener("click", function(){
         container.classList.add('active');
         aProgress.classList.add('active');
-        dProgress.classList.add('disabled');
       });
+      sButton.addEventListener("click", function(){
+        container.classList.remove('active');
+        aProgress.classList.remove('active');
+        sProgress.classList.add('active');
+      })
     };
 
     // ProgressCheck objects
     
-    loginProgressCheck = new ProgressCheck(lFormButton,loginContainer,loginProgressBar,regProgressBar);
+    loginProgressCheck = new ProgressCheck(lFormButton,loginContainer,loginProgressBar,lFormRegButton,regProgressBar);
     /* check and logout button commented out until needed
     soButton.addEventListener("click", function(){
     firebase.auth().signOut().then(function() {
