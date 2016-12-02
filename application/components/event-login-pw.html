@@ -18,7 +18,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="bower_components/iron-form/iron-form.html">
 <link rel="import" href="bower_components/iron-label/iron-label.html">
 <link rel="import" href="bower_components/iron-icons/iron-icons.html">
-
 <link rel="import" href="bower_components/paper-input/paper-input.html">
 <link rel="import" href="bower_components/paper-button/paper-button.html">
 <link rel="import" href="bower_components/paper-card/paper-card.html">
@@ -232,7 +231,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           char-counter>
           </paper-input>
         </fieldset>
-        <fieldset id="diff-address-container">
+        <paper-checkbox id="personalInfo">Would you like to enter personal information?</paper-checkbox>
+
+        <fieldset id="personalInfoContainer">
           <h2>Enter your personal information (optional)</h2>
           <paper-input id="reg-occupation" name="name" label="What's your occupation?" autocomplete="organization-title" aria-disabled="false" autovalidate></paper-input>
           <paper-input id="reg-birthday" type="text" label="When were you born?" autocomplete="bday"></paper-input>
@@ -284,6 +285,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     // container elements
     var loginContainer = document.querySelector('#logIn');
+    var pInfo = document.querySelector('#personalInfo');
+    var pInfoContainer = document.querySelector('#personalInfoContainer');
 
     // these must be globalyl defined otherwise they will not authorize
     var email = rEmail;
@@ -299,6 +302,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var regProgressBar = document.querySelector('#progress-reg');
     var regProgressBarOpt = document.querySelector('#progress-reg-optional');
 
+
+    // JavaScript code for the different address field activation and associated functions
+    function checkboxActivate(checkButton, checkContainer) {
+      checkButton.addEventListener('change', function () {
+        if (this.active) {
+          checkContainer.classList.add("active");
+        } 
+        else {
+          checkContainer.classList.remove("active");
+        }
+      })
+    }; 
+
+    pCheckbox = new checkboxActivate(pInfo, pInfoContainer);
     // login form inputs
     var inputs = [
       {
