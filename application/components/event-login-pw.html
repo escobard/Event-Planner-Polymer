@@ -153,7 +153,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
              type="password" 
              id="loginPassword" 
              label="Please enter your password" 
-             required 
+             required
+             name="loginpass"
              auto-validate
              value="{{passvalue}}"
              on-input="passchange"
@@ -183,7 +184,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           pattern="[a-zA-Z]*\s*[a-zA-Z]*"
           minlength="2"
           auto-validate
-          error-message="Please enter your name correctly - Only letters and spaces allowed">
+          error-message="Please enter your name correctly - Only letters and a single space allowed">
          </paper-input>
          <gold-email-input
           id="regEmail"
@@ -228,31 +229,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          <label>Make sure your password fits all requirements:</label>
          <paper-checkbox
             id="passwordLower"
+            invalid
             disabled>
             Must contain a lower case letter
            </paper-checkbox>
            <paper-checkbox
             id="passwordUpper"
+            invalid
             disabled>
             Must contain an upper case letter
            </paper-checkbox>
            <paper-checkbox
             id="passwordNumber"
+            invalid
             disabled>
             Must contain one number
            </paper-checkbox>
            <paper-checkbox
             id="passwordSymbol"
+            invalid
             disabled>
             Must contain at least one symbol
            </paper-checkbox>
            <paper-checkbox
             id="passwordMin"
+            invalid
             disabled>
             Must contain at least 8 characters
            </paper-checkbox>
            <paper-checkbox
             id="passwordConfirmed"
+            invalid
             disabled>
             Make sure both passwords are the same
            </paper-checkbox>
@@ -609,25 +616,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.valueState.passconfirmvalue = this.passConfirmValidation();
         this.$.regSecondPass.validate();
       },
+      passValidation: function (){
+        var value = this.$.regPassword.value || this.$.loginPassword.value;
+        passMin = this.$.passwordMin.checked = value.length >= 8;
+        passLow = this.$.passwordLower.checked = /[a-z]/.test(value);
+        passUpp = this.$.passwordUpper.checked = /[A-Z]/.test(value);
+        passNum = this.$.passwordNumber.checked = /[0-9]/.test(value);
+        passSym = this.$.passwordSymbol.checked = /[\+\=\&\^\%\$\#\@\!]/.test(value);
+          return passMin && passLow && passUpp && passNum && passSym;
+        },
       passConfirmValidation: function (){
         var value = this.$.regPassword.value || this.$.loginPassword.value;
         var passconfirmValue = this.$.regSecondPass.value;
         var passwordsMatch = value === passconfirmValue;
         this.$.passwordConfirmed.checked = value === passconfirmValue;
         return passwordsMatch && this.$.passwordConfirmed.checked;
-      },
-      passValidation: function (){
-        var value = this.$.regPassword.value || this.$.loginPassword.value;
-        var passconfirmValue = this.$.regSecondPass.value;
-          this.$.passwordMin.checked = value.length >= 8;
-          this.$.passwordLower.checked = /[a-z]/.test(value);
-          this.$.passwordUpper.checked = /[A-Z]/.test(value);
-          this.$.passwordNumber.checked = /[0-9]/.test(value);
-          this.$.passwordSymbol.checked = /[\+\=\&\^\%\$\#\@\!]/.test(value);
-          return this.$.passwordMin.checked && this.$.passwordLower.checked &&
-            this.$.passwordUpper.checked && this.$.passwordNumber.checked &&
-            this.$.passwordNumber.checked && this.$.passwordSymbol.checked;
-        }
+      }
     });
   </script>
 
