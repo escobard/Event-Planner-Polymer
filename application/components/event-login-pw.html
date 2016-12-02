@@ -18,7 +18,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="bower_components/iron-form/iron-form.html">
 <link rel="import" href="bower_components/iron-label/iron-label.html">
 <link rel="import" href="bower_components/iron-icons/iron-icons.html">
-
 <link rel="import" href="bower_components/paper-input/paper-input.html">
 <link rel="import" href="bower_components/paper-button/paper-button.html">
 <link rel="import" href="bower_components/paper-card/paper-card.html">
@@ -92,7 +91,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         text-align: center;
       }
       paper-dialog {
-      min-width: 700px;
+      width: 700px;
       }
       label.style-scope.event-login-pw {
           margin-top: 10px;
@@ -106,24 +105,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           display: block !important;
           float: none;
       }
-      p#signInRegistration {
-    text-align: center;
+      #signInRegistration {
+          text-align: center;
       }
 
-      p#signInRegistration span {
+      #signInRegistration span {
           color: #039be5;
           cursor: pointer;
       }
-    </style>
+      #personalInfoContainer {
+          display: none;
+      }
+      #personalInfoContainer.active {
+          display: block;
+      }
+      paper-checkbox#personalInfo {
+          margin: 10px 0;
+      }
+      .regPasswords {
+          width: 49%;
+          float: left;
+          margin: 0 1% 1% 0;
+      }
 
+      #regSecondPass {
+          margin: 0 0 1% 1%;
+      }
+      fieldset.checkboxes {
+          display: block;
+          width: 46%;
+          float: left;
+      }
+      #signInPw {
+          font-size: 18px;
+          padding: 0.5% 1.5%;
+      }
+    </style>
     <paper-button id="signInPw" raised onclick="logIn.open()">Click here to begin</paper-button>
     <paper-dialog id="logIn" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-      <h1>Login to your account</h1>
+      <h1>Login to your Account</h1>
       <form is="iron-form" id="loginForm">
         <fieldset>
           <gold-email-input
               id="loginEmail"
-              name="email"
+              name="loginemail"
               label="Please enter your email" 
               required 
               autocomplete="email" 
@@ -136,7 +161,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
              type="password" 
              id="loginPassword" 
              label="Please enter your password" 
-             required 
+             required
+             name="loginpass"
              auto-validate
              value="{{passvalue}}"
              on-input="passchange"
@@ -148,25 +174,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </paper-input>
         </fieldset>
         <paper-button on-tap="signIn2" id="login">Click here to Login</paper-button>
-        <p id="signInRegistration">Don't have an account? <span onclick="registrationForm.open()">Click here to register</span></p>
+        <p id="signInRegistration">Don't have an Account? <span id="accountReg" onclick="registrationForm.open()">Click here to register</span></p>
       </form>
     </paper-dialog>
     <paper-dialog id="registrationForm" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
       <form is="iron-form" id="regForm">
         <fieldset>
-         <h1>Register your user account by adding the following information</h1>
+         <h1>Register your Account</h1>
          <paper-input 
           type="text" 
           id="regUserName"
-          name="name" 
+          name="nickname" 
           label="What would you like your nickname to be?"
-          autocomplete="name"
+          autocomplete="nickname"
           autofocus 
           required 
           pattern="[a-zA-Z]*\s*[a-zA-Z]*"
           minlength="2"
           auto-validate
-          error-message="Please enter your name correctly - Only letters and spaces allowed">
+          error-message="Please enter your name correctly - Only letters and a single space allowed">
          </paper-input>
          <gold-email-input
           id="regEmail"
@@ -174,7 +200,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           label="Please enter your email" 
           required 
           autocomplete="email" 
-          aria-disabled="false" 
           bind-value="{[useremail]}" 
           auto-validate 
           error-message="Please enter a valid Email Address">
@@ -182,6 +207,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          <paper-input 
          type="password" 
          id="regPassword" 
+         class="regPasswords"
          label="Please enter your password" 
          required 
          value="{{passvalue}}"
@@ -193,52 +219,108 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          error-message="Please enter a password matching the requirements"
          char-counter>
          </paper-input>
-         <label>Make sure your password fits all requirements:</label>
-         <paper-checkbox
+         <paper-input 
+          type="password" 
+          id="regSecondPass" 
+          class="regPasswords"
+          name="password-confirm" 
+          label="Please confirm your password" 
+          required 
+          autocomplete="password" 
+          value="{{passconfirmValue}}"
+          on-input="passconfirmchange"
+          pattern="[[passconfirm]]"
+          auto-validate
+          error-message="Make sure both passwords match"
+          char-counter>
+          </paper-input>
+          <h3>Make sure your password fits all requirements:</h3>
+        </fieldset>
+        <fieldset class="checkboxes">
+           <paper-checkbox
             id="passwordLower"
+            invalid
             disabled>
             Must contain a lower case letter
            </paper-checkbox>
            <paper-checkbox
             id="passwordUpper"
+            invalid
             disabled>
             Must contain an upper case letter
            </paper-checkbox>
            <paper-checkbox
             id="passwordNumber"
+            invalid
             disabled>
             Must contain one number
            </paper-checkbox>
-           <paper-checkbox
+        </fieldset>
+        <fieldset class="checkboxes">
+          <paper-checkbox
             id="passwordSymbol"
+            invalid
             disabled>
             Must contain at least one symbol
-           </paper-checkbox>
-           <paper-checkbox
+          </paper-checkbox>
+          <paper-checkbox
             id="passwordMin"
+            invalid
             disabled>
             Must contain at least 8 characters
-           </paper-checkbox>
-          <paper-input 
-          type="password" 
-          id="regSecondPass" 
-          name="password-confirm" 
-          label="Please confirm your password" 
-          required 
-          autocomplete="password" 
-          aria-disabled="false" 
-          validator=""
-          error-message="Make sure both passwords match"
-          char-counter>
-          </paper-input>
+          </paper-checkbox>
+          <paper-checkbox
+            id="passwordConfirmed"
+            invalid
+            disabled>
+            Make sure both passwords are the same
+          </paper-checkbox>
         </fieldset>
-        <fieldset id="diff-address-container">
-          <h2>Enter your personal information (optional)</h2>
-          <paper-input id="reg-occupation" name="name" label="What's your occupation?" autocomplete="organization-title" aria-disabled="false" autovalidate></paper-input>
-          <paper-input id="reg-birthday" type="text" label="When were you born?" autocomplete="bday"></paper-input>
-          <paper-input id="reg-appuse" type="text" label="How will you be using this application?" ></paper-input>
+        <fieldset>
+          <paper-checkbox id="personalInfo">
+            <h2>Check to enter personal information (optional)</h2>
+          </paper-checkbox>
+        </fieldset>
+        <fieldset id="personalInfoContainer">
+          <paper-input
+           id="reg-occupation" 
+           name="occupation" 
+           label="What's your occupation?" 
+           autocomplete="organization-title">
+          </paper-input>
+          <paper-input 
+           name="birthday"
+           id="reg-birthday" 
+           type="date" 
+           label="When were you born?" 
+           autocomplete="bday">
+          </paper-input>
+          <paper-input 
+           name="appuse"
+           id="reg-appuse" 
+           type="text"
+           list="uses" 
+           label="How will you be using this application?">
+          </paper-input>
+          <datalist id="uses">
+            <option value="Confidential"></option>
+            <option value="Corporate"></option>
+            <option value="Educational"></option>
+            <option value="N/A"></option>
+            <option value="Other"></option>
+            <option value="Personal"></option>
+            <option value="Private Events"></option>
+            <option value="Recreation"></option>
+          </datalist>
           <!--Make this a text box -->
-          <paper-input id="diff-geo-address" onFocus="geolocate" type="text" label="What's your street address?" autocomplete="street-address"></paper-input>
+          <paper-input
+           name="streetaddress"
+           id="diff-geo-address" 
+           onFocus="geolocate" 
+           type="text" 
+           label="What's your street address?" 
+           autocomplete="street-address">
+          </paper-input>
         </fieldset>
         <paper-button on-tap="signIn2" id="register">Click here to create your account</paper-button>
     </form>
@@ -265,12 +347,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   ============================================================================*/
     // selects view elements
+    // logic button elements
     var rButton = document.getElementById("register");
     var lButton = document.getElementById("login");
     var soButton = document.getElementById("signout");
     var cButton = document.getElementById("ccheck");
+    var lFormButton = document.getElementById("signInPw");
+    var lFormRegButton = document.getElementById("accountReg");
+    var pInfo = document.querySelector('#personalInfo');
 
-    //handles login form values
+    // handles login form values
     var rName = document.querySelector('#regUserName input');
     var rEmail = document.querySelector('#regEmail input');
     var rPass = document.querySelector('#regPassword input');
@@ -278,6 +364,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var lPass = document.querySelector('#loginPassword input');
     var rPassError = document.querySelector('#regPassword paper-input-container .add-on-content');
     var rSecondPass = document.querySelector('#regSecondPass input');
+
+    // container elements
+    var loginContainer = document.querySelector('#logIn');
+    var regContainer = document.querySelector('#registrationForm');
+    var pInfoContainer = document.querySelector('#personalInfoContainer');
 
     // these must be globalyl defined otherwise they will not authorize
     var email = rEmail;
@@ -288,16 +379,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     //sets up login progress bar selector 
     var progressBar = document.querySelector('paper-progress');
 
-    //sets up progress bar for registration
-    var progressBarRegistration = document.querySelector('#progress-reg');
-
-    // updates progress bar for registration optional values
-    var progressBarRegistrationOpt = document.querySelector('#progress-reg-optional');
-
     // selectors for activation elements
     var loginProgressBar = document.querySelector('#progress-login');
-    var regProgressContainer = document.querySelector('#diff-address-container');
     var regProgressBar = document.querySelector('#progress-reg');
+    var regProgressBarOpt = document.querySelector('#progress-reg-optional');
 
     // login form inputs
     var inputs = [
@@ -356,11 +441,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // will be adding these as promises in the future
     // need to add each of these as a variable in each scope for these to work properly in EVENT LISTENERS
     // due to .value being assigned GLOBALLY and not being re-assigned once again within the function scope
-    
+    // should try refactoring this as an object later
     rButton.addEventListener("click",  function(){
       email = rEmail.value;
       password = rPass.value;
-      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+      .catch(function(error) {
        console.log(error.code);
        console.log(error.message);
     });
@@ -381,6 +467,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });
        
     });
+
+    // checks if checkbox is checked then activates container
+    function checkboxActivate(checkButton, checkContainer) {
+      checkButton.addEventListener('change', function () {
+        if (this.active) {
+          checkContainer.classList.add("active");
+        } 
+        else {
+          checkContainer.classList.remove("active");
+        }
+      })
+    }; 
+
+    // checkboxActivate objects
+    pCheckbox = new checkboxActivate(pInfo, pInfoContainer);
+
+    // adds logic for progress bar display
+    function ProgressCheck(button, container, aProgress, sProgress) {
+      button.addEventListener("click", function(){
+        container.classList.add('active');
+        aProgress.classList.add('active');
+        sProgress.classList.remove('active')
+      });
+    };
+
+    // ProgressCheck objects
+    logProgressCheck = new ProgressCheck(lFormButton,loginContainer,loginProgressBar,regProgressBar);
+    regProgressCheck = new ProgressCheck(lFormRegButton,regContainer,regProgressBar,loginProgressBar);
+    regProgressCheckOpt = new ProgressCheck(pInfo,regContainer,regProgressBarOpt,regProgressBar);
+
     /* check and logout button commented out until needed
     soButton.addEventListener("click", function(){
     firebase.auth().signOut().then(function() {
@@ -407,8 +523,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // Progress Bar
     // Set up the logic to change the progress bar
     // originally derived from the instructor notes on : https://classroom.udacity.com/nanodegrees/nd802/parts/8021345401/modules/555574864975460/lessons/5243991811/concepts/54564686870923
-
-
     // initiates the progress tracker function
 
     function ProgressTracker (inputs, progressBar) {
@@ -459,14 +573,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     };
 
+    // creates logic objects
     // login bar progress tracker
     var progressTracker = new ProgressTracker(inputs, progressBar);
 
     // registration progress tracker
-    var progressBarReg = new ProgressTracker(inputsReg, progressBarRegistration);
+    var progressBarReg = new ProgressTracker(inputsReg, regProgressBar);
 
     // registration optional progress tracker
-    var progressBarReg = new ProgressTracker(inputsRegOpt, progressBarRegistrationOpt);
+    var progressBarRegOpt = new ProgressTracker(inputsRegOpt, regProgressBarOpt);
     // Registration form check (will have to be changed to fit both optional fields)
     // JavaScript code for the different address field activation and associated functions
     /* Need to fix this so that it shows up the reg bar and hides login bar when reg form active
@@ -524,6 +639,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
         passvalue: String,
         passvalidate: String,
+        passconfirm: String,
+        passconfirmvalue: String,
         valueState: {
           type: Object,
           value: {
@@ -539,20 +656,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       passchange: function (){
         this.valueState.passvalue = this.passValidation();
         this.passvalidate = this.valueState.passvalue ? this.passvalue : '';
+        this.passconfirm = this.passvalue;
         this.$.regPassword.validate();
         this.$.loginPassword.validate();
       },
+      passconfirmchange: function(){
+        this.valueState.passconfirmvalue = this.passConfirmValidation();
+        this.$.regSecondPass.validate();
+      },
       passValidation: function (){
         var value = this.$.regPassword.value || this.$.loginPassword.value;
-          this.$.passwordMin.checked = value.length >= 8;
-          this.$.passwordLower.checked = /[a-z]/.test(value);
-          this.$.passwordUpper.checked = /[A-Z]/.test(value);
-          this.$.passwordNumber.checked = /[0-9]/.test(value);
-          this.$.passwordSymbol.checked = /[\+\=\&\^\%\$\#\@\!]/.test(value);
-          return this.$.passwordMin.checked && this.$.passwordLower.checked &&
-            this.$.passwordUpper.checked && this.$.passwordNumber.checked &&
-            this.$.passwordNumber.checked && this.$.passwordSymbol.checked;
+        var passMin = this.$.passwordMin.checked = value.length >= 8;
+        var passLow = this.$.passwordLower.checked = /[a-z]/.test(value);
+        var passUpp = this.$.passwordUpper.checked = /[A-Z]/.test(value);
+        var passNum = this.$.passwordNumber.checked = /[0-9]/.test(value);
+        var passSym = this.$.passwordSymbol.checked = /[\+\=\&\^\%\$\#\@\!]/.test(value);
+          return passMin && passLow && passUpp && passNum && passSym;
         },
+      passConfirmValidation: function (){
+        var value = this.$.regPassword.value || this.$.loginPassword.value;
+        var passconfirmValue = this.$.regSecondPass.value;
+        var passwordsMatch = value === passconfirmValue;
+        var passCon = this.$.passwordConfirmed.checked = value === passconfirmValue;
+        return passwordsMatch && passCon;
+      }
     });
   </script>
 
