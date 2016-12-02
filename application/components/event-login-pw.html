@@ -250,9 +250,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             disabled>
             Must contain at least 8 characters
            </paper-checkbox>
+          
+        </fieldset>
+        <fieldset>
           <paper-checkbox id="personalInfo"><h2>Check to enter personal information (optional)</h2></paper-checkbox>
         </fieldset>
-        
         <fieldset id="personalInfoContainer">
           <paper-input id="reg-occupation" name="name" label="What's your occupation?" autocomplete="organization-title" aria-disabled="false" autovalidate></paper-input>
           <paper-input id="reg-birthday" type="text" label="When were you born?" autocomplete="bday"></paper-input>
@@ -411,7 +413,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       checkButton.addEventListener('change', function () {
         if (this.active) {
           checkContainer.classList.add("active");
-
         } 
         else {
           checkContainer.classList.remove("active");
@@ -435,8 +436,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     logProgressCheck = new ProgressCheck(lFormButton,loginContainer,loginProgressBar,regProgressBar);
     regProgressCheck = new ProgressCheck(lFormRegButton,regContainer,regProgressBar,loginProgressBar);
     regProgressCheckOpt = new ProgressCheck(pInfo,regContainer,regProgressBarOpt,regProgressBar);
-
-
 
     /* check and logout button commented out until needed
     soButton.addEventListener("click", function(){
