@@ -122,6 +122,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       paper-checkbox#personalInfo {
           margin: 10px 0;
       }
+      .regPasswords {
+          width: 49%;
+          float: left;
+          margin: 0 1% 1% 0;
+      }
+
+      #regSecondPass {
+          margin: 0 0 1% 1%;
+      }
     </style>
 
     <paper-button id="signInPw" raised onclick="logIn.open()">Click here to begin</paper-button>
@@ -190,6 +199,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          <paper-input 
          type="password" 
          id="regPassword" 
+         class="regPasswords"
          label="Please enter your password" 
          required 
          value="{{passvalue}}"
@@ -201,6 +211,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          error-message="Please enter a password matching the requirements"
          char-counter>
          </paper-input>
+         <paper-input 
+          type="password" 
+          id="regSecondPass" 
+          class="regPasswords"
+          name="password-confirm" 
+          label="Please confirm your password" 
+          required 
+          autocomplete="password" 
+          aria-disabled="false" 
+          validator=""
+          error-message="Make sure both passwords match"
+          char-counter>
+          </paper-input>
          <label>Make sure your password fits all requirements:</label>
          <paper-checkbox
             id="passwordLower"
@@ -227,18 +250,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             disabled>
             Must contain at least 8 characters
            </paper-checkbox>
-          <paper-input 
-          type="password" 
-          id="regSecondPass" 
-          name="password-confirm" 
-          label="Please confirm your password" 
-          required 
-          autocomplete="password" 
-          aria-disabled="false" 
-          validator=""
-          error-message="Make sure both passwords match"
-          char-counter>
-          </paper-input>
           <paper-checkbox id="personalInfo"><h2>Check to enter personal information (optional)</h2></paper-checkbox>
         </fieldset>
         
@@ -368,11 +379,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // will be adding these as promises in the future
     // need to add each of these as a variable in each scope for these to work properly in EVENT LISTENERS
     // due to .value being assigned GLOBALLY and not being re-assigned once again within the function scope
-    
+    // should try refactoring this as an object later
     rButton.addEventListener("click",  function(){
       email = rEmail.value;
       password = rPass.value;
-      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+      .catch(function(error) {
        console.log(error.code);
        console.log(error.message);
     });
@@ -394,20 +406,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        
     });
 
-    // adds logic for progress bar display
-    function ProgressCheck(button, container, aProgress, sProgress) {
-      button.addEventListener("click", function(){
-        container.classList.add('active');
-        aProgress.classList.add('active');
-        sProgress.classList.remove('active')
-      });
-    };
-
-    // ProgressCheck objects
-    logProgressCheck = new ProgressCheck(lFormButton,loginContainer,loginProgressBar,regProgressBar);
-    regProgressCheck = new ProgressCheck(lFormRegButton,regContainer,regProgressBar,loginProgressBar);
-    regProgressCheckOpt = new ProgressCheck(pInfo,pInfoContainer,regProgressBarOpt,regProgressBar);
-
     // checks if checkbox is checked then activates container
     function checkboxActivate(checkButton, checkContainer) {
       checkButton.addEventListener('change', function () {
@@ -423,6 +421,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     // checkboxActivate objects
     pCheckbox = new checkboxActivate(pInfo, pInfoContainer);
+
+    // adds logic for progress bar display
+    function ProgressCheck(button, container, aProgress, sProgress) {
+      button.addEventListener("click", function(){
+        container.classList.add('active');
+        aProgress.classList.add('active');
+        sProgress.classList.remove('active')
+      });
+    };
+
+    // ProgressCheck objects
+    logProgressCheck = new ProgressCheck(lFormButton,loginContainer,loginProgressBar,regProgressBar);
+    regProgressCheck = new ProgressCheck(lFormRegButton,regContainer,regProgressBar,loginProgressBar);
+    regProgressCheckOpt = new ProgressCheck(pInfo,regContainer,regProgressBarOpt,regProgressBar);
+
+
 
     /* check and logout button commented out until needed
     soButton.addEventListener("click", function(){
@@ -450,8 +464,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // Progress Bar
     // Set up the logic to change the progress bar
     // originally derived from the instructor notes on : https://classroom.udacity.com/nanodegrees/nd802/parts/8021345401/modules/555574864975460/lessons/5243991811/concepts/54564686870923
-
-
     // initiates the progress tracker function
 
     function ProgressTracker (inputs, progressBar) {
