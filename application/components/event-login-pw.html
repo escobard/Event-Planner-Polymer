@@ -283,14 +283,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            id="reg-occupation" 
            name="name" 
            label="What's your occupation?" 
-           autocomplete="organization-title" 
-           autovalidate></paper-input>
+           autocomplete="organization-title">
+          </paper-input>
           <paper-input 
-          id="reg-birthday" 
-          type="date" 
-          label="When were you born?" 
-          autocomplete="bday"></paper-input>
-          <paper-input id="reg-appuse" type="text" label="How will you be using this application?" ></paper-input>
+           id="reg-birthday" 
+           type="date" 
+           label="When were you born?" 
+           autocomplete="bday">
+          </paper-input>
+          <paper-input 
+           id="reg-appuse" 
+           type="text"
+           list="uses" 
+           label="How will you be using this application?">
+          </paper-input>
+          <datalist id="uses">
+            <option value="Confidential"></option>
+            <option value="Corporate"></option>
+            <option value="Educational"></option>
+            <option value="N/A"></option>
+            <option value="Other"></option>
+            <option value="Personal"></option>
+            <option value="Private Events"></option>
+            <option value="Recreation"></option>
+          </datalist>
           <!--Make this a text box -->
           <paper-input id="diff-geo-address" onFocus="geolocate" type="text" label="What's your street address?" autocomplete="street-address"></paper-input>
         </fieldset>
