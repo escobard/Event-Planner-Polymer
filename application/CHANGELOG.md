@@ -1,5 +1,10 @@
 ** Changelog for Event Planning Application
 
+v0.9
+- prototype to add final CSS styles
+- prototype to refactor JS into polymer framework
+- prototype to minimize files and test for production
+
 v0.8
 - added registration form javascript logic
 - added some more CSS fixes
