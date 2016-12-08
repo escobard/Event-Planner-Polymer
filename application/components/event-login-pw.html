@@ -691,6 +691,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             console.log('Passwords valid!');
             this.$.registerButton.classList.add('passValid');
             this.$.registerButton.removeAttribute('disabled');
+        } else{
+          this.$.registerButton.classList.remove('passValid');
+          this.$.registerButton.createAttribute('disabled');
         }
         return passwordsMatch && passCon;
       },
