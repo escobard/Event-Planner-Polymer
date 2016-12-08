@@ -12,6 +12,7 @@
         background-color: #fafafa;
         color: #212121;
         padding: 1em;
+        text-align: center;
         @apply(--paper-font-common-base);
         @apply(--shadow-elevation-2dp);
         border-radius: 2px;
@@ -37,12 +38,23 @@
         display: none;
       }
       h1 {
-        font-size: 1.15em;
+        font-size: 2em;
         margin: 0;
         white-space: pre-wrap;
       }
       h1:not(.hidden)+p {
         margin-top: 1em;
+      }
+      h1 span {
+        color: #4CAF50;
+      }
+      h2 {
+          font-style: italic;
+          font-weight: 400;
+      }
+      h2 span {
+         color: #3F51B5;
+         font-weight: bold;
       }
       p {
         margin: 0;
@@ -89,6 +101,25 @@
           margin: 0;
           padding: 0;
           border: 0;
+      }
+      .type {
+          font-weight: bold;
+          color: #FF9800;
+      }
+
+      .location {
+          color: #009688;
+          font-weight: bold;
+      }
+
+      .startdate {
+          font-weight: bold;
+          color: #03A9F4;
+      }
+
+      .endate {
+          font-weight: bold;
+          color: #3F51B5;
       }
     </style>
     <template is="dom-if" if="[[editable]]">
@@ -197,12 +228,10 @@
 
     <!--  if is not editable-->
     <template is="dom-if" if="[[!editable]]">
-      <h1 class$="[[emptyClass(title)]]">{{title}}</h1>
-      <h2 class$="[[emptyClass(host)]]">{{host}}</h2>
-      <p class$="[[emptyClass(eventtype)]]">{{eventtype}}</p>
-      <p class$="[[emptyClass(startdate)]]">{{startdate}}</p>
-      <p class$="[[emptyClass(enddate)]]">{{enddate}}</p>
-      <p class$="[[emptyClass(location)]]">{{location}}</p>
+      <h1 class$="[[emptyClass(title)]]"><span>{{title}}</span></h1>
+      <h2 class$="[[emptyClass(host)]]">Hosted by: <span>{{host}}</span></h2>
+      <p class$="[[emptyClass(eventtype)]]">This event is a <span class="type">{{eventtype}}</span>, located at <span class="location">{{location}}</span>, starting at <span class="startdate">{{startdate}}</span> and ending at <span class="endate">{{enddate}}</span></p>
+      <p class$="[[emptyClass(location)]]"></p>
     </template>
 
   </template>
