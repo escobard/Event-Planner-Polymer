@@ -664,6 +664,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.valueState.passconfirmvalue = this.passConfirmValidation();
         this.$.regSecondPass.validate();
       },
+
       passValidation: function (){
         var value = this.$.regPassword.value || this.$.loginPassword.value;
         var passMin = this.$.passwordMin.checked = value.length >= 8;
@@ -671,14 +672,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var passUpp = this.$.passwordUpper.checked = /[A-Z]/.test(value);
         var passNum = this.$.passwordNumber.checked = /[0-9]/.test(value);
         var passSym = this.$.passwordSymbol.checked = /[\+\=\&\^\%\$\#\@\!]/.test(value);
-          return passMin && passLow && passUpp && passNum && passSym;
+        return passMin && passLow && passUpp && passNum && passSym ;
         },
       passConfirmValidation: function (){
         var value = this.$.regPassword.value || this.$.loginPassword.value;
         var passconfirmValue = this.$.regSecondPass.value;
         var passwordsMatch = value === passconfirmValue;
-        var passCon = this.$.passwordConfirmed.checked = value === passconfirmValue;
+        var passCon = this.$.passwordConfirmed.checked = passwordsMatch;
+        if (passwordsMatch) {
+            console.log('Passwords valid!')
+        }
         return passwordsMatch && passCon;
+      },
+      loginValidation: function (){
+        if (this.$.loginPassword.value.isValid && this.$.loginEmail.value.isValid) {
+          console.log('Login credentials valid!')
+        } else {
+          console.log('Login credentials invalid!')
+        }
       }
     });
   </script>
