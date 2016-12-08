@@ -173,7 +173,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
              char-counter>
           </paper-input>
         </fieldset>
-        <paper-button on-tap="signIn2" id="login">Click here to Login</paper-button>
+        <paper-button on-tap="signIn2" id="loginButton">Click here to Login</paper-button>
         <p id="signInRegistration">Don't have an Account? <span id="accountReg" onclick="registrationForm.open()">Click here to register</span></p>
       </form>
     </paper-dialog>
@@ -322,7 +322,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            autocomplete="street-address">
           </paper-input>
         </fieldset>
-        <paper-button on-tap="signIn2" id="register">Click here to create your account</paper-button>
+        <paper-button on-tap="signIn2" id="register" disabled>Click here to create your account</paper-button>
     </form>
     <!-- field check and sign out buttons commented out until needed
      <ul>
@@ -349,7 +349,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // selects view elements
     // logic button elements
     var rButton = document.getElementById("register");
-    var lButton = document.getElementById("login");
+    var lButton = document.getElementById("loginButton");
     var soButton = document.getElementById("signout");
     var cButton = document.getElementById("ccheck");
     var lFormButton = document.getElementById("signInPw");
@@ -674,18 +674,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var passSym = this.$.passwordSymbol.checked = /[\+\=\&\^\%\$\#\@\!]/.test(value);
         return passMin && passLow && passUpp && passNum && passSym ;
         },
+
       passConfirmValidation: function (){
         var value = this.$.regPassword.value || this.$.loginPassword.value;
         var passconfirmValue = this.$.regSecondPass.value;
         var passwordsMatch = value === passconfirmValue;
         var passCon = this.$.passwordConfirmed.checked = passwordsMatch;
         if (passwordsMatch) {
-            console.log('Passwords valid!')
+            console.log('Passwords valid!');
+            this.$.register.classList.add('passValid');
+            this.$.register.removeAttribute('disabled');
         }
         return passwordsMatch && passCon;
       },
       loginValidation: function (){
-        if (this.$.loginPassword.value.isValid && this.$.loginEmail.value.isValid) {
+        if ($.loginPassword.value.isValid && $.loginEmail.value.isValid) {
           console.log('Login credentials valid!')
         } else {
           console.log('Login credentials invalid!')
