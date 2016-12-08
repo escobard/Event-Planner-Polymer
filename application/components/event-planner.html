@@ -97,9 +97,9 @@
        type="text" 
        id="event-subtitle" 
        name="eventsubtitle"
-       label="Enter an event subtitle (optional)" 
-       placeholder="{{subtitle}}" 
-       bind-value="{{subtitle}}">
+       label="Enter the host's name (optional)" 
+       placeholder="{{host}}" 
+       bind-value="{{host}}">
       </paper-input>
       <paper-input
        type="text"
@@ -112,8 +112,8 @@
        pattern="[a-zA-Z\s*]*"
        error-message="Select an event type or enter an event type that can only contain letters and spaces"
        label="Select your event type" 
-       placeholder="{{event-type}}" 
-       bind-value="{{event-type}}">
+       placeholder="{{eventtype}}" 
+       bind-value="{{eventtype}}">
       </paper-input>
       <datalist id="eventtypes">
         <option value="Birthday"></option>
@@ -179,12 +179,12 @@
 
     <!--  if is not editable-->
     <template is="dom-if" if="[[!editable]]">
-      <h1 class$="[[emptyClass(title)]]">[[title]]</h1>
-      <h2 class$="[[emptyClass(host)]]">[[host]]</h2>
-      <p class$="[[emptyClass(eventtype)]]">[[eventtype]]</p>
-      <p class$="[[emptyClass(startdate)]]">[[startdate]]</p>
-      <p class$="[[emptyClass(enddate)]]">[[enddate]]</p>
-      <p class$="[[emptyClass(location)]]">[[location]]</p>
+      <h1 class$="[[emptyClass(title)]]">{{title}}</h1>
+      <h2 class$="[[emptyClass(host)]]">{{host}}</h2>
+      <p class$="[[emptyClass(eventtype)]]">{{eventtype}}</p>
+      <p class$="[[emptyClass(startdate)]]">{{startdate}}</p>
+      <p class$="[[emptyClass(enddate)]]">{{enddate}}</p>
+      <p class$="[[emptyClass(location)]]">{{location}}</p>
     </template>
 
   </template>
@@ -198,11 +198,6 @@
           value: false
         },
         title: {
-          type: String,
-          notify: true,
-          value: ''
-        },
-        body: {
           type: String,
           notify: true,
           value: ''
@@ -228,6 +223,16 @@
           value: ''
         },
         location: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        guestmessage: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        guestlist: {
           type: String,
           notify: true,
           value: ''
