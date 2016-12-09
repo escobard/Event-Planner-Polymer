@@ -508,17 +508,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     pCheckbox = new checkboxActivate(pInfo, pInfoContainer, regProgressBarOpt, regProgressBar);
 
     // adds logic for progress bar display
-    function ProgressCheck(button, container, aProgress, sProgress) {
+    function ProgressActivate(button, aContainer, aProgress, dProgress) {
       button.addEventListener("click", function(){
-        container.classList.add('active');
+        aContainer.classList.add('active');
         aProgress.classList.add('active');
-        sProgress.classList.remove('active')
+        dProgress.classList.remove('active');
       });
     };
 
+    // creates the constructor extension for the login progress
+    // review prototypes again to figure out the correct functionality to hide progress bars
+    ProgressActivate.prototype = {
+      loginProgressHide: function(container) {
+        container.addEventListener('change', function(){
+        if (container.style.display ="none" && container == loginContainer) {
+          aProgress.classList.remove('active');
+        };
+      })}
+    };
+
     // ProgressCheck objects
-    logProgressCheck = new ProgressCheck(lFormButton,loginContainer,loginProgressBar,regProgressBar);
-    regProgressCheck = new ProgressCheck(lFormRegButton,regContainer,regProgressBar,loginProgressBar);
+    logProgressCheck = new ProgressActivate(lFormButton,loginContainer, loginProgressBar,regProgressBar);
+    regProgressCheck = new ProgressActivate(lFormRegButton,regContainer, regProgressBar,loginProgressBar);
 
     // progress tracker init
     function ProgressTracker (inputs, progressBar) {
