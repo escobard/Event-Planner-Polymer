@@ -687,15 +687,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var passconfirmValue = this.$.regSecondPass.value;
         var passwordsMatch = value === passconfirmValue;
         var passCon = this.$.passwordConfirmed.checked = passwordsMatch;
-        if (passwordsMatch) {
+        if (passCon) {
             console.log('Passwords valid!');
             this.$.registerButton.classList.add('passValid');
             this.$.registerButton.removeAttribute('disabled');
         } else{
-          this.$.registerButton.classList.remove('passValid');
-          this.$.registerButton.createAttribute('disabled');
+          this.$.registerButton.classList.remove('passValid')
+          this.$.registerButton.setAttribute('disabled','')
         }
-        return passwordsMatch && passCon;
+        return passCon;
       },
       loginValidation: function (){
         if ($.loginPassword.value.isValid && $.loginEmail.value.isValid) {
