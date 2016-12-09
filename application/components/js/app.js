@@ -94,80 +94,12 @@ MVC start
   
   };    
 
-    /* 
-    
-    old elements being migrated into the view object
-    logic button elements
-    var rButton = document.getElementById("registerButton");
-    var lButton = document.getElementById("loginButton");
-    var lFormButton = document.getElementById("signInPw");
-    var lFormRegButton = document.getElementById("accountReg");
-    var pInfo = document.querySelector('#personalInfo');
-
-    // container elements
-    var loginContainer = document.querySelector('#logIn');
-    var regContainer = document.querySelector('#registrationForm');
-    var pInfoContainer = document.querySelector('#personalInfoContainer');
-
-    //sets up login progress bar selector 
-    var progressBar = document.querySelector('paper-progress');
-
-    // selectors for activation elements
-    var loginProgressBar = document.querySelector('#progressLogin');
-    var regProgressBar = document.querySelector('#progress-reg');
-    var regProgressBarOpt = document.querySelector('#progress-reg-optional');
-    var eventLogin = document.querySelector('event-login-pw');
-
-    // login form inputs
-    var inputs = [
-      {
-        selector: '#loginEmail',
-        amount: 50
-      }, {
-        selector: '#loginPassword',
-        amount: 50
-      }
-    ];
-
-    // registration form inputs
-    var inputsReg = [
-      {
-        selector: '#regUserName',
-        amount: 25
-      }, {
-        selector: '#regEmail',
-        amount: 25
-      }, {
-        selector: '#regPassword',
-        amount: 25
-      }, {
-        selector: '#regSecondPass',
-        amount: 25
-      }    
-    ];
-
-    // registration form inputs
-    var inputsRegOpt = [
-      {
-        selector: '#reg-occupation',
-        amount: 25
-      }, {
-        selector: '#reg-birthday',
-        amount: 25
-      }, {
-        selector: '#reg-appuse',
-        amount: 25
-      }, {
-        selector: '#diff-geo-address',
-        amount: 25
-      }    
-    ]; */
-
   /*=========================================================================== 
 
   Controller
 
   ============================================================================*/
+  Controller = {}
     
     // checks if checkbox is checked then activates container
     function checkboxActivate(checkButton, checkContainer, progressBar, progressBarOther) {
