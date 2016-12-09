@@ -479,14 +479,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     }); 
 
-    // event listener to remove 'active' class from all progress bars
-    lButton.addEventListener("click", function(){
-      var ProgressBars = [loginProgressBar, regProgressBar, regProgressBarOpt];
-      for (var i = 0; i < ProgressBars.length; i++) {
-        var ProgBar = ProgressBars[i];
-        ProgBar.classList.remove('active');
-      };
-    });
+    // object to remove 'active' class from all progress bars
+    
 
     // checks if checkbox is checked then activates container
     function checkboxActivate(checkButton, checkContainer, progressBar, progressBarOther) {
@@ -531,6 +525,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     logProgressCheck = new ProgressActivate(lFormButton,loginContainer, loginProgressBar,regProgressBar);
     regProgressCheck = new ProgressActivate(lFormRegButton,regContainer, regProgressBar,loginProgressBar);
 
+    function HideProgress(button) {
+      button.addEventListener("click", function(){
+        var ProgressBars = [loginProgressBar, regProgressBar, regProgressBarOpt];
+        for (var i = 0; i < ProgressBars.length; i++) {
+          var ProgBar = ProgressBars[i];
+          ProgBar.classList.remove('active');
+        };
+      });
+    };
+
+    loginHideProgress = new HideProgress(lButton);
+    registrationHideProgress = new HideProgress(rButton);
     // progress tracker init
     function ProgressTracker (inputs, progressBar) {
       var self = this;
