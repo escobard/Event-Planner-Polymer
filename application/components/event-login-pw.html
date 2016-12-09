@@ -343,7 +343,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            autocomplete="street-address">
           </paper-input>
         </fieldset>
-        <paper-button on-tap="signIn" id="registerButton" disabled>Click here to create your account</paper-button>
+        <paper-button on-tap="Register" id="registerButton" disabled>Click here to create your account</paper-button>
     </form>
     <!-- field check and sign out buttons commented out until needed
      <ul>
@@ -370,8 +370,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // logic button elements
     var rButton = document.getElementById("registerButton");
     var lButton = document.getElementById("loginButton");
-    var soButton = document.getElementById("signout");
-    var cButton = document.getElementById("ccheck");
     var lFormButton = document.getElementById("signInPw");
     var lFormRegButton = document.getElementById("accountReg");
     var pInfo = document.querySelector('#personalInfo');
@@ -455,33 +453,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   Controller
 
   ============================================================================*/
-
-    // login functions
-
-    // event listeners for registration / login form
-    // will be adding these as promises in the future
-    // need to add each of these as a variable in each scope for these to work properly in EVENT LISTENERS
-    // due to .value being assigned GLOBALLY and not being re-assigned once again within the function scope
-    // should try refactoring this as an object later
-    rButton.addEventListener("click",  function(){
-      email = rEmail.value;
-      password = rPass.value;
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(
-        console.log("SUCCESS! ACCOUNT CREATED!")
-       )
-      .catch(function(error) {
-       console.log(error.code);
-       console.log(error.message);
-    });
-      
-      // need to find a way to AUTOMATICALLY login once user is subscribed 
-
-    }); 
-
-    // object to remove 'active' class from all progress bars
     
-
     // checks if checkbox is checked then activates container
     function checkboxActivate(checkButton, checkContainer, progressBar, progressBarOther) {
       checkButton.addEventListener('change', function () {
@@ -525,6 +497,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     logProgressCheck = new ProgressActivate(lFormButton,loginContainer, loginProgressBar,regProgressBar);
     regProgressCheck = new ProgressActivate(lFormRegButton,regContainer, regProgressBar,loginProgressBar);
 
+    // object to remove 'active' class from all progress bars
     function HideProgress(button) {
       button.addEventListener("click", function(){
         var ProgressBars = [loginProgressBar, regProgressBar, regProgressBarOpt];
@@ -537,6 +510,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     loginHideProgress = new HideProgress(lButton);
     registrationHideProgress = new HideProgress(rButton);
+
     // progress tracker init
     function ProgressTracker (inputs, progressBar) {
       var self = this;
@@ -631,20 +605,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
       signIn: function() {
-      var email = this.$.loginEmail.value;
-      var password = this.$.loginPassword.value;
-      var invalLogin = this.$.invalidLogin;;
-      this.$.auth.signInWithEmailAndPassword(email, password)
-      .then(function(){
-        console.log('Sucess, logged in!')
-      })
-      .catch(function(error){
-        invalLogin.classList.add('active')
-        console.log('Invalid login credentials!')
-      });
+        var email = this.$.loginEmail.value;
+        var password = this.$.loginPassword.value;
+        var invalLogin = this.$.invalidLogin;;
+        this.$.auth.signInWithEmailAndPassword(email, password)
+        .then(function(){
+          console.log('Success, logged in!')
+        })
+        .catch(function(error){
+          invalLogin.classList.add('active')
+          console.log('Invalid login credentials!')
+        });
       },
-      signIn2: function signIn2() {
-        this.fire('sign-in', null, { bubbles: true});
+      Register: function () {
+        var email = this.$.regEmail.value;
+        var password = this.$.regPassword.value;
+        var invalReg = this.$.invalidReg;
+        this.$.auth.createUserWithEmailAndPassword(email, password)
+        .then(function(){
+          console.log('Success, account created!')
+        })
+        .catch(function(error){
+          invalReg.classList.add('active')
+          console.log('Invalid registration values!')
+        });
       },
       passchange: function (){
         this.valueState.passvalue = this.passValidation();
