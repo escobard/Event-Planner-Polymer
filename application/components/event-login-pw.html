@@ -200,7 +200,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </paper-dialog>
     <paper-dialog id="registrationForm" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
       <form is="iron-form" id="regForm">
-        <fieldset>
+        <fieldset class="regInput">
          <h1>Register your Account</h1>
          <paper-input 
           type="text" 
@@ -208,7 +208,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           name="nickname" 
           label="What would you like your nickname to be?"
           autocomplete="nickname"
-          autofocus 
           required 
           pattern="[a-zA-Z]*\s*[a-zA-Z]*"
           minlength="2"
@@ -257,7 +256,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </paper-input>
           <h3>Make sure your password fits all requirements:</h3>
         </fieldset>
-        <fieldset class="checkboxes">
+        <fieldset class="regInput checkboxes">
            <paper-checkbox
             id="passwordLower"
             invalid
@@ -277,7 +276,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             Must contain one number
            </paper-checkbox>
         </fieldset>
-        <fieldset class="checkboxes">
+        <fieldset class="regInput checkboxes">
           <paper-checkbox
             id="passwordSymbol"
             invalid

@@ -39,7 +39,7 @@
 	<event-toolbar disabled="[[!signedIn]]" signed-in="[[signedIn]]" on-sign-out="signOut"></event-toolbar>
 
   <!--  Need to find a ay to disable these when user not signed in -->
-  <paper-progress is="dom-if" if="[[editable]]" id="progressLogin" class="transiting active" value="0"></paper-progress>
+  <paper-progress is="dom-if" if="[[editable]]" id="progressLogin" class="transiting" value="0"></paper-progress>
   <paper-progress id="progress-reg" class="transiting" value="0"></paper-progress>
   <paper-progress id="progress-reg-optional" class="transiting" value="0"></paper-progress>
 
