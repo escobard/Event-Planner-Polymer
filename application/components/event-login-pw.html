@@ -662,9 +662,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       signIn: function() {
       var email = this.$.loginEmail.value;
       var password = this.$.loginPassword.value;
+      var invalLogin = this.$.invalidLogin;
       this.$.auth.signInWithEmailAndPassword(email, password)
       .catch(function(error){
-
+        invalLogin.classList.add('active')
         console.log('Invalid login credentials!')
       });
       },
