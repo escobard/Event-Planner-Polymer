@@ -155,6 +155,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background: rgb(3, 140, 207);
       }
     </style>
+    <firebase-auth
+    id="auth"
+    app-name="event-planner"
+    signed-in="{{signedIn}}"
+    user="{{user}}">
+  </firebase-auth>
     <paper-button id="signInPw" raised onclick="logIn.open()">Click here to begin</paper-button>
     <paper-dialog id="logIn" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
       <h1>Login to your Account</h1>
@@ -187,7 +193,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
              char-counter>
           </paper-input>
         </fieldset>
-        <paper-button on-tap="signIn2" id="loginButton" disabled>Click here to Login</paper-button>
+        <paper-button on-tap="signIn" id="loginButton" disabled>Click here to Login</paper-button>
         <p id="signInRegistration">Don't have an Account? <span id="accountReg" onclick="registrationForm.open()">Click here to register</span></p>
       </form>
     </paper-dialog>
@@ -336,7 +342,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            autocomplete="street-address">
           </paper-input>
         </fieldset>
-        <paper-button on-tap="signIn2" id="registerButton" disabled>Click here to create your account</paper-button>
+        <paper-button on-tap="signIn" id="registerButton" disabled>Click here to create your account</paper-button>
     </form>
     <!-- field check and sign out buttons commented out until needed
      <ul>
@@ -460,27 +466,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       email = rEmail.value;
       password = rPass.value;
       firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(
+        console.log("SUCCESS! ACCOUNT CREATED!")
+       )
       .catch(function(error) {
        console.log(error.code);
        console.log(error.message);
     });
-      console.log("SUCCESS! ACCOUNT CREATED!");
+      
       // need to find a way to AUTOMATICALLY login once user is subscribed 
 
     }); 
 
     // will need to add a promise here when this is refactored into the polymer base code
-    lButton.addEventListener("click", function(){
-      email = lEmail.value;
-      password = lPass.value;
-    firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(console.log("SUCCESS! LOGGED IN!"))
-    .catch(function(error) {
-       console.log(error.code);
-       console.log(error.message);
-    });
-       
-    });
 
     // checks if checkbox is checked then activates container
     function checkboxActivate(checkButton, checkContainer) {
@@ -662,6 +660,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
       signIn: function() {
+      var email = this.$.loginEmail.value;
+      var password = this.$.loginPassword.value;
+      this.$.auth.signInWithEmailAndPassword(email, password);
         this.fire('sign-in', null, { bubbles: true});
       },
       signIn2: function signIn2() {
