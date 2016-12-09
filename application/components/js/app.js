@@ -6,9 +6,217 @@ This document contains the main javascript for the event planner application
 
 /*=========================================================================== 
 
-Google Geolocate API 
+MVC start
 
 ============================================================================*/
+
+/*=========================================================================== 
+
+  Model
+
+  ============================================================================*/
+
+
+  /*=========================================================================== 
+
+  View
+
+  ============================================================================*/
+    // selects view elements
+    // logic button elements
+    var rButton = document.getElementById("registerButton");
+    var lButton = document.getElementById("loginButton");
+    var lFormButton = document.getElementById("signInPw");
+    var lFormRegButton = document.getElementById("accountReg");
+    var pInfo = document.querySelector('#personalInfo');
+
+    // container elements
+    var loginContainer = document.querySelector('#logIn');
+    var regContainer = document.querySelector('#registrationForm');
+    var pInfoContainer = document.querySelector('#personalInfoContainer');
+
+    //sets up login progress bar selector 
+    var progressBar = document.querySelector('paper-progress');
+
+    // selectors for activation elements
+    var loginProgressBar = document.querySelector('#progressLogin');
+    var regProgressBar = document.querySelector('#progress-reg');
+    var regProgressBarOpt = document.querySelector('#progress-reg-optional');
+    var eventLogin = document.querySelector('event-login-pw');
+
+    // login form inputs
+    var inputs = [
+      {
+        selector: '#loginEmail',
+        amount: 50
+      }, {
+        selector: '#loginPassword',
+        amount: 50
+      }
+    ];
+
+    // registration form inputs
+    var inputsReg = [
+      {
+        selector: '#regUserName',
+        amount: 25
+      }, {
+        selector: '#regEmail',
+        amount: 25
+      }, {
+        selector: '#regPassword',
+        amount: 25
+      }, {
+        selector: '#regSecondPass',
+        amount: 25
+      }    
+    ];
+
+    // registration form inputs
+    var inputsRegOpt = [
+      {
+        selector: '#reg-occupation',
+        amount: 25
+      }, {
+        selector: '#reg-birthday',
+        amount: 25
+      }, {
+        selector: '#reg-appuse',
+        amount: 25
+      }, {
+        selector: '#diff-geo-address',
+        amount: 25
+      }    
+    ];
+
+  /*=========================================================================== 
+
+  Controller
+
+  ============================================================================*/
+    
+    // checks if checkbox is checked then activates container
+    function checkboxActivate(checkButton, checkContainer, progressBar, progressBarOther) {
+      checkButton.addEventListener('change', function () {
+        if (this.active) {
+          checkContainer.classList.add("active");
+          progressBar.classList.add("active");
+          progressBarOther.classList.remove("active");
+        } 
+        else {
+          checkContainer.classList.remove("active");
+          progressBar.classList.remove("active");
+          progressBarOther.classList.add("active");
+        };
+      });
+    }; 
+
+    // checkboxActivate objects
+    pCheckbox = new checkboxActivate(pInfo, pInfoContainer, regProgressBarOpt, regProgressBar);
+
+    // adds logic for progress bar display
+    function ProgressActivate(button, aContainer, aProgress, dProgress) {
+      button.addEventListener("click", function(){
+        aContainer.classList.add('active');
+        aProgress.classList.add('active');
+        dProgress.classList.remove('active');
+      });
+    };
+
+    // creates the constructor extension for the login progress
+    // review prototypes again to figure out the correct functionality to hide progress bars
+    ProgressActivate.prototype = {
+      loginProgressHide: function(container) {
+        container.addEventListener('change', function(){
+        if (container.style.display ="none" && container == loginContainer) {
+          aProgress.classList.remove('active');
+        };
+      })}
+    };
+
+    // ProgressCheck objects
+    logProgressCheck = new ProgressActivate(lFormButton,loginContainer, loginProgressBar,regProgressBar);
+    regProgressCheck = new ProgressActivate(lFormRegButton,regContainer, regProgressBar,loginProgressBar);
+
+    // object to remove 'active' class from all progress bars
+    function HideProgress(button) {
+      button.addEventListener("click", function(){
+        var ProgressBars = [loginProgressBar, regProgressBar, regProgressBarOpt];
+        for (var i = 0; i < ProgressBars.length; i++) {
+          var ProgBar = ProgressBars[i];
+          ProgBar.classList.remove('active');
+        };
+      });
+    };
+
+    loginHideProgress = new HideProgress(lButton);
+    registrationHideProgress = new HideProgress(rButton);
+
+    // progress tracker init
+    function ProgressTracker (inputs, progressBar) {
+      var self = this;
+      this.progressBar = progressBar;
+      this.inputs = inputs;
+
+      this.inputs.forEach(function (input) {
+        input.element = document.querySelector(input.selector);
+        input.added = false;
+        input.isValid = null;
+
+        input.element.oninput = function () {
+          input.isValid = self.determineStatus(input);
+          self.adjustProgressIfNecessary(input);
+        };
+      });
+    };
+
+    // progress tracker value check
+    ProgressTracker.prototype = {
+      determineStatus: function (input) {
+        var isValid = false;
+        
+        if (input.element.value.length > 0) {
+          isValid = true;
+        } else {
+          isValid = false;
+        }
+
+        try {
+          isValid = isValid && input.element.validate();
+        } catch (e) {
+          console.log(e);
+        }
+        return isValid;
+      },
+      adjustProgressIfNecessary: function (input) {
+        var newAmount = this.progressBar.value;
+
+        if (input.added && !input.isValid) {
+          newAmount = newAmount - input.amount;
+          input.added = false;
+        } else if (!input.added && input.isValid) {
+          newAmount = newAmount + input.amount;
+          input.added = true;
+        }
+        this.progressBar.value = newAmount;
+      }
+    };
+
+    // creates logic objects
+    // login bar progress tracker
+    var progressTracker = new ProgressTracker(inputs, progressBar);
+
+    // registration progress tracker
+    var progressBarReg = new ProgressTracker(inputsReg, regProgressBar);
+
+    // registration optional progress tracker
+    var progressBarRegOpt = new ProgressTracker(inputsRegOpt, regProgressBarOpt);
+  
+  /*=========================================================================== 
+
+  Google Geolocate API 
+
+  ============================================================================*/
 
 // This example displays an address form, using the autocomplete feature
       // of the Google Places API to help users fill in the information.
@@ -81,27 +289,17 @@ Google Geolocate API
         }
       };
 
-// this is the firefox prompt for geolocation, necessary for some firefox versions 
+  /*=========================================================================== 
 
+  Google Geolocate API end
 
+  ============================================================================*/
 
-/*=========================================================================== 
+  /*=========================================================================== 
 
-Google Geolocate API end
+  Controller end
 
-============================================================================*/
-
-/*=========================================================================== 
-
-Different Address end
-
-============================================================================*/
-
-/*=========================================================================== 
-
-MVC start - migrate all code into an MVC structure if possible
-
-============================================================================*/
+  ============================================================================*/
 
 /*=========================================================================== 
 
