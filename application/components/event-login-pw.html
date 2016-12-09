@@ -400,9 +400,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var progressBar = document.querySelector('paper-progress');
 
     // selectors for activation elements
-    var loginProgressBar = document.querySelector('#progress-login');
+    var loginProgressBar = document.querySelector('#progressLogin');
     var regProgressBar = document.querySelector('#progress-reg');
     var regProgressBarOpt = document.querySelector('#progress-reg-optional');
+    var eventLogin = document.querySelector('event-login-pw');
 
     // login form inputs
     var inputs = [
@@ -508,34 +509,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     logProgressCheck = new ProgressCheck(lFormButton,loginContainer,loginProgressBar,regProgressBar);
     regProgressCheck = new ProgressCheck(lFormRegButton,regContainer,regProgressBar,loginProgressBar);
     regProgressCheckOpt = new ProgressCheck(pInfo,regContainer,regProgressBarOpt,regProgressBar);
-
-    /* check and logout button commented out until needed
-    soButton.addEventListener("click", function(){
-    firebase.auth().signOut().then(function() {
-       console.log("Logged out!")
-    }, function(error) {
-       console.log(error.code);
-       console.log(error.message);
-    });
-    });
-
-    // check values
-    cButton.addEventListener("click", function(){
-      checkName = rName.value;
-      checkEmail = rEmail.value;
-      checkPass = rPass.value;
-      console.log(checkName);
-      console.log(checkEmail);
-      console.log(checkPass);
-      console.log("test");
-      // need to find a way to AUTOMATICALLY login once user is subscribed
-    });
-    */
-
-    // Progress Bar
-    // Set up the logic to change the progress bar
-    // originally derived from the instructor notes on : https://classroom.udacity.com/nanodegrees/nd802/parts/8021345401/modules/555574864975460/lessons/5243991811/concepts/54564686870923
-    // initiates the progress tracker function
 
     function ProgressTracker (inputs, progressBar) {
       var self = this;
@@ -662,8 +635,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       signIn: function() {
       var email = this.$.loginEmail.value;
       var password = this.$.loginPassword.value;
-      var invalLogin = this.$.invalidLogin;
+      var invalLogin = this.$.invalidLogin;;
       this.$.auth.signInWithEmailAndPassword(email, password)
+      .then(function(){
+        console.log('Sucess, logged in!')
+      })
       .catch(function(error){
         invalLogin.classList.add('active')
         console.log('Invalid login credentials!')
@@ -683,7 +659,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.valueState.passconfirmvalue = this.passConfirmValidation();
         this.$.regSecondPass.validate();
       },
-
       passValidation: function (){
         var value = this.$.regPassword.value || this.$.loginPassword.value;
         var passMin = this.$.passwordMin.checked = value.length >= 8;

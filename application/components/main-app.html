@@ -39,7 +39,7 @@
 	<event-toolbar disabled="[[!signedIn]]" signed-in="[[signedIn]]" on-sign-out="signOut"></event-toolbar>
 
   <!--  Need to find a ay to disable these when user not signed in -->
-  <paper-progress disabled="[[!online]]" id="progress-login" class="transiting active" value="0"></paper-progress>
+  <paper-progress hidden$="[[!online]]" id="progressLogin" class="transiting active" value="0"></paper-progress>
   <paper-progress id="progress-reg" class="transiting" value="0"></paper-progress>
   <paper-progress id="progress-reg-optional" class="transiting" value="0"></paper-progress>
 
@@ -142,7 +142,11 @@
       signIn2: function() {
         this.$.auth.signInWithEmailAndPassword(email, password);
       },
-
+      authenticated: function() {
+        if (user) {
+          this.$.progressLogin.classList.remove('active')
+        }
+      },
       // https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#23
       get notesPath() {
       return '/notes/' + this.user.uid;
