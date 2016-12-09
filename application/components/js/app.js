@@ -119,6 +119,7 @@ MVC start
     // checkboxActivate objects
     pCheckbox = new checkboxActivate(View.pInfo, View.pInfoContainer, View.regProgressBarOpt, View.regProgressBar);
 
+
     // adds logic for progress bar display
     function ProgressActivate(button, aContainer, aProgress, dProgress) {
       button.addEventListener("click", function(){

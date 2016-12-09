@@ -130,18 +130,20 @@ MVC start
 
     // creates the constructor extension for the login progress
     // review prototypes again to figure out the correct functionality to hide progress bars
-    ProgressActivate.prototype = {
-      loginProgressHide: function(container) {
-        container.addEventListener('change', function(){
-        if (container.style.display ="none" && container == loginContainer) {
-          aProgress.classList.remove('active');
-        };
-      })}
-    };
+    ProgressActivate.prototype.loginProgressHide = function(aContainer) {
+        aContainer.addEventListener('change', function(){
+          if (aContainer.style.display ="none") {
+            aProgress.classList.remove('active');
+          };
+        })
+      };
 
     // ProgressCheck objects
     logProgressCheck = new ProgressActivate(View.lFormButton,View.loginContainer, View.loginProgressBar,View.regProgressBar);
     regProgressCheck = new ProgressActivate(View.lFormRegButton,View.regContainer, View.regProgressBar,View.loginProgressBar);
+
+    //ProgressCheck prototype methods
+    logProgressCheck.loginProgressHide();
 
     // object to remove 'active' class from all progress bars
     function HideProgress(button) {
