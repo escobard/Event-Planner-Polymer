@@ -479,7 +479,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     }); 
 
-    // will need to add a promise here when this is refactored into the polymer base code
+    // event listener to remove 'active' class from all progress bars
+    
+    lButton.addEventListener("click", function(){
+      var ProgressBars = [loginProgressBar, regProgressBar, regProgressBarOpt];
+      for (var i = 0; i < ProgressBars.length; i++) {
+        var ProgBar = ProgressBars[i];
+        ProgBar.classList.remove('active');
+      };
+    });
 
     // checks if checkbox is checked then activates container
     function checkboxActivate(checkButton, checkContainer) {
@@ -510,6 +518,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     regProgressCheck = new ProgressCheck(lFormRegButton,regContainer,regProgressBar,loginProgressBar);
     regProgressCheckOpt = new ProgressCheck(pInfo,regContainer,regProgressBarOpt,regProgressBar);
 
+    // progress tracker init
     function ProgressTracker (inputs, progressBar) {
       var self = this;
       this.progressBar = progressBar;
@@ -527,6 +536,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
     };
 
+    // progress tracker value check
     ProgressTracker.prototype = {
       determineStatus: function (input) {
         var isValid = false;
@@ -567,38 +577,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     // registration optional progress tracker
     var progressBarRegOpt = new ProgressTracker(inputsRegOpt, regProgressBarOpt);
-    // Registration form check (will have to be changed to fit both optional fields)
-    // JavaScript code for the different address field activation and associated functions
-    /* Need to fix this so that it shows up the reg bar and hides login bar when reg form active
-    function regProgressCheck() {
 
-    // Selects our Queries
-      var checkReg = document.getElementById('registrationForm');
-
-    // checks the form's paper-check element's state
-      checkReg.addEventListener('change', function (e) {
-      
-    // if the check's parent element is 'active' run this if statement
-        if (this.active) {
-          regProgressContainer.classList.add("active");
-          regProgressBar.classList.add("active");
-          loginProgressBar.classList.add("inactive");
-          
-        } 
-
-    // otherwise check for these classes and remove if present
-        else {
-          regProgressContainer.classList.remove("active");
-          regProgressBar.classList.remove("active");
-          loginProgressBar.classList.remove("inactive");
-        }
-      })
-    } 
-          //loads this function on window load
-    window.addEventListener("load", regProgressCheck, false);
-
-    // Different Address end
-    // Progress Bar end */
   /*=========================================================================== 
 
   Controller end
