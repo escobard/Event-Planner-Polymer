@@ -26,11 +26,71 @@ MVC start
 
   ============================================================================*/
     // selects view elements
-  
   View = {
 
+    // button elements
     rButton : document.getElementById("registerButton"),
-    lButton : document.getElementById("loginButton")
+    lButton : document.getElementById("loginButton"),
+    lFormButton : document.getElementById("signInPw"),
+    lFormRegButton : document.getElementById("accountReg"),
+    pInfo : document.querySelector('#personalInfo'),
+
+    // container elements
+    loginContainer : document.querySelector('#logIn'),
+    regContainer : document.querySelector('#registrationForm'),
+    pInfoContainer : document.querySelector('#personalInfoContainer'),
+
+    // Progress Bars 
+    progressBar : document.querySelector('paper-progress'),
+    loginProgressBar : document.querySelector('#progressLogin'),
+    regProgressBar : document.querySelector('#progress-reg'),
+    regProgressBarOpt : document.querySelector('#progress-reg-optional'),
+    eventLogin : document.querySelector('event-login-pw'),
+    
+    // Progress Bar Inputs
+    inputs : [
+      {
+        selector: '#loginEmail',
+        amount: 50
+      }, {
+        selector: '#loginPassword',
+        amount: 50
+      }
+    ],
+
+    // registration form inputs
+    inputsReg : [
+      {
+        selector: '#regUserName',
+        amount: 25
+      }, {
+        selector: '#regEmail',
+        amount: 25
+      }, {
+        selector: '#regPassword',
+        amount: 25
+      }, {
+        selector: '#regSecondPass',
+        amount: 25
+      }    
+    ],
+
+    // registration form inputs
+    inputsRegOpt : [
+      {
+        selector: '#reg-occupation',
+        amount: 25
+      }, {
+        selector: '#reg-birthday',
+        amount: 25
+      }, {
+        selector: '#reg-appuse',
+        amount: 25
+      }, {
+        selector: '#diff-geo-address',
+        amount: 25
+      }    
+    ]
   
   };    
 
@@ -126,7 +186,7 @@ MVC start
     }; 
 
     // checkboxActivate objects
-    pCheckbox = new checkboxActivate(pInfo, pInfoContainer, regProgressBarOpt, regProgressBar);
+    pCheckbox = new checkboxActivate(View.pInfo, View.pInfoContainer, View.regProgressBarOpt, View.regProgressBar);
 
     // adds logic for progress bar display
     function ProgressActivate(button, aContainer, aProgress, dProgress) {
@@ -149,13 +209,13 @@ MVC start
     };
 
     // ProgressCheck objects
-    logProgressCheck = new ProgressActivate(lFormButton,loginContainer, loginProgressBar,regProgressBar);
-    regProgressCheck = new ProgressActivate(lFormRegButton,regContainer, regProgressBar,loginProgressBar);
+    logProgressCheck = new ProgressActivate(View.lFormButton,View.loginContainer, View.loginProgressBar,View.regProgressBar);
+    regProgressCheck = new ProgressActivate(View.lFormRegButton,View.regContainer, View.regProgressBar,View.loginProgressBar);
 
     // object to remove 'active' class from all progress bars
     function HideProgress(button) {
       button.addEventListener("click", function(){
-        var ProgressBars = [loginProgressBar, regProgressBar, regProgressBarOpt];
+        var ProgressBars = [View.loginProgressBar, View.regProgressBar, View.regProgressBarOpt]; 
         for (var i = 0; i < ProgressBars.length; i++) {
           var ProgBar = ProgressBars[i];
           ProgBar.classList.remove('active');
@@ -218,13 +278,13 @@ MVC start
 
     // creates logic objects
     // login bar progress tracker
-    var progressTracker = new ProgressTracker(inputs, progressBar);
+    var progressTracker = new ProgressTracker(View.inputs, View.progressBar);
 
     // registration progress tracker
-    var progressBarReg = new ProgressTracker(inputsReg, regProgressBar);
+    var progressBarReg = new ProgressTracker(View.inputsReg, View.regProgressBar);
 
     // registration optional progress tracker
-    var progressBarRegOpt = new ProgressTracker(inputsRegOpt, regProgressBarOpt);
+    var progressBarRegOpt = new ProgressTracker(View.inputsRegOpt, View.regProgressBarOpt);
   
   /*=========================================================================== 
 
