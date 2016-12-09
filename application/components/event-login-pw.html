@@ -24,18 +24,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="bower_components/paper-input/paper-textarea.html">
-<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyCzhnmg4lArK8DY7jrk-BKMKi91p3Fw3hc",
-    authDomain: "event-planner-e6ee3.firebaseapp.com",
-    databaseURL: "https://event-planner-e6ee3.firebaseio.com",
-    storageBucket: "event-planner-e6ee3.appspot.com",
-    messagingSenderId: "838628542575"
-  };
-  firebase.initializeApp(config);
-</script>
+
 <dom-module id="event-login-pw">
   <template>
     <style>
@@ -358,8 +347,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   Model
 
   ============================================================================*/
-    // this will be replaced when the global application callback is in place
-    var ref = Firebase('https://event-planner-e6ee3.firebaseio.com');
+
 
   /*=========================================================================== 
 
@@ -663,7 +651,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var email = this.$.loginEmail.value;
       var password = this.$.loginPassword.value;
       this.$.auth.signInWithEmailAndPassword(email, password);
-        this.fire('sign-in', null, { bubbles: true});
       },
       signIn2: function signIn2() {
         this.fire('sign-in', null, { bubbles: true});
