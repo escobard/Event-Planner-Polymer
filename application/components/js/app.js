@@ -97,24 +97,19 @@ MVC start
 
   /*=========================================================================== 
 
-  Controller
+  Controller Objects
 
   ============================================================================*/
     
     // checks if checkbox is checked then activates container
-    function checkboxActivate(checkButton, checkContainer, progressBar, progressBarOther) {
+    function checkboxActivate(checkButton, checkContainer) {
       checkButton.addEventListener('change', function () {
         if (this.active) {
           checkContainer.classList.add("active");
-          progressBar.classList.add("active");
-          progressBarOther.classList.remove("active");
         } 
         else {
           checkContainer.classList.remove("active");
-          progressBar.classList.remove("active");
-          progressBarOther.classList.toggle("active");
         };
-        checkHide = new ProgressHide(checkContainer, progressBar);
       });
     }; 
 
@@ -123,36 +118,26 @@ MVC start
 
     // creates the constructor extension for the login progress
     // review prototypes again to figure out the correct functionality to hide progress bars
-    function ProgressHide(aContainer, aProgress) {
+    function ProgressHide(button, aContainer, aProgress) {
     // following function grabbed from following stackoverflow post: http://stackoverflow.com/questions/14188654/detect-click-outside-element-vanilla-javascript
       document.addEventListener('click', function(event){
         var isClickInside = aContainer.contains(event.target);
+        var buttonClick = button.contains(event.target);
           if (!isClickInside) {
             aProgress.classList.remove('active');
           } 
+          else if(buttonClick) {
+            aProgress.classList.remove('active');
+          }
           else {
             aProgress.classList.add('active');
-        }; 
+          }
       });
     };
 
-    logProgressHide: new ProgressHide(View.loginContainer, View.loginProgressBar);
-    regProgressHide: new ProgressHide(View.regInputContainer, View.regProgressBar);
-
-
-    // object to remove 'active' class from all progress bars
-    function HideProgressOnLogin(button) {
-      button.addEventListener("click", function(){
-        var ProgressBars = [View.loginProgressBar, View.regProgressBar, View.regProgressBarOpt]; 
-        for (var i = 0; i < ProgressBars.length; i++) {
-          var ProgBar = ProgressBars[i];
-          ProgBar.classList.remove('active');
-        };
-      });
-    };
-
-    loginHideProgress = new HideProgressOnLogin(View.lButton);
-    registrationHideProgress = new HideProgressOnLogin(View.rButton);
+    logProgressHide: new ProgressHide(View.lButton, View.loginContainer, View.loginProgressBar);
+    regProgressHide: new ProgressHide(View.rButton, View.regInputContainer, View.regProgressBar);
+    regOptProgressHide: new ProgressHide(View.pInfo, View.pInfoContainer, View.regProgressBarOpt);
 
     // progress tracker init
     function ProgressTracker (inputs, progressBar) {
