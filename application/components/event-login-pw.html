@@ -143,13 +143,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       #loginButton.passValid {
         background: rgb(3, 140, 207);
       }
+      #invalidLogin {
+          text-align: center;
+          width: 100%;
+          display: none;
+          margin: 10px 0;
+          font-size: 15px;
+          color: #dd2c00;
+      }
+      #invalidLogin.active {
+        display: block;
+      }
     </style>
     <firebase-auth
-    id="auth"
-    app-name="event-planner"
-    signed-in="{{signedIn}}"
-    user="{{user}}">
-  </firebase-auth>
+      id="auth"
+      app-name="event-planner"
+      signed-in="{{signedIn}}"
+      user="{{user}}">
+    </firebase-auth>
     <paper-button id="signInPw" raised onclick="logIn.open()">Click here to begin</paper-button>
     <paper-dialog id="logIn" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
       <h1>Login to your Account</h1>
@@ -158,7 +169,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <gold-email-input
               id="loginEmail"
               name="loginemail"
-              label="Please enter your email" 
+              label="Enter your email to login" 
               required 
               autocomplete="email" 
               aria-disabled="false" 
@@ -169,7 +180,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <paper-input 
              type="password" 
              id="loginPassword" 
-             label="Please enter your password" 
+             label="Enter your password to login" 
              required
              name="loginpass"
              auto-validate
@@ -181,6 +192,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
              error-message="Please enter a password matching the requirements"
              char-counter>
           </paper-input>
+          <span id="invalidLogin">Invalid login credentials!</span>
         </fieldset>
         <paper-button on-tap="signIn" id="loginButton" disabled>Click here to Login</paper-button>
         <p id="signInRegistration">Don't have an Account? <span id="accountReg" onclick="registrationForm.open()">Click here to register</span></p>
@@ -650,7 +662,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       signIn: function() {
       var email = this.$.loginEmail.value;
       var password = this.$.loginPassword.value;
-      this.$.auth.signInWithEmailAndPassword(email, password);
+      this.$.auth.signInWithEmailAndPassword(email, password)
+      .catch(function(error){
+
+        console.log('Invalid login credentials!')
+      });
       },
       signIn2: function signIn2() {
         this.fire('sign-in', null, { bubbles: true});
@@ -673,7 +689,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var passLow = this.$.passwordLower.checked = /[a-z]/.test(value);
         var passUpp = this.$.passwordUpper.checked = /[A-Z]/.test(value);
         var passNum = this.$.passwordNumber.checked = /[0-9]/.test(value);
-        var passSym = this.$.passwordSymbol.checked = /[\+\=\&\^\%\$\#\@\!]/.test(value);
+        var passSym = this.$.passwordSymbol.checked = /[\+\=\&\^\%\'$'\#\@\!]/.test(value);
         if (passMin && passLow && passUpp && passNum && passSym) {
           console.log('Passwords valid!');
           this.$.loginButton.classList.add('passValid');
