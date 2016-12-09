@@ -147,6 +147,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       #registerButton.passValid {
         background: rgb(3, 140, 207);
       }
+      #loginButton {
+        background: #ccc;
+        border: 0;
+      }
+      #loginButton.passValid {
+        background: rgb(3, 140, 207);
+      }
     </style>
     <paper-button id="signInPw" raised onclick="logIn.open()">Click here to begin</paper-button>
     <paper-dialog id="logIn" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
@@ -180,7 +187,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
              char-counter>
           </paper-input>
         </fieldset>
-        <paper-button on-tap="signIn2" id="loginButton">Click here to Login</paper-button>
+        <paper-button on-tap="signIn2" id="loginButton" disabled>Click here to Login</paper-button>
         <p id="signInRegistration">Don't have an Account? <span id="accountReg" onclick="registrationForm.open()">Click here to register</span></p>
       </form>
     </paper-dialog>
@@ -679,6 +686,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var passUpp = this.$.passwordUpper.checked = /[A-Z]/.test(value);
         var passNum = this.$.passwordNumber.checked = /[0-9]/.test(value);
         var passSym = this.$.passwordSymbol.checked = /[\+\=\&\^\%\$\#\@\!]/.test(value);
+        if (passMin && passLow && passUpp && passNum && passSym) {
+          console.log('Passwords valid!');
+          this.$.loginButton.classList.add('passValid');
+          this.$.loginButton.removeAttribute('disabled');
+        } else {
+          console.log('Passwords invalid!');
+          this.$.loginButton.classList.remove('passValid');
+          this.$.loginButton.setAttribute('disabled', '');
+        }
         return passMin && passLow && passUpp && passNum && passSym ;
         },
 
@@ -692,6 +708,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             this.$.registerButton.classList.add('passValid');
             this.$.registerButton.removeAttribute('disabled');
         } else{
+          console.log('Passwords invalid!');
           this.$.registerButton.classList.remove('passValid')
           this.$.registerButton.setAttribute('disabled','')
         }
