@@ -112,8 +112,9 @@ MVC start
         else {
           checkContainer.classList.remove("active");
           progressBar.classList.remove("active");
-          progressBarOther.classList.add("active");
+          progressBarOther.classList.toggle("active");
         };
+        checkHide = new ProgressHide(checkContainer, progressBar);
       });
     }; 
 
@@ -122,7 +123,7 @@ MVC start
 
     // creates the constructor extension for the login progress
     // review prototypes again to figure out the correct functionality to hide progress bars
-    function ProgressHide(aContainer, aProgress, dProgress) {
+    function ProgressHide(aContainer, aProgress) {
     // following function grabbed from following stackoverflow post: http://stackoverflow.com/questions/14188654/detect-click-outside-element-vanilla-javascript
       document.addEventListener('click', function(event){
         var isClickInside = aContainer.contains(event.target);
