@@ -16,6 +16,9 @@ MVC start
 
   ============================================================================*/
 
+  // most data is held externally in firebase and within the polymer dom files
+  
+  Model = {};
 
   /*=========================================================================== 
 
@@ -23,7 +26,18 @@ MVC start
 
   ============================================================================*/
     // selects view elements
-    // logic button elements
+  
+  View = {
+
+    rButton : document.getElementById("registerButton"),
+    lButton : document.getElementById("loginButton")
+  
+  };    
+
+    /* 
+    
+    old elements being migrated into the view object
+    logic button elements
     var rButton = document.getElementById("registerButton");
     var lButton = document.getElementById("loginButton");
     var lFormButton = document.getElementById("signInPw");
@@ -87,7 +101,7 @@ MVC start
         selector: '#diff-geo-address',
         amount: 25
       }    
-    ];
+    ]; */
 
   /*=========================================================================== 
 
@@ -149,8 +163,8 @@ MVC start
       });
     };
 
-    loginHideProgress = new HideProgress(lButton);
-    registrationHideProgress = new HideProgress(rButton);
+    loginHideProgress = new HideProgress(View.lButton);
+    registrationHideProgress = new HideProgress(View.rButton);
 
     // progress tracker init
     function ProgressTracker (inputs, progressBar) {
