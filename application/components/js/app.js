@@ -104,11 +104,8 @@ MVC start
   ============================================================================*/
 
   function Controller(){
-    this._checkboxActivate();
-  };
-    
-    // checks if checkbox is checked then activates container
-    function checkboxActivate(checkButton, checkContainer) {
+    // function to activate checkbox
+    this._checkboxActivate = function (checkButton, checkContainer) {
       checkButton.addEventListener('change', function () {
         if (this.active) {
           checkContainer.classList.add("active");
@@ -117,11 +114,24 @@ MVC start
           checkContainer.classList.remove("active");
         };
       });
-    }; 
+    };
+  };
+    // checks if checkbox is checked then activates container
+    /* function checkboxActivate(checkButton, checkContainer) {
+      checkButton.addEventListener('change', function () {
+        if (this.active) {
+          checkContainer.classList.add("active");
+        } 
+        else {
+          checkContainer.classList.remove("active");
+        };
+      });
+    }; */
+
 
     // checkboxActivate objects
-    pCheckbox = new checkboxActivate(View.pInfo, View.pInfoContainer);
-    gCheckbox = new checkboxActivate(View.gInfo, View.eventOptContainer);
+    pCheckbox = new Controller()._checkboxActivate(View.pInfo, View.pInfoContainer);
+    gCheckbox = new Controller()._checkboxActivate(View.gInfo, View.eventOptContainer);
 
     // creates the constructor extension for the login progress
     // review prototypes again to figure out the correct functionality to hide progress bars
