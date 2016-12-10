@@ -104,7 +104,8 @@ MVC start
   ============================================================================*/
 
   function Controller(){
-    // function to activate checkbox
+
+    // function to activate checkbox containers
     this._checkboxActivate = function (checkButton, checkContainer) {
       checkButton.addEventListener('change', function () {
         if (this.active) {
@@ -115,27 +116,9 @@ MVC start
         };
       });
     };
-  };
-    // checks if checkbox is checked then activates container
-    /* function checkboxActivate(checkButton, checkContainer) {
-      checkButton.addEventListener('change', function () {
-        if (this.active) {
-          checkContainer.classList.add("active");
-        } 
-        else {
-          checkContainer.classList.remove("active");
-        };
-      });
-    }; */
 
-
-    // checkboxActivate objects
-    pCheckbox = new Controller()._checkboxActivate(View.pInfo, View.pInfoContainer);
-    gCheckbox = new Controller()._checkboxActivate(View.gInfo, View.eventOptContainer);
-
-    // creates the constructor extension for the login progress
-    // review prototypes again to figure out the correct functionality to hide progress bars
-    function ProgressHide(button, aContainer, aProgress) {
+    // function to manage progress bar states
+    this._ProgressState = function (button, aContainer, aProgress) {
 
     // following function extended from following stackoverflow post: http://stackoverflow.com/questions/14188654/detect-click-outside-element-vanilla-javascript
       document.addEventListener('click', function(event){
@@ -152,10 +135,16 @@ MVC start
           }
       });
     };
+  };
 
-    logProgressHide: new ProgressHide(View.lButton, View.loginContainer, View.loginProgressBar);
-    regProgressHide: new ProgressHide(View.rButton, View.regInputContainer, View.regProgressBar);
-    regOptProgressHide: new ProgressHide(View.pInfo, View.pInfoContainer, View.regProgressBarOpt);
+  // checkboxActivate constructor objects
+  pCheckbox = new Controller()._checkboxActivate(View.pInfo, View.pInfoContainer);
+  gCheckbox = new Controller()._checkboxActivate(View.gInfo, View.eventOptContainer);
+
+  // progressState constructor objects
+  logProgressHide: new Controller()._ProgressState(View.lButton, View.loginContainer, View.loginProgressBar);
+  regProgressHide: new Controller()._ProgressState(View.rButton, View.regInputContainer, View.regProgressBar);
+  regOptProgressHide: new Controller()._ProgressState(View.pInfo, View.pInfoContainer, View.regProgressBarOpt);
 
     // progress tracker init
     function ProgressTracker (inputs, progressBar) {
