@@ -148,7 +148,7 @@
        id="event-subtitle" 
        name="eventsubtitle"
        required
-       label="Enter the host's name" 
+       label="Who is hosting this event?" 
        placeholder="{{host}}" 
        bind-value="{{host}}">
       </paper-input>
@@ -162,7 +162,7 @@
        min-length="3"
        pattern="[a-zA-Z\s*]*"
        error-message="Select an event type or enter an event type that can only contain letters and spaces"
-       label="Select your event type" 
+       label="What kind of event is this?" 
        placeholder="{{eventtype}}" 
        bind-value="{{eventtype}}">
       </paper-input>
@@ -224,7 +224,7 @@
        type="text-area" 
        name="guestmessage"
        id="event-guest-message" 
-       label="Enter a message for your guests (optional)" 
+       label="Do you have a message for your guests?" 
        placeholder="{{guestmessage}}" 
        bind-value="{{guestmessage}}">
       </paper-input>
@@ -232,7 +232,7 @@
        type="text" 
        name="guestlist"
        id="event-guest-list" 
-       label="Enter your guest names (optional)" 
+       label="Who will be attending this event?" 
        placeholder="{{guestlist}}" 
        bind-value="{{guestlist}}">
       </paper-input>
