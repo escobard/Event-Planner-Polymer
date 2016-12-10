@@ -34,12 +34,14 @@ MVC start
     lFormButton : document.getElementById("signInPw"),
     lFormRegButton : document.getElementById("accountReg"),
     pInfo : document.getElementById('personalInfo'),
+    gInfo : document.getElementById('guestInfo'),
 
     // container elements
     loginContainer : document.querySelector('#logIn'),
     regContainer : document.querySelector('#registrationForm'),
     regInputContainer : document.querySelector('.regInput'),
     pInfoContainer : document.querySelector('#personalInfoContainer'),
+    eventOptContainer: document.querySelector('#eventOptionalContainer'),
 
     // Progress Bars 
     progressBar : document.querySelector('paper-progress'),
@@ -115,6 +117,7 @@ MVC start
 
     // checkboxActivate objects
     pCheckbox = new checkboxActivate(View.pInfo, View.pInfoContainer);
+    gCheckbox = new checkboxActivate(View.gInfo, View.eventOptContainer);
 
     // creates the constructor extension for the login progress
     // review prototypes again to figure out the correct functionality to hide progress bars
