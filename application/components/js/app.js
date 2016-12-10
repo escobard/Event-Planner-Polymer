@@ -33,7 +33,7 @@ MVC start
     lButton : document.getElementById("loginButton"),
     lFormButton : document.getElementById("signInPw"),
     lFormRegButton : document.getElementById("accountReg"),
-    pInfo : document.querySelector('#personalInfo'),
+    pInfo : document.getElementById('personalInfo'),
 
     // container elements
     loginContainer : document.querySelector('#logIn'),
@@ -114,12 +114,13 @@ MVC start
     }; 
 
     // checkboxActivate objects
-    pCheckbox = new checkboxActivate(View.pInfo, View.pInfoContainer, View.regProgressBarOpt, View.regProgressBar);
+    pCheckbox = new checkboxActivate(View.pInfo, View.pInfoContainer);
 
     // creates the constructor extension for the login progress
     // review prototypes again to figure out the correct functionality to hide progress bars
     function ProgressHide(button, aContainer, aProgress) {
-    // following function grabbed from following stackoverflow post: http://stackoverflow.com/questions/14188654/detect-click-outside-element-vanilla-javascript
+
+    // following function extended from following stackoverflow post: http://stackoverflow.com/questions/14188654/detect-click-outside-element-vanilla-javascript
       document.addEventListener('click', function(event){
         var isClickInside = aContainer.contains(event.target);
         var buttonClick = button.contains(event.target);
@@ -224,7 +225,7 @@ MVC start
         // Create the autocomplete object, restricting the search to geographical
         // location types.
         autocomplete = new google.maps.places.Autocomplete(
-            (document.getElementById('geo-address')),
+            (document.getElementById('event-address')),
             {types: ['geocode']});
 
         // When the user selects an address from the dropdown, populate the address
@@ -242,20 +243,8 @@ MVC start
         // Get the place details from the autocomplete object.
         var place = autocomplete.getPlace();
 
-        for (var component in componentForm) {
-          document.getElementById(component).value = '';
-          document.getElementById(component).disabled = false;
-        }
-
         // Get each component of the address from the place details
         // and fill the corresponding field on the form.
-        for (var i = 0; i < place.address_components.length; i++) {
-          var addressType = place.address_components[i].types[0];
-          if (componentForm[addressType]) {
-            var val = place.address_components[i][componentForm[addressType]];
-            document.getElementById(addressType).value = val;
-          }
-        }
       }
 
       // Bias the autocomplete object to the user's geographical location,
