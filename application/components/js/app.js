@@ -102,6 +102,10 @@ MVC start
   Controller Objects
 
   ============================================================================*/
+
+  function Controller(){
+    this._checkboxActivate();
+  };
     
     // checks if checkbox is checked then activates container
     function checkboxActivate(checkButton, checkContainer) {
