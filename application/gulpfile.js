@@ -14,16 +14,9 @@ gulp.task('default', ['copy-html', 'copy-images', 'styles', 'lint', 'scripts'], 
 	gulp.watch('components/js/**/*.js', ['lint']);
 	gulp.watch('/index.html', ['copy-html']);
 	gulp.watch('index.html').on('change', browserSync.reload);
-	gulp.watch('components/sass/main.scss').on('change', browserSync.reload);
-	gulp.watch('components/signup.html').on('change', browserSync.reload);
-	gulp.watch('components/main-app.html').on('change', browserSync.reload);
-	gulp.watch('components/event-toolbar.html').on('change', browserSync.reload);
-	gulp.watch('components/event-planner.html').on('change', browserSync.reload);
-	gulp.watch('components/login-components.html').on('change', browserSync.reload);
-	gulp.watch('components/event-login.html').on('change', browserSync.reload);	
-	gulp.watch('components/event-login-pw.html').on('change', browserSync.reload);	
-	gulp.watch('components/event-registration-form.html').on('change', browserSync.reload);
-	gulp.watch('components/event-planner-editor.html').on('change', browserSync.reload);
+	gulp.watch('components/sass/*.scss').on('change', browserSync.reload);
+	gulp.watch('components/*.html').on('change', browserSync.reload);
+	gulp.watch('components/js/*.js').on('change', browserSync.reload);
 });
 
 //publishes content, calls tasks that copy content over

@@ -20,6 +20,7 @@
         --paper-progress-height: 25px;
         --paper-progress-container-color: rgb(3, 140, 207);
         --paper-progress-active-color:rgb(255, 141, 0);
+        z-index: 2;
       }
   paper-progress.active {
       display: block;
@@ -39,7 +40,7 @@
 	<event-toolbar disabled="[[!signedIn]]" signed-in="[[signedIn]]" on-sign-out="signOut"></event-toolbar>
 
   <!--  Need to find a ay to disable these when user not signed in -->
-  <paper-progress disabled="[[!online]]" id="progress-login" class="transiting active" value="0"></paper-progress>
+  <paper-progress is="dom-if" if="[[editable]]" id="progressLogin" class="transiting" value="0"></paper-progress>
   <paper-progress id="progress-reg" class="transiting" value="0"></paper-progress>
   <paper-progress id="progress-reg-optional" class="transiting" value="0"></paper-progress>
 
@@ -120,7 +121,6 @@
             location="[[note.location]]"
             guesttitle="[[note.guesttitle]]"
             guestlist="[[note.guestlist]]"
-            body="[[note.body]]"
         		on-tap="edit">
     		</event-planner>
   		</template>

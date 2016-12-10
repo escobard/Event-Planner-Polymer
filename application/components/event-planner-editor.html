@@ -70,12 +70,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host(.open) .controls {
         opacity: 1;
       }
+      .event-planner-editor {
+          text-align: left;
+      }
     </style>
     <div id="background"></div>
-    <event-planner id="note" title="{{note.title}}" host="{{note.host}}" eventtype="{{note.eventtype}}" startdate="{{note.startdate}}" enddate="{{note.enddate}}" location="{{note.location}}" body="{{note.body}}" editable></event-planner>
+    <event-planner id="note" title="{{note.title}}" host="{{note.host}}" eventtype="{{note.eventtype}}" startdate="{{note.startdate}}" enddate="{{note.enddate}}" location="{{note.location}}" guestmessage="{{note.guestmessage}}" guestlist="{{note.guestlist}}" editable></event-planner>
     <div class="controls">
-      <paper-button on-tap="delete">Delete</paper-button>
-      <paper-button on-tap="save">Done</paper-button>
+      <paper-button raised on-tap="delete">Delete</paper-button>
+      <paper-button raised on-tap="save">Done</paper-button>
     </div>
   </template>
   <script>
@@ -105,7 +108,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       create: function() {
         this._setOpened(true);
-        this.note = { title: '', body: '' };
+        this.note = { title: '', host: '', eventtype: '', startdate: '', enddate: '', location: '', guesttitle: '', guestlist: '' };
         this.transitionInFrom(this.getBoundingClientRect());
       },
       save: function() {
