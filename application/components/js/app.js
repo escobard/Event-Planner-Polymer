@@ -43,14 +43,12 @@ MVC start
     pInfoContainer : document.querySelector('#personalInfoContainer'),
     eventOptContainer: document.querySelector('#eventOptionalContainer'),
 
-    // Progress Bars 
-    progressBar : document.querySelector('paper-progress'),
+    // progress ars 
     loginProgressBar : document.querySelector('#progressLogin'),
     regProgressBar : document.querySelector('#progress-reg'),
     regProgressBarOpt : document.querySelector('#progress-reg-optional'),
-    eventLogin : document.querySelector('event-login-pw'),
     
-    // Progress Bar Inputs
+    // progress ar inputs arrays
     inputs : [
       {
         selector: '#loginEmail',
@@ -152,7 +150,8 @@ MVC start
           self._adjustProgressIfNecessary(input);
         };
       });
-        this._determineStatus = function (input) {
+
+      this._determineStatus = function (input) {
         var isValid = false;
         
         if (input.element.value.length > 0) {
@@ -167,7 +166,8 @@ MVC start
           console.log(e);
         }
         return isValid;
-      },
+      };
+
       this._adjustProgressIfNecessary = function (input) {
         var newAmount = this.progressBar.value;
 
@@ -179,8 +179,10 @@ MVC start
           input.added = true;
         }
         this.progressBar.value = newAmount;
-      }
+      };
     };
+
+
   };
 
   // checkboxActivate constructor objects
@@ -193,7 +195,7 @@ MVC start
   regOptProgressHide: new Controller()._ProgressState(View.pInfo, View.pInfoContainer, View.regProgressBarOpt);
 
   // registration progress tracker constructor objects
-  progressTracker = new Controller()._ProgressTracker(View.inputs, View.progressBar);
+  progressTracker = new Controller()._ProgressTracker(View.inputs, View.loginProgressBar);
   progressBarReg = new Controller()._ProgressTracker(View.inputsReg, View.regProgressBar);
   progressBarRegOpt = new Controller()._ProgressTracker(View.inputsRegOpt, View.regProgressBarOpt);
   
