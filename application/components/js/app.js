@@ -135,19 +135,9 @@ MVC start
           }
       });
     };
-  };
 
-  // checkboxActivate constructor objects
-  pCheckbox = new Controller()._checkboxActivate(View.pInfo, View.pInfoContainer);
-  gCheckbox = new Controller()._checkboxActivate(View.gInfo, View.eventOptContainer);
-
-  // progressState constructor objects
-  logProgressHide: new Controller()._ProgressState(View.lButton, View.loginContainer, View.loginProgressBar);
-  regProgressHide: new Controller()._ProgressState(View.rButton, View.regInputContainer, View.regProgressBar);
-  regOptProgressHide: new Controller()._ProgressState(View.pInfo, View.pInfoContainer, View.regProgressBarOpt);
-
-    // progress tracker init
-    function ProgressTracker (inputs, progressBar) {
+    // function to manage progress bar updates - originally from High Conversion Forms course
+    this._ProgressTracker = function (inputs, progressBar) {
       var self = this;
       this.progressBar = progressBar;
       this.inputs = inputs;
@@ -158,15 +148,11 @@ MVC start
         input.isValid = null;
 
         input.element.oninput = function () {
-          input.isValid = self.determineStatus(input);
-          self.adjustProgressIfNecessary(input);
+          input.isValid = self._determineStatus(input);
+          self._adjustProgressIfNecessary(input);
         };
       });
-    };
-
-    // progress tracker value check
-    ProgressTracker.prototype = {
-      determineStatus: function (input) {
+        this._determineStatus = function (input) {
         var isValid = false;
         
         if (input.element.value.length > 0) {
@@ -182,7 +168,7 @@ MVC start
         }
         return isValid;
       },
-      adjustProgressIfNecessary: function (input) {
+      this._adjustProgressIfNecessary = function (input) {
         var newAmount = this.progressBar.value;
 
         if (input.added && !input.isValid) {
@@ -195,16 +181,21 @@ MVC start
         this.progressBar.value = newAmount;
       }
     };
+  };
 
-    // creates logic objects
-    // login bar progress tracker
-    var progressTracker = new ProgressTracker(View.inputs, View.progressBar);
+  // checkboxActivate constructor objects
+  pCheckbox = new Controller()._checkboxActivate(View.pInfo, View.pInfoContainer);
+  gCheckbox = new Controller()._checkboxActivate(View.gInfo, View.eventOptContainer);
 
-    // registration progress tracker
-    var progressBarReg = new ProgressTracker(View.inputsReg, View.regProgressBar);
+  // progressState constructor objects
+  logProgressHide: new Controller()._ProgressState(View.lButton, View.loginContainer, View.loginProgressBar);
+  regProgressHide: new Controller()._ProgressState(View.rButton, View.regInputContainer, View.regProgressBar);
+  regOptProgressHide: new Controller()._ProgressState(View.pInfo, View.pInfoContainer, View.regProgressBarOpt);
 
-    // registration optional progress tracker
-    var progressBarRegOpt = new ProgressTracker(View.inputsRegOpt, View.regProgressBarOpt);
+  // registration progress tracker constructor objects
+  progressTracker = new Controller()._ProgressTracker(View.inputs, View.progressBar);
+  progressBarReg = new Controller()._ProgressTracker(View.inputsReg, View.regProgressBar);
+  progressBarRegOpt = new Controller()._ProgressTracker(View.inputsRegOpt, View.regProgressBarOpt);
   
   /*=========================================================================== 
 
