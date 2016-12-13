@@ -45,9 +45,9 @@ gulp.task('copy-scripts', function() {
 		.pipe(gulp.dest('./public/components/js'));
 });
 
-//
+// copies over json files
 gulp.task('copy-json', function() {
-	gulp.src('./components/js/*.json')
+	gulp.src('./components/json/*.json')
 		.pipe(gulp.dest('./public/components/json'));
 });
 
