@@ -113,8 +113,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.transitionInFrom(this.getBoundingClientRect());
       },
       save: function() {
-        basic.submit();
-        this.close('save');
+        var formSubmit = basic.validate();
+        if (formSubmit === true) {
+          console.log('valid boi!')
+        }
+        else if (formSubmit === false){
+          console.log('invalid boi!')
+        }
       },
       delete: function() {
         this.close('delete');
