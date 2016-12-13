@@ -77,8 +77,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div id="background"></div>
     <event-planner id="note" title="{{note.title}}" host="{{note.host}}" eventtype="{{note.eventtype}}" startdate="{{note.startdate}}" enddate="{{note.enddate}}" location="{{note.location}}" guestmessage="{{note.guestmessage}}" guestlist="{{note.guestlist}}" editable></event-planner>
     <div class="controls">
-      <paper-button raised on-tap="delete">Delete Event</paper-button>
-      <paper-button raised on-tap="save">Create Event</paper-button>
+      <paper-button raised on-tap="delete">Delete</paper-button>
+      <paper-button raised on-tap="reset">Reset</paper-button>
+      <paper-button raised on-tap="save">Create</paper-button>
     </div>
   </template>
   <script>
@@ -112,15 +113,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.transitionInFrom(this.getBoundingClientRect());
       },
       save: function() {
-        var formSubmit = basic.validate();
+        var formSubmit = eventForm.validate();
         if (formSubmit === true) {
           console.log('Valid event!');
           this.close('save');
         }
         else if (formSubmit === false){
           console.log('Invalid event!');
-
         }
+      },
+      reset: function (){
+        eventForm.reset();
       },
       delete: function() {
         this.close('delete');

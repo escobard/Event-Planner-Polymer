@@ -132,7 +132,7 @@
       }
     </style>
     <template is="dom-if" if="[[editable]]">
-    <form is="iron-form" method="get" action="/" id="basic">
+    <form is="iron-form" method="get" action="/" id="eventForm">
       <paper-input 
        type="text" 
        id="event-title" 
@@ -241,8 +241,6 @@
        bind-value="{{guestlist}}">
       </paper-input>
       </fieldset>
-  <paper-button raised on-tap="_submit">Submit</paper-button>
-  <paper-button raised on-tap="_reset">Reset</paper-button>
   <div class="output"></div>
 </form>
     </template>
@@ -315,20 +313,6 @@
           type: String,
           notify: true,
           value: ''
-        },
-        lastUpdated: {
-          type: Number,
-          value: 0
-        },
-        note: {
-          type: Object,
-          notify: true
-        },
-        opened: {
-          type: Boolean,
-          reflectToAttribute: true,
-          readOnly: true,
-          value: false
         }
       },
       emptyClass : function (content) {
