@@ -79,6 +79,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="controls">
       <paper-button raised on-tap="delete">Delete</paper-button>
       <paper-button raised on-tap="save">Done</paper-button>
+      <paper-button raised on-tap="submit">Submit</paper-button>
     </div>
   </template>
   <script>
@@ -112,6 +113,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.transitionInFrom(this.getBoundingClientRect());
       },
       save: function() {
+        basic.submit();
         this.close('save');
       },
       delete: function() {
@@ -127,6 +129,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           Polymer.dom(this).classList.remove('open');
           this._setOpened(false);
         }.bind(this));
+      },
+      submit: function (){
+        this.fire('submit', null, { bubbles: false });
       },
       transitionInFrom: function(rect) {
         var targetRect = this.getBoundingClientRect();

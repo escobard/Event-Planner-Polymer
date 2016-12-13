@@ -344,8 +344,7 @@
       },
       _submit: function(event) {
         Polymer.dom(event).localTarget.parentElement.submit();
-        this.fire(this.$.save, null, { bubbles: false });
-        this.fire(this.$.transitionOut, null, { bubbles: false });
+        this.fire('save', { bubbles: false });
       },
       _reset: function (event) {
         var form = Polymer.dom(event).localTarget.parentElement
@@ -356,7 +355,7 @@
         basic.addEventListener('iron-form-submit', function(event) {
         this.querySelector('.output').innerHTML = JSON.stringify(event.detail);
       });
-      }
+      },
     })
   </script>
 </dom-module>
