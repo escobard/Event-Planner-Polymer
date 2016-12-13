@@ -2,7 +2,7 @@
 
 v0.95
 - event denied creation unless all required fills are valid
-- protoype to clean up gulp and parse production files
+- cleaned up gulp and parse production files
 
 v0.9
 - added final CSS styles
