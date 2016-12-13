@@ -240,36 +240,10 @@
        bind-value="{{guestlist}}">
       </paper-input>
       </fieldset>
-  <paper-input name="name" label="Name" required></paper-input>
-  <br>
-  <input type="checkbox" name="food" value="donuts" checked> I like donuts<br>
-  <input type="checkbox" name="food" value="pizza" required> I like pizza<br>
-  <paper-checkbox name="food" value="cheese" required>I like cheese</paper-checkbox><br>
-  <paper-dropdown-menu label="Cars" name="cars" required>
-    <paper-menu class="dropdown-content">
-      <paper-item value="volvo">Volvo</paper-item>
-      <paper-item value="saab">Saab</paper-item>
-      <paper-item value="fiat">Fiat</paper-item>
-      <paper-item value="audi">Audi</paper-item>
-    </paper-menu>
-  </paper-dropdown-menu>
-  <paper-button raised onclick="_submit(event)">Submit</paper-button>
-  <paper-button raised onclick="_reset(event)">Reset</paper-button>
+  <paper-button raised on-tap="_submit">Submit</paper-button>
+  <paper-button raised on-tap="_reset">Reset</paper-button>
   <div class="output"></div>
 </form>
-<script>
-  function _submit(event) {
-    Polymer.dom(event).localTarget.parentElement.submit();
-  }
-  function _reset(event) {
-    var form = Polymer.dom(event).localTarget.parentElement
-    form.reset();
-    form.querySelector('.output').innerHTML = '';
-  }
-  basic.addEventListener('iron-form-submit', function(event) {
-    this.querySelector('.output').innerHTML = JSON.stringify(event.detail);
-  });
-</script>
     </template>
 
     <!--  if is not editable-->
@@ -334,6 +308,16 @@
         lastUpdated: {
           type: Number,
           value: 0
+        },
+        note: {
+          type: Object,
+          notify: true
+        },
+        opened: {
+          type: Boolean,
+          reflectToAttribute: true,
+          readOnly: true,
+          value: false
         }
       },
       emptyClass : function (content) {
@@ -346,6 +330,19 @@
           }
         }
         return true;
+      },
+      _submit: function(event) {
+    Polymer.dom(event).localTarget.parentElement.submit();
+      },
+      _reset: function (event) {
+        var form = Polymer.dom(event).localTarget.parentElement
+        form.reset();
+        form.querySelector('.output').innerHTML = '';
+      },
+      formCheck: function () {
+        basic.addEventListener('iron-form-submit', function(event) {
+        this.querySelector('.output').innerHTML = JSON.stringify(event.detail);
+      });
       }
     })
   </script>
