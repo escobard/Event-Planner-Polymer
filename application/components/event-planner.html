@@ -132,7 +132,7 @@
       }
     </style>
     <template is="dom-if" if="[[editable]]">
-    <form>
+    <form is="iron-form" method="get" action="/" id="basic">
       <paper-input 
        type="text" 
        id="event-title" 
@@ -150,8 +150,9 @@
        type="text" 
        id="event-subtitle" 
        name="eventsubtitle"
-       required
        label="Who is hosting this event?" 
+       minlength="3"
+       error-message="Must be longer than 3 characters, be alphanumerical and spaces"
        placeholder="{{host}}" 
        bind-value="{{host}}">
       </paper-input>
@@ -240,7 +241,10 @@
        bind-value="{{guestlist}}">
       </paper-input>
       </fieldset>
-      </form>
+  <paper-button raised on-tap="_submit">Submit</paper-button>
+  <paper-button raised on-tap="_reset">Reset</paper-button>
+  <div class="output"></div>
+</form>
     </template>
 
     <!--  if is not editable-->
@@ -250,6 +254,7 @@
       <p class$="[[emptyClass(eventtype)]]">This event is a <span class="type">{{eventtype}}</span>, located at <span class="location">{{location}}</span>, starting at <span class="startdate">{{startdate}}</span> and ending at <span class="endate">{{enddate}}</span></p>
       <p class$="[[emptyClass(location)]]"></p>
     </template>
+
   <script src="js/app.js"></script>
   </template>
   <script>
@@ -259,6 +264,16 @@
         editable: {
           type: Boolean,
           reflectToAttribute: true,
+          value: false
+        },
+        note: {
+          type: Object,
+          notify: true
+        },
+        opened: {
+          type: Boolean,
+          reflectToAttribute: true,
+          readOnly: true,
           value: false
         },
         title: {
@@ -304,6 +319,16 @@
         lastUpdated: {
           type: Number,
           value: 0
+        },
+        note: {
+          type: Object,
+          notify: true
+        },
+        opened: {
+          type: Boolean,
+          reflectToAttribute: true,
+          readOnly: true,
+          value: false
         }
       },
       emptyClass : function (content) {
@@ -316,6 +341,21 @@
           }
         }
         return true;
+      },
+      _submit: function(event) {
+        Polymer.dom(event).localTarget.parentElement.submit();
+        this.fire(this.$.save, null, { bubbles: false });
+        this.fire(this.$.transitionOut, null, { bubbles: false });
+      },
+      _reset: function (event) {
+        var form = Polymer.dom(event).localTarget.parentElement
+        form.reset();
+        form.querySelector('.output').innerHTML = '';
+      },
+      formCheck: function () {
+        basic.addEventListener('iron-form-submit', function(event) {
+        this.querySelector('.output').innerHTML = JSON.stringify(event.detail);
+      });
       }
     })
   </script>
