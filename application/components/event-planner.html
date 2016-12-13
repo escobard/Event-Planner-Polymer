@@ -151,7 +151,10 @@
        id="event-subtitle" 
        name="eventsubtitle"
        label="Who is hosting this event?" 
+       required
+       auto-validate
        minlength="3"
+       pattern="[a-zA-Z\s*]*"
        error-message="Must be longer than 3 characters, be alphanumerical and spaces"
        placeholder="{{host}}" 
        bind-value="{{host}}">
