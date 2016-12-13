@@ -1,7 +1,7 @@
 ** Changelog for Event Planning Application
 
 v0.95
-- protoype to deny event creation unless all required fills are valid
+- event denied creation unless all required fills are valid
 - protoype to clean up gulp and parse production files
 
 v0.9

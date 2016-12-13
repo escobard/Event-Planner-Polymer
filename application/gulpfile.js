@@ -22,10 +22,12 @@ gulp.task('default', ['copy-html', 'copy-images', 'styles', 'lint', 'scripts'], 
 //publishes content, calls tasks that copy content over
 gulp.task('public', [
 	'copy-html',
+	'copy-html-components',
 	'copy-images',
 	'styles',
 	'lint',
-	'scripts-public'
+	'copy-scripts',
+	'copy-json'
 ]);
 
 // copy js files over to public folder, into a single file
@@ -36,20 +38,32 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('./public/components/js/'));
 });
 
-
-gulp.task('scripts-public', function() {
+// copies scripts + concats
+gulp.task('copy-scripts', function() {
 	gulp.src('./components/js/main.js')
 		.pipe(concat('main.js'))
 		.pipe(gulp.dest('./public/components/js'));
 });
 
+//
+gulp.task('copy-json', function() {
+	gulp.src('./components/js/*.json')
+		.pipe(gulp.dest('./public/components/json'));
+});
 
-// copies ALL html over to the public folder. This can be used for json / template files
+// copies ALL html over from root to the public folder. This can be used for json / template files
 // USE THIS to setup these two tasks in the future when json files are in the right palce
 gulp.task('copy-html', function() {
 	gulp.src('./*.html')
 		.pipe(gulp.dest('./public'));
 });
+
+// copies ALL html over from components to the public folder. This can be used for json / template files
+gulp.task('copy-html-components', function() {
+	gulp.src('./components/*.html')
+		.pipe(gulp.dest('./public/components'));
+});
+
 
 // copies images over to the public folder
 gulp.task('copy-images', function() {

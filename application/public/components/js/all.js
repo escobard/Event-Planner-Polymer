@@ -33,21 +33,22 @@ MVC start
     lButton : document.getElementById("loginButton"),
     lFormButton : document.getElementById("signInPw"),
     lFormRegButton : document.getElementById("accountReg"),
-    pInfo : document.querySelector('#personalInfo'),
+    pInfo : document.getElementById('personalInfo'),
+    gInfo : document.getElementById('guestInfo'),
 
     // container elements
     loginContainer : document.querySelector('#logIn'),
     regContainer : document.querySelector('#registrationForm'),
+    regInputContainer : document.querySelector('.regInput'),
     pInfoContainer : document.querySelector('#personalInfoContainer'),
+    eventOptContainer: document.querySelector('#eventOptionalContainer'),
 
-    // Progress Bars 
-    progressBar : document.querySelector('paper-progress'),
+    // progress ars 
     loginProgressBar : document.querySelector('#progressLogin'),
     regProgressBar : document.querySelector('#progress-reg'),
     regProgressBarOpt : document.querySelector('#progress-reg-optional'),
-    eventLogin : document.querySelector('event-login-pw'),
     
-    // Progress Bar Inputs
+    // progress ar inputs arrays
     inputs : [
       {
         selector: '#loginEmail',
@@ -96,71 +97,45 @@ MVC start
 
   /*=========================================================================== 
 
-  Controller
+  Controller Objects
 
   ============================================================================*/
-    
-    // checks if checkbox is checked then activates container
-    function checkboxActivate(checkButton, checkContainer, progressBar, progressBarOther) {
+
+  function Controller(){
+
+    // function to activate checkbox containers
+    this._checkboxActivate = function (checkButton, checkContainer) {
       checkButton.addEventListener('change', function () {
         if (this.active) {
           checkContainer.classList.add("active");
-          progressBar.classList.add("active");
-          progressBarOther.classList.remove("active");
         } 
         else {
           checkContainer.classList.remove("active");
-          progressBar.classList.remove("active");
-          progressBarOther.classList.add("active");
         };
-      });
-    }; 
-
-    // checkboxActivate objects
-    pCheckbox = new checkboxActivate(View.pInfo, View.pInfoContainer, View.regProgressBarOpt, View.regProgressBar);
-
-    // adds logic for progress bar display
-    function ProgressActivate(button, aContainer, aProgress, dProgress) {
-      button.addEventListener("click", function(){
-        aContainer.classList.add('active');
-        aProgress.classList.add('active');
-        dProgress.classList.remove('active');
       });
     };
 
-    // creates the constructor extension for the login progress
-    // review prototypes again to figure out the correct functionality to hide progress bars
-    ProgressActivate.prototype.loginProgressHide = function(aContainer) {
-        aContainer.addEventListener('change', function(){
-          if (aContainer.style.display ="none") {
+    // function to manage progress bar states
+    this._ProgressState = function (button, aContainer, aProgress) {
+
+    // following function extended from following stackoverflow post: http://stackoverflow.com/questions/14188654/detect-click-outside-element-vanilla-javascript
+      document.addEventListener('click', function(event){
+        var isClickInside = aContainer.contains(event.target);
+        var buttonClick = button.contains(event.target);
+          if (!isClickInside) {
             aProgress.classList.remove('active');
-          };
-        })
-      };
-
-    // ProgressCheck objects
-    logProgressCheck = new ProgressActivate(View.lFormButton,View.loginContainer, View.loginProgressBar,View.regProgressBar);
-    regProgressCheck = new ProgressActivate(View.lFormRegButton,View.regContainer, View.regProgressBar,View.loginProgressBar);
-
-    //ProgressCheck prototype methods
-    logProgressCheck.loginProgressHide();
-
-    // object to remove 'active' class from all progress bars
-    function HideProgress(button) {
-      button.addEventListener("click", function(){
-        var ProgressBars = [View.loginProgressBar, View.regProgressBar, View.regProgressBarOpt]; 
-        for (var i = 0; i < ProgressBars.length; i++) {
-          var ProgBar = ProgressBars[i];
-          ProgBar.classList.remove('active');
-        };
+          } 
+          else if(buttonClick) {
+            aProgress.classList.remove('active');
+          }
+          else {
+            aProgress.classList.add('active');
+          }
       });
     };
 
-    loginHideProgress = new HideProgress(View.lButton);
-    registrationHideProgress = new HideProgress(View.rButton);
-
-    // progress tracker init
-    function ProgressTracker (inputs, progressBar) {
+    // function to manage progress bar updates - originally from High Conversion Forms course
+    this._ProgressTracker = function (inputs, progressBar) {
       var self = this;
       this.progressBar = progressBar;
       this.inputs = inputs;
@@ -171,15 +146,12 @@ MVC start
         input.isValid = null;
 
         input.element.oninput = function () {
-          input.isValid = self.determineStatus(input);
-          self.adjustProgressIfNecessary(input);
+          input.isValid = self._determineStatus(input);
+          self._adjustProgressIfNecessary(input);
         };
       });
-    };
 
-    // progress tracker value check
-    ProgressTracker.prototype = {
-      determineStatus: function (input) {
+      this._determineStatus = function (input) {
         var isValid = false;
         
         if (input.element.value.length > 0) {
@@ -194,8 +166,9 @@ MVC start
           console.log(e);
         }
         return isValid;
-      },
-      adjustProgressIfNecessary: function (input) {
+      };
+
+      this._adjustProgressIfNecessary = function (input) {
         var newAmount = this.progressBar.value;
 
         if (input.added && !input.isValid) {
@@ -206,20 +179,38 @@ MVC start
           input.added = true;
         }
         this.progressBar.value = newAmount;
-      }
+      };
     };
 
-    // creates logic objects
-    // login bar progress tracker
-    var progressTracker = new ProgressTracker(View.inputs, View.progressBar);
+  };
 
-    // registration progress tracker
-    var progressBarReg = new ProgressTracker(View.inputsReg, View.regProgressBar);
+  // checkboxActivate constructor objects
+  pCheckbox = new Controller()._checkboxActivate(View.pInfo, View.pInfoContainer);
+  gCheckbox = new Controller()._checkboxActivate(View.gInfo, View.eventOptContainer);
 
-    // registration optional progress tracker
-    var progressBarRegOpt = new ProgressTracker(View.inputsRegOpt, View.regProgressBarOpt);
+  // progressState constructor objects
+  logProgressHide: new Controller()._ProgressState(View.lButton, View.loginContainer, View.loginProgressBar);
+  regProgressHide: new Controller()._ProgressState(View.rButton, View.regInputContainer, View.regProgressBar);
+  regOptProgressHide: new Controller()._ProgressState(View.pInfo, View.pInfoContainer, View.regProgressBarOpt);
+
+  // registration progress tracker constructor objects
+  progressTracker = new Controller()._ProgressTracker(View.inputs, View.loginProgressBar);
+  progressBarReg = new Controller()._ProgressTracker(View.inputsReg, View.regProgressBar);
+  progressBarRegOpt = new Controller()._ProgressTracker(View.inputsRegOpt, View.regProgressBarOpt);
   
+
   /*=========================================================================== 
+
+  Controller end
+
+  ============================================================================*/
+
+/*=========================================================================== 
+
+MVC end
+
+============================================================================*/
+/*=========================================================================== 
 
   Google Geolocate API 
 
@@ -244,7 +235,7 @@ MVC start
         // Create the autocomplete object, restricting the search to geographical
         // location types.
         autocomplete = new google.maps.places.Autocomplete(
-            (document.getElementById('geo-address')),
+            (document.getElementById('event-address')),
             {types: ['geocode']});
 
         // When the user selects an address from the dropdown, populate the address
@@ -262,20 +253,8 @@ MVC start
         // Get the place details from the autocomplete object.
         var place = autocomplete.getPlace();
 
-        for (var component in componentForm) {
-          document.getElementById(component).value = '';
-          document.getElementById(component).disabled = false;
-        }
-
         // Get each component of the address from the place details
         // and fill the corresponding field on the form.
-        for (var i = 0; i < place.address_components.length; i++) {
-          var addressType = place.address_components[i].types[0];
-          if (componentForm[addressType]) {
-            var val = place.address_components[i][componentForm[addressType]];
-            document.getElementById(addressType).value = val;
-          }
-        }
       }
 
       // Bias the autocomplete object to the user's geographical location,
@@ -301,18 +280,6 @@ MVC start
   Google Geolocate API end
 
   ============================================================================*/
-
-  /*=========================================================================== 
-
-  Controller end
-
-  ============================================================================*/
-
-/*=========================================================================== 
-
-MVC end
-
-============================================================================*/
 importScripts('../bower_components/platinum-sw/service-worker.js');
 /**
  * @license
