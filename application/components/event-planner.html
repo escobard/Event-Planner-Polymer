@@ -150,8 +150,9 @@
        type="text" 
        id="event-subtitle" 
        name="eventsubtitle"
-       required
        label="Who is hosting this event?" 
+       minlength="3"
+       error-message="Must be longer than 3 characters, be alphanumerical and spaces"
        placeholder="{{host}}" 
        bind-value="{{host}}">
       </paper-input>
@@ -265,6 +266,16 @@
           reflectToAttribute: true,
           value: false
         },
+        note: {
+          type: Object,
+          notify: true
+        },
+        opened: {
+          type: Boolean,
+          reflectToAttribute: true,
+          readOnly: true,
+          value: false
+        },
         title: {
           type: String,
           notify: true,
@@ -332,7 +343,9 @@
         return true;
       },
       _submit: function(event) {
-    Polymer.dom(event).localTarget.parentElement.submit();
+        Polymer.dom(event).localTarget.parentElement.submit();
+        this.fire(this.$.save, null, { bubbles: false });
+        this.fire(this.$.transitionOut, null, { bubbles: false });
       },
       _reset: function (event) {
         var form = Polymer.dom(event).localTarget.parentElement
