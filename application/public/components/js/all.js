@@ -18,37 +18,9 @@ MVC start
 
   // most data is held externally in firebase and within the polymer dom files
   
-  Model = {};
+  Model = {
 
-  /*=========================================================================== 
-
-  View
-
-  ============================================================================*/
-    // selects view elements
-  View = {
-
-    // button elements
-    rButton : document.getElementById("registerButton"),
-    lButton : document.getElementById("loginButton"),
-    lFormButton : document.getElementById("signInPw"),
-    lFormRegButton : document.getElementById("accountReg"),
-    pInfo : document.getElementById('personalInfo'),
-    gInfo : document.getElementById('guestInfo'),
-
-    // container elements
-    loginContainer : document.querySelector('#logIn'),
-    regContainer : document.querySelector('#registrationForm'),
-    regInputContainer : document.querySelector('.regInput'),
-    pInfoContainer : document.querySelector('#personalInfoContainer'),
-    eventOptContainer: document.querySelector('#eventOptionalContainer'),
-
-    // progress ars 
-    loginProgressBar : document.querySelector('#progressLogin'),
-    regProgressBar : document.querySelector('#progress-reg'),
-    regProgressBarOpt : document.querySelector('#progress-reg-optional'),
-    
-    // progress ar inputs arrays
+     // progress ar inputs arrays
     inputs : [
       {
         selector: '#loginEmail',
@@ -92,6 +64,37 @@ MVC start
         amount: 25
       }    
     ]
+  };
+
+  /*=========================================================================== 
+
+  View
+
+  ============================================================================*/
+    // selects view elements
+  View = {
+
+    // button elements
+    rButton : document.getElementById("registerButton"),
+    lButton : document.getElementById("loginButton"),
+    lFormButton : document.getElementById("signInPw"),
+    lFormRegButton : document.getElementById("accountReg"),
+    pInfo : document.getElementById('personalInfo'),
+    gInfo : document.getElementById('guestInfo'),
+
+    // container elements
+    loginContainer : document.querySelector('#logIn'),
+    regContainer : document.querySelector('#registrationForm'),
+    regInputContainer : document.querySelector('.regInput'),
+    pInfoContainer : document.querySelector('#personalInfoContainer'),
+    eventOptContainer: document.querySelector('#eventOptionalContainer'),
+
+    // progress ars 
+    loginProgressBar : document.querySelector('#progressLogin'),
+    regProgressBar : document.querySelector('#progress-reg'),
+    regProgressBarOpt : document.querySelector('#progress-reg-optional'),
+    
+   
   
   };    
 
