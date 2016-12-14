@@ -69,7 +69,7 @@ gulp.task('copy-json', function() {
 });
 
 // copies ALL html over from root to the public folder. This can be used for json / template files
-// USE THIS to setup these two tasks in the future when json files are in the right palce
+// USE THIS to setup these two tasks in the future when json files are in the right place
 gulp.task('copy-html', function() {
 	gulp.src('./index.html')
 		.pipe(vulcanize())
