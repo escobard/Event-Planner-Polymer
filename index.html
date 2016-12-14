@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <!-- Older Chrome configuration -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Notes">
+    <title>Event Planner Application - v1.0</title>
+    <link rel="import" href="components/global-dependencies.html">
+    <link rel="shortcut icon" type="image/png" href="components/img/calendar-favicon.png"/>
+    <style>
+      body {
+        margin:0;
+      }
+    </style>
+  </head>
+  <body>
+     <firebase-app
+        name="event-planner"
+        api-key="AIzaSyCzhnmg4lArK8DY7jrk-BKMKi91p3Fw3hc"
+        auth-domain="event-planner-e6ee3.firebaseapp.com"
+        database-url="https://event-planner-e6ee3.firebaseio.com">
+     </firebase-app>
+     <main-app></main-app>
+
+       <!-- This is the call to our form template, uncomment when ready to use
+     <checkout-form></checkout-form>-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtStNsFJnuTo2aG1-9mKf5T7OXEbchdpM&libraries=places&callback=initAutocomplete"
+        async defer></script>
+        
+  </body>
+</html>
