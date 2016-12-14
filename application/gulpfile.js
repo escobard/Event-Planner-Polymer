@@ -10,6 +10,7 @@ var eslint = require('gulp-eslint');
 var uglify = require('gulp-uglify');
 var babel = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
+var htmlmin = require('gulp-htmlmin');
 
 
 // defines gulp tasks on default command
@@ -70,7 +71,7 @@ gulp.task('copy-html', function() {
 	gulp.src('./*.html')
 		.pipe(sourcemaps.init())
 		.pipe(concat('all.html'))
-		.pipe(uglify())
+		.pipe(htmlmin({collapseWhitespace: true}))
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('./public'));
 });
@@ -80,7 +81,7 @@ gulp.task('copy-html-components', function() {
 	gulp.src('./components/*.html')
 		.pipe(sourcemaps.init())
 		.pipe(concat('all.html'))
-		.pipe(uglify())
+		.pipe(htmlmin({collapseWhitespace: true}))
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('./public/components'));
 });
