@@ -13,6 +13,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var htmlmin = require('gulp-htmlmin');
 var cleanCSS = require('gulp-clean-css');
 var vulcanize = require('gulp-vulcanize');
+var minifyInline = require('gulp-minify-inline');
 
 
 // defines gulp tasks on default command
