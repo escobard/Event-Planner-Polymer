@@ -13,7 +13,7 @@ var sourcemaps = require('gulp-sourcemaps');
 
 
 // defines gulp tasks on default command
-gulp.task('default', ['copy-html', 'copy-images', 'styles', 'lint', 'scripts'], function() {
+gulp.task('serve', ['styles', 'lint', 'scripts'], function() {
 	gulp.watch('components/sass/**/*.scss', ['styles']);
 	gulp.watch('components/js/**/*.js', ['lint']);
 	gulp.watch('/index.html', ['copy-html']);
@@ -38,10 +38,9 @@ gulp.task('public', [
 // this can be re-used for CSS compilation
 gulp.task('scripts', function() {
   gulp.src('./components/js/*.js')
-  	.babel(({
-  		presets: ['es2015']
-  	}
-  	))
+    .pipe(babel({
+            presets: ['es2015']
+    }))
     .pipe(concat('all.js'))
     .pipe(gulp.dest('./public/components/js/'));
 });
@@ -50,10 +49,9 @@ gulp.task('scripts', function() {
 gulp.task('copy-scripts', function() {
 	gulp.src('./components/js/main.js')
 		.pipe(sourcemaps.init())
-	  	.babel(({
-	  		presets: ['es2015']
-	  	}
-	  	))
+        .pipe(babel({
+            presets: ['es2015']
+        }))
 		.pipe(concat('main.js'))
 		.pipe(uglify())
 		.pipe(sourcemaps.write())
