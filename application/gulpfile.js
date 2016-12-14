@@ -56,7 +56,7 @@ gulp.task('copy-scripts', function() {
         .pipe(babel({
             presets: ['es2015']
         }))
-		.pipe(concat('all.js'))
+		.pipe(concat('app.js'))
 		.pipe(uglify())
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('./public/components/js'));
