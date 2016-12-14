@@ -68,7 +68,7 @@ gulp.task('copy-json', function() {
 
 // copies over json files
 gulp.task('copy-bower', function() {
-	gulp.src('./components/bower_components/*/*')
+	gulp.src('./components/bower_components/**')
 		.pipe(gulp.dest('./public/components/bower_components'));
 });
 
