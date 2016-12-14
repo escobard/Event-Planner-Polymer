@@ -12,6 +12,7 @@ var babel = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
 var htmlmin = require('gulp-htmlmin');
 var cleanCSS = require('gulp-clean-css');
+var vulcanize = require('gulp-vulcanize');
 
 
 // defines gulp tasks on default command
@@ -69,11 +70,9 @@ gulp.task('copy-json', function() {
 // copies ALL html over from root to the public folder. This can be used for json / template files
 // USE THIS to setup these two tasks in the future when json files are in the right palce
 gulp.task('copy-html', function() {
-	gulp.src('./*.html')
-		.pipe(sourcemaps.init())
-		.pipe(concat('all.html'))
+	gulp.src('./index.html')
+		.pipe(vulcanize())
 		.pipe(htmlmin({collapseWhitespace: true}))
-		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('./public'));
 });
 

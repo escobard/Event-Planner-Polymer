@@ -21,6 +21,7 @@
     "gulp-clean-css": "^2.2.2",
     "gulp-htmlmin": "^3.0.0",
     "gulp-sourcemaps": "^1.9.1",
-    "gulp-uglify": "^2.0.0"
+    "gulp-uglify": "^2.0.0",
+    "gulp-vulcanize": "^6.1.0"
   }
 }
