@@ -1,0 +1,65 @@
+<dom-module id="main-app"><template><style include="note-app-shared-styles">.event-planner-0 {
+    width: 80%;
+    margin: 15px auto;
+  }
+  body {
+    margin:0;
+  }
+  paper-progress {
+        width: 100% !important;
+        height: 25px !important;
+        --paper-progress-transition-duration: 0.7s;
+        --paper-progress-transition-timing-function: ease;
+        --paper-progress-transition-transition-delay: 0s;
+        --paper-progress-height: 25px;
+        --paper-progress-container-color: rgb(3, 140, 207);
+        --paper-progress-active-color:rgb(255, 141, 0);
+        z-index: 2;
+      }
+  paper-progress.active {
+      display: block;
+      }
+  paper-progress {
+      display: none;
+      }
+  paper-progress#progress-reg {
+        --paper-progress-active-color:rgb(255, 25, 51);
+      }
+  paper-progress#progress-reg-optional {
+        --paper-progress-active-color:rgb(218, 211, 16);
+      }</style><!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 --><event-toolbar disabled="[[!signedIn]]" signed-in="[[signedIn]]" on-sign-out="signOut"></event-toolbar><!--  Need to find a ay to disable these when user not signed in --><paper-progress is="dom-if" if="[[editable]]" id="progressLogin" class="transiting" value="0"></paper-progress><paper-progress id="progress-reg" class="transiting" value="0"></paper-progress><paper-progress id="progress-reg-optional" class="transiting" value="0"></paper-progress><!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 --><!--  Google login disabled indefinetly, can enable again later
+  <event-login-pw on-sign-in="signIn2" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-pw>
+  <event-login-google on-sign-in="signIn" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-google> --><event-login-pw on-sign-in="signIn2" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-pw><!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#17 --><!--  More on : https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#20 --><!--  This creates authentication, where the id is the selector for this authenticator, allows logins--><firebase-auth id="auth" app-name="event-planner" provider="google" signed-in="{{signedIn}}" user="{{user}}"></firebase-auth><!--  More on : https://co delabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#22 --><!--  Docs on :  https://elements.polymer-project.org/elements/paper-fab --><paper-fab icon="add" on-tap="create" disabled="[[!online]]" aria-label="Add note"></paper-fab><!--  Docs: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#22 
+	docs cont: https://github.com/PolymerLabs/note-app-elements/blob/master/na-editor.html --><event-planner-editor id="editor" note="{{editableNote}}" on-close="commitChange"></event-planner-editor><!--  Docs: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#25 
+	docs cont: https://github.com/PolymerElements/app-storage/blob/master/app-indexeddb-mirror/app-indexeddb-mirror.html --><app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"></app-indexeddb-mirror><!--  Docs: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#23 
+	docs cont: https://github.com/firebase/polymerfire --><!--  This allows us to tap into the database, need to review documentation on https://github.com/PolymerLabs/note-app-elements/blob/master/na-behavior.html#L17-L20 to better understand --><firebase-document id="document" app-name="event-planner" path="[[editableNoteId]]" data="{{editableNote}}"></firebase-document><!--  Docs: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#25
+	docs cont: https://github.com/firebase/polymerfire --><firebase-query id="query" app-name="event-planner" path="/notes/[[user.uid]]" data="{{notes}}"></firebase-query><!--  Docs: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#26
+	docs cont: https://github.com/PolymerLabs/note-app-elements/blob/master/na-note.html --><div class="notes"><template is="dom-repeat" items="[[persistedNotes]]" as="note"><event-planner id$="[[note.$key]]" title="[[note.title]]" host="[[note.host]]" eventtype="[[note.eventtype]]" startdate="[[note.startdate]]" enddate="[[note.enddate]]" location="[[note.location]]" guesttitle="[[note.guesttitle]]" guestlist="[[note.guestlist]]" on-tap="edit"></event-planner></template></div></template><script>Polymer({
+      is: 'main-app',
+
+      // more on this here: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#19
+      // and here: https://github.com/PolymerLabs/note-app-elements/blob/master/na-behavior.html
+      behaviors: [Polymer.NoteAppBehavior],
+
+      // more on this here: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#21
+      signIn: function() {
+      	this.$.auth.signInWithPopup();
+      },
+      // more on this here: https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#21
+      signIn2: function() {
+        this.$.auth.signInWithEmailAndPassword(email, password);
+      },
+
+      // https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#23
+      get notesPath() {
+      return '/notes/' + this.user.uid;
+   	  },
+      toEditableId: function(noteId) {
+      return this.notesPath + '/' + noteId;
+    	},
+      // https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#23
+      // https://github.com/PolymerLabs/note-app-elements/blob/master/na-behavior.html#L27-L29
+      get isEditable() {
+      return this.online;
+    	}
+    });</script></dom-module>

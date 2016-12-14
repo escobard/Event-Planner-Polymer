@@ -34,7 +34,8 @@ gulp.task('public', [
 	'styles',
 	'lint',
 	'copy-scripts',
-	'copy-json'
+	'copy-json',
+	'copy-bower'
 ]);
 
 // copy js files over to public folder, into a single file
@@ -52,9 +53,6 @@ gulp.task('scripts', function() {
 gulp.task('copy-scripts', function() {
 	gulp.src('./components/js/*.js')
 		.pipe(sourcemaps.init())
-        .pipe(babel({
-            presets: ['es2015']
-        }))
 		.pipe(concat('app.js'))
 		.pipe(uglify())
 		.pipe(sourcemaps.write())
@@ -67,20 +65,26 @@ gulp.task('copy-json', function() {
 		.pipe(gulp.dest('./public/components/json'));
 });
 
+
+// copies over json files
+gulp.task('copy-bower', function() {
+	gulp.src('./components/bower_components/*/*')
+		.pipe(gulp.dest('./public/components/bower_components'));
+});
+
+
 // copies ALL html over from root to the public folder. This can be used for json / template files
 // USE THIS to setup these two tasks in the future when json files are in the right place
 gulp.task('copy-html', function() {
 	gulp.src('./index.html')
-		.pipe(sourcemaps.init())
-		.pipe(vulcanize())
 		.pipe(htmlmin({collapseWhitespace: true}))
-		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('./public'));
 });
 
 // copies ALL html over from components to the public folder. This can be used for json / template files
 gulp.task('copy-html-components', function() {
 	gulp.src('./components/*.html')
+		.pipe(htmlmin({collapseWhitespace: true}))
 		.pipe(gulp.dest('./public/components'));
 });
 
@@ -121,6 +125,6 @@ gulp.task('lint', function () {
 
 // use browser-sync start --server --index index.html --files="public/*.css"
  browserSync.init({
-     server: "./"
+     server: "./public"
  });
  browserSync.stream();
