@@ -345,14 +345,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           reflectToAttribute: true,
           value: false
         },
-        passvalue: String,
-        passvalidate: String,
-        passconfirm: String,
-        passconfirmvalue: String,
         valueState: {
           type: Object,
           value: {
           }
+        },
+        passvalue: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        passvalidate: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        passconfirm: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        passconfirm: {
+          type: String,
+          notify: true,
+          value: ''
         }
       },
       signIn: function() {
