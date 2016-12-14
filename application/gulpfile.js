@@ -9,11 +9,9 @@ var browserSync = require('browser-sync').create();
 var eslint = require('gulp-eslint');
 var uglify = require('gulp-uglify');
 var babel = require('gulp-babel');
-var sourcemaps = require('gulp-sourcemaps');
 var htmlmin = require('gulp-htmlmin');
 var cleanCSS = require('gulp-clean-css');
 var vulcanize = require('gulp-vulcanize');
-var minifyInline = require('gulp-minify-inline');
 
 
 // defines gulp tasks on default command
@@ -34,8 +32,7 @@ gulp.task('public', [
 	'styles',
 	'lint',
 	'copy-scripts',
-	'copy-json',
-	'copy-bower'
+	'copy-json'
 ]);
 
 // copy js files over to public folder, into a single file
@@ -52,10 +49,8 @@ gulp.task('scripts', function() {
 // copies scripts + concats
 gulp.task('copy-scripts', function() {
 	gulp.src('./components/js/*.js')
-		.pipe(sourcemaps.init())
 		.pipe(concat('app.js'))
 		.pipe(uglify())
-		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('./public/components/js'));
 });
 
@@ -77,6 +72,11 @@ gulp.task('copy-bower', function() {
 // USE THIS to setup these two tasks in the future when json files are in the right place
 gulp.task('copy-html', function() {
 	gulp.src('./index.html')
+		.pipe(vulcanize({
+	      stripComments: true,
+	      inlineScripts: true,
+	      inlineCss: true
+	    }))
 		.pipe(htmlmin({collapseWhitespace: true}))
 		.pipe(gulp.dest('./public'));
 });
