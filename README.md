@@ -13,7 +13,12 @@ You may also clone this locally to your computer, using the following line of co
 $git clone https://github.com/escobard/udacity-srwebdev-project1-event-signup.git
 ```
 
-More usage instructions on this application coming in the future.
+More usage instructions on the Frogger arcade game coming in the near future. 
+## Libraries & Frameworks
+
+Polymer
+Firebase
+
 ## Contribution
 Feel free to contribute to any and all of the files within this repository as you see fit. These files are mainly for personal use, but my goal is to help others better understand JavaScript Object Oriented programming with my software and helpful commentary.
 ## License
