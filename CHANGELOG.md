@@ -1,9 +1,10 @@
 ** Changelog for Event Planning Application
 
 v0.97
-- prototype to refactor code further
-- prototype to do mobile, browser, and live testing
-- prototype to remove obsolete code and npm package
+- refactored code further
+- tested mobile, browser, and live testing
+- packaged, cleaned up gulp production, tested public concat
+- added responsive styles
 
 v0.95
 - event denied creation unless all required fills are valid
