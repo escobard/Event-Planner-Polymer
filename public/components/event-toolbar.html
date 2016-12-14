@@ -6,7 +6,12 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><dom-module id="event-toolbar"><template><style>:host {
+-->
+
+<dom-module id="event-toolbar">
+  <template>
+    <style>
+      :host {
         @apply(--layout-horizontal);
         @apply(--layout-center);
         background-color: rgb(3, 140, 207);
@@ -32,7 +37,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         iron-icon:first-child {
           margin-left: 1em;
         }
-      }</style><iron-icon icon="event"></iron-icon><h1 hidden$="[[!online]]">Event Planner - v0.97</h1><iron-icon icon="cloud" hidden$="[[!online]]"></iron-icon><iron-icon icon="cloud-off" hidden$="[[online]]"></iron-icon><paper-icon-button icon="[[computeLockIcon(signedIn)]]" disabled="[[!signedIn]]" on-tap="lock"></paper-icon-button></template><script>Polymer({
+      }
+    </style>
+    <iron-icon icon="event"></iron-icon>
+    <h1 hidden$="[[!online]]">Event Planner - v1.0</h1>
+    <iron-icon icon="cloud" hidden$="[[!online]]"></iron-icon>
+    <iron-icon icon="cloud-off" hidden$="[[online]]"></iron-icon>
+    <paper-icon-button
+        icon="[[computeLockIcon(signedIn)]]"
+        disabled="[[!signedIn]]"
+        on-tap="lock">
+    </paper-icon-button>
+  </template>
+  <script>
+    Polymer({
       is: 'event-toolbar',
       behaviors: [
         Polymer.AppNetworkStatusBehavior
@@ -50,4 +68,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       lock: function() {
         this.fire('sign-out');
       }
-    });</script></dom-module>
+    });
+  </script>
+</dom-module>

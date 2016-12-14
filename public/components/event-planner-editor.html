@@ -6,7 +6,12 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><dom-module id="event-planner-editor"><template><style>:host {
+-->
+
+<dom-module id="event-planner-editor">
+  <template>
+    <style>
+      :host {
         display: none;
         position: absolute;
         overflow: hidden;
@@ -65,7 +70,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
       .event-planner-editor {
           text-align: left;
-      }</style><div id="background"></div><event-planner id="note" title="{{note.title}}" host="{{note.host}}" eventtype="{{note.eventtype}}" startdate="{{note.startdate}}" enddate="{{note.enddate}}" location="{{note.location}}" guestmessage="{{note.guestmessage}}" guestlist="{{note.guestlist}}" editable></event-planner><div class="controls"><paper-button raised on-tap="delete">Delete</paper-button><paper-button raised on-tap="reset">Reset</paper-button><paper-button raised on-tap="save">Save</paper-button></div></template><script>Polymer({
+      }
+    </style>
+    <div id="background"></div>
+    <event-planner id="note" title="{{note.title}}" host="{{note.host}}" eventtype="{{note.eventtype}}" startdate="{{note.startdate}}" enddate="{{note.enddate}}" location="{{note.location}}" guestmessage="{{note.guestmessage}}" guestlist="{{note.guestlist}}" editable></event-planner>
+    <div class="controls">
+      <paper-button raised on-tap="delete">Delete</paper-button>
+      <paper-button raised on-tap="reset">Reset</paper-button>
+      <paper-button raised on-tap="save">Save</paper-button>
+    </div>
+  
+  </template>
+  <script>
+    Polymer({
       is: 'event-planner-editor',
       properties: {
         note: {
@@ -167,4 +184,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           animation.addEventListener('finish', resolve);
         }.bind(this));
       }
-    });</script></dom-module>
+    });
+  </script>
+</dom-module>

@@ -1,6 +1,6 @@
 /*eslint-env node */
 
-// establishes gulp dependenciesf
+// establishes gulp dependencies
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
@@ -12,7 +12,6 @@ var babel = require('gulp-babel');
 var htmlmin = require('gulp-htmlmin');
 var cleanCSS = require('gulp-clean-css');
 var vulcanize = require('gulp-vulcanize');
-
 
 // defines gulp tasks on default command
 gulp.task('serve', ['styles', 'lint', 'scripts'], function() {

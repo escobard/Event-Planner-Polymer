@@ -1,4 +1,8 @@
-<dom-module id="event-registration-form"><template><style>body {
+
+<dom-module id="event-registration-form">
+<template>
+<style>
+body {
   font-family: 'Roboto', 'Noto', sans-serif;
   font-size: 14px;
   background-color: #FAFAFA;
@@ -190,9 +194,35 @@ fieldset.style-scope.checkout-form {
 
 #diff-address-container h2 {
     margin-top: 0;
-}</style><form is="iron-form" id="form"><fieldset><h2>Register your user account by adding the following information</h2><paper-input id="user-name" name="name" label="What's your Username?" required autocomplete="name" aria-disabled="false" autofocus bind-value="{[username]}" error-message="Please enter your name correctly"></paper-input><paper-input id="email" name="email" label="Please enter your email" required autocomplete="name" aria-disabled="false" bind-value="{[useremail]}" error-message="Please enter a valid Email Address"></paper-input><paper-input id="password" name="password" label="Please enter your password" required autocomplete="name" aria-disabled="false" bind-value="{[userpassword]}" pattern="" error-message="Please enter a valid password"></paper-input><!--
+}
+
+</style>
+  <form is="iron-form" id="form">
+		<fieldset>
+       <h2>Register your user account by adding the following information</h2>
+	       <paper-input id="user-name" name="name" label="What's your Username?" required autocomplete="name" aria-disabled="false" autofocus bind-value="{[username]}" error-message="Please enter your name correctly"></paper-input>
+         <paper-input id="email" name="email" label="Please enter your email" required autocomplete="name" aria-disabled="false" bind-value="{[useremail]}" error-message="Please enter a valid Email Address"></paper-input>
+         <paper-input id="password" name="password" label="Please enter your password" required autocomplete="name" aria-disabled="false" bind-value="{[userpassword]}" pattern="" error-message="Please enter a valid password">
+         </paper-input>
+
+         <!--
           commenting second password out until registration working
-          <paper-input id="password-confirm" name="password-confirm" label="Please enter your password" required autocomplete="name" aria-disabled="false"></paper-input>--></fieldset><fieldset id="diff-address-container"><h2>Enter additional personal information (optional)</h2><paper-input id="user-diffname" name="name" label="Ship to a different name?" autocomplete="name" aria-disabled="false"></paper-input><paper-input id="diff-geo-address" onfocus="geolocate" type="text" autocomplete="street-address"></paper-input></fieldset><paper-button on-tap="_clearfields">Clear fields</paper-button><paper-button on-tap="_register">Register</paper-button><paper-button on-tap="_createUser">Register</paper-button></form></template><script>Polymer({
+          <paper-input id="password-confirm" name="password-confirm" label="Please enter your password" required autocomplete="name" aria-disabled="false"></paper-input>-->
+    </fieldset>
+     <fieldset id="diff-address-container">
+      <h2>Enter additional personal information (optional)</h2>
+      <paper-input id="user-diffname" name="name" label="Ship to a different name?" autocomplete="name" aria-disabled="false"></paper-input>
+      <paper-input id="diff-geo-address" onFocus="geolocate" type="text" autocomplete="street-address"></paper-input>
+    </fieldset>
+  	<paper-button on-tap="_clearfields">Clear fields</paper-button>
+    <paper-button on-tap="_register">Register</paper-button>
+    <paper-button on-tap="_createUser">Register</paper-button>
+
+  </form>
+</template>
+
+  <script>
+Polymer({
 
   is: 'event-registration-form',
   properties: {
@@ -234,4 +264,7 @@ fieldset.style-scope.checkout-form {
   // based function where user change events will go
   _userChange: function(){  },
 
-});</script></dom-module>
+});
+  </script>
+
+</dom-module>
