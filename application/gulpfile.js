@@ -20,7 +20,6 @@ var minifyInline = require('gulp-minify-inline');
 gulp.task('serve', ['styles', 'lint', 'scripts'], function() {
 	gulp.watch('components/sass/**/*.scss', ['styles']);
 	gulp.watch('components/js/**/*.js', ['lint']);
-	gulp.watch('/index.html', ['copy-html']);
 	gulp.watch('index.html').on('change', browserSync.reload);
 	gulp.watch('components/sass/*.scss').on('change', browserSync.reload);
 	gulp.watch('components/*.html').on('change', browserSync.reload);
@@ -72,18 +71,16 @@ gulp.task('copy-json', function() {
 // USE THIS to setup these two tasks in the future when json files are in the right place
 gulp.task('copy-html', function() {
 	gulp.src('./index.html')
+		.pipe(sourcemaps.init())
 		.pipe(vulcanize())
 		.pipe(htmlmin({collapseWhitespace: true}))
+		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('./public'));
 });
 
 // copies ALL html over from components to the public folder. This can be used for json / template files
 gulp.task('copy-html-components', function() {
 	gulp.src('./components/*.html')
-		.pipe(sourcemaps.init())
-		.pipe(concat('all.html'))
-		.pipe(htmlmin({collapseWhitespace: true}))
-		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('./public/components'));
 });
 
