@@ -10,8 +10,7 @@ var eslint = require('gulp-eslint');
 var uglify = require('gulp-uglify');
 var babel = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
-var imagemin = require('imagemin');
-var pngquant = require('imagemin-pngquant');
+
 
 // defines gulp tasks on default command
 gulp.task('default', ['copy-html', 'copy-images', 'styles', 'lint', 'scripts'], function() {
@@ -50,7 +49,14 @@ gulp.task('scripts', function() {
 // copies scripts + concats
 gulp.task('copy-scripts', function() {
 	gulp.src('./components/js/main.js')
+		.pipe(sourcemaps.init())
+	  	.babel(({
+	  		presets: ['es2015']
+	  	}
+	  	))
 		.pipe(concat('main.js'))
+		.pipe(uglify())
+		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('./public/components/js'));
 });
 
