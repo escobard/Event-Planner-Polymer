@@ -147,11 +147,39 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
       form {
           margin: 0;
-          padding: 0 5px;
+          padding: 0 10px;
       }
       #signInPw {
           padding: 10px 20px;
       }
+      fieldset {
+          padding: 0;
+      }
+
+      paper-dialog {
+          z-index: 1;
+      }
+
+      .regPasswords {
+          width: 100%;
+          margin: 0;
+      }
+      .checkboxes {
+          width: 100% !important;
+      }
+      .paper-input-container-0 {
+          padding: 4px 0 0 0;
+      }
+      h3 {
+          display: none;
+      }
+      h2 {
+    white-space: normal;
+}
+#registrationForm {
+    height: 400px;
+    overflow-y: scroll;
+}
       }
 
     </style>
@@ -206,9 +234,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type="text" 
           id="regUserName"
           name="nickname" 
-          label="What would you like your nickname to be?"
+          label="Enter your nickname (optional)"
           autocomplete="nickname"
-          required 
           pattern="[a-zA-Z]*\s*[a-zA-Z]*"
           minlength="2"
           auto-validate
