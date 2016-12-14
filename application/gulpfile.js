@@ -11,6 +11,7 @@ var uglify = require('gulp-uglify');
 var babel = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
 var htmlmin = require('gulp-htmlmin');
+var cleanCSS = require('gulp-clean-css');
 
 
 // defines gulp tasks on default command
