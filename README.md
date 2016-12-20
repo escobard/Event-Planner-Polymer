@@ -5,15 +5,32 @@ None of the provided course example files, or content are provided in this repos
 
 All rights for the original files used and provided with this course go to 
 [Udacity](https://www.udacity.com/).  
-## Installation & Usage
-To install and run this locally on your computer, you will need a local web to open the files in this repository with a text editor, or preview them on a browser.
+## Installation
+To install and run this locally on your computer, please follow these instructions:
 
-You may also clone this locally to your computer, using the following line of code:
+Clone the repository from: 
 ```
 $git clone https://github.com/escobard/udacity-srwebdev-project1-event-signup.git
 ```
 
-More usage instructions on the Frogger arcade game coming in the near future. 
+Install NPM:
+```
+$ npm install
+```
+## Usage
+
+There will be no public access to the firebase database, but to run this application locally use the following instructions:
+
+```
+$ gulp serve
+```
+
+To publish, minimize, and compile components for production use:
+
+```
+$ gulp public
+```
+
 ## Libraries & Frameworks
 
 Polymer
