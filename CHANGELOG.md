@@ -1,4 +1,7 @@
 ** Changelog for Event Planning Application
+v0.99
+- prototype to fix packaging error
+- prototype to fix mobile issues
 
 v0.97
 - refactored code further
