@@ -5,19 +5,48 @@ None of the provided course example files, or content are provided in this repos
 
 All rights for the original files used and provided with this course go to 
 [Udacity](https://www.udacity.com/).  
-## Installation & Usage
-To install and run this locally on your computer, you will need a local web to open the files in this repository with a text editor, or preview them on a browser.
+## Installation
+To install and run this locally on your computer, please follow these instructions:
 
-You may also clone this locally to your computer, using the following line of code:
+Clone the repository from: 
 ```
 $git clone https://github.com/escobard/udacity-srwebdev-project1-event-signup.git
 ```
 
-More usage instructions on the Frogger arcade game coming in the near future. 
+Install NPM:
+```
+$ npm install
+```
+
+Optionally install the firebase CLI:
+```
+$ npm install -g firebase-tools
+```
+## Usage
+
+There will be no public access to the firebase database, but to run this application locally use the following instructions:
+
+```
+$ gulp serve
+```
+
+To publish, minimize, and compile components for production use:
+
+```
+$ gulp public
+```
+
 ## Libraries & Frameworks
 
-Polymer
-Firebase
+[Polymer](https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#0)
+
+[Firebase](https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#0)
+
+[Google Labs Note App Tutorial](https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#0)
+
+Extended scripts and references used in the [Building High Conversion Web Tools - By Google](https://www.udacity.com/course/building-high-conversion-web-forms--ud890) and [Web Tooling & Automation - By Google](https://www.udacity.com/course/web-tooling-automation--ud892) courses by [Udacity](https://www.udacity.com/).
+
+Various stack overflow posts, and other internet tutorials referenced in my commits. 
 
 ## Contribution
 Feel free to contribute to any and all of the files within this repository as you see fit. These files are mainly for personal use, but my goal is to help others better understand JavaScript Object Oriented programming with my software and helpful commentary.

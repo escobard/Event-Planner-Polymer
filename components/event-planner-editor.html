@@ -71,6 +71,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .event-planner-editor {
           text-align: left;
       }
+      @media screen and (max-width: 750px) {
+          #note {
+          padding: 0 20px 1px 20px;
+      }
+    }
     </style>
     <div id="background"></div>
     <event-planner id="note" title="{{note.title}}" host="{{note.host}}" eventtype="{{note.eventtype}}" startdate="{{note.startdate}}" enddate="{{note.enddate}}" location="{{note.location}}" guestmessage="{{note.guestmessage}}" guestlist="{{note.guestlist}}" editable></event-planner>
