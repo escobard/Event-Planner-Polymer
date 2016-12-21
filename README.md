@@ -18,6 +18,10 @@ Install NPM:
 $ npm install
 ```
 
+Install bower components:
+```
+$ bower install
+```
 Optionally install the firebase CLI:
 ```
 $ npm install -g firebase-tools
