@@ -7,7 +7,7 @@ All rights for the original files used and provided with this course go to
 [Udacity](https://www.udacity.com/).  
 ## Installation
 
-To install and run this locally on your computer, please follow these instructions:
+To install and run this locally on your computer, please use these commands:
 
 Install Global Dependencies:
 ```
@@ -19,7 +19,7 @@ $ npm install -g firebase-tools
 
 Clone the repository from: 
 ```
-$git clone https://github.com/escobard/udacity-srwebdev-project1-event-signup.git
+$ git clone https://github.com/escobard/udacity-srwebdev-project1-event-signup.git
 ```
 
 
@@ -36,9 +36,10 @@ $ bower install
 
 ## Usage
 
-There will be no public access to the firebase database, but to run this application locally use the following instructions:
+The application demo can be viewed here :[https://event-planner-e6ee3.firebaseapp.com] (https://event-planner-e6ee3.firebaseapp.com/)
 
-The application can be viewed here :[https://event-planner-e6ee3.firebaseapp.com] (https://event-planner-e6ee3.firebaseapp.com/)
+There will be no public access to the firebase database, but to run this application locally use the following commands:
+
 
 ```
 $ gulp serve
@@ -59,8 +60,8 @@ $ gulp public
 [Google Labs Note App Tutorial](https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#0)
 
 Extended scripts and references used in the :
-    -[Building High Conversion Web Tools - By Google](https://www.udacity.com/course/building-high-conversion-web-forms--ud890) 
-    -[Web Tooling & Automation - By Google](https://www.udacity.com/course/web-tooling-automation--ud892)
+ -[Building High Conversion Web Tools - By Google](https://www.udacity.com/course/building-high-conversion-web-forms--ud890) 
+ -[Web Tooling & Automation - By Google](https://www.udacity.com/course/web-tooling-automation--ud892)
 
 Various stack overflow posts, and other internet tutorials referenced in my commits. 
 
