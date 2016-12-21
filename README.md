@@ -6,18 +6,22 @@ None of the provided course example files, or content are provided in this repos
 All rights for the original files used and provided with this course go to 
 [Udacity](https://www.udacity.com/).  
 ## Installation
-To install and run this locally on your computer, please follow these instructions:
 
-Clone the repository from: 
-```
-$git clone https://github.com/escobard/udacity-srwebdev-project1-event-signup.git
-```
+To install and run this locally on your computer, please follow these instructions:
 
 Install Global Dependencies:
 ```
 $ npm install -g bower
 $ npm install -g firebase-tools 
 ```
+
+### Use these commands once you are in your main project directory:
+
+Clone the repository from: 
+```
+$git clone https://github.com/escobard/udacity-srwebdev-project1-event-signup.git
+```
+
 
 Install NPM:
 ```
@@ -27,16 +31,14 @@ $ npm install
 Install bower components:
 ```
 $ bower install
-$ bower install -p polymerlabs/note-app-elements firebase/polymerfire
 ```
 
-Optionally install the firebase CLI:
-```
-$ npm install -g firebase-tools
-```
+
 ## Usage
 
 There will be no public access to the firebase database, but to run this application locally use the following instructions:
+
+The application can be viewed here :[https://event-planner-e6ee3.firebaseapp.com] (https://event-planner-e6ee3.firebaseapp.com/)
 
 ```
 $ gulp serve
@@ -56,7 +58,9 @@ $ gulp public
 
 [Google Labs Note App Tutorial](https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#0)
 
-Extended scripts and references used in the [Building High Conversion Web Tools - By Google](https://www.udacity.com/course/building-high-conversion-web-forms--ud890) and [Web Tooling & Automation - By Google](https://www.udacity.com/course/web-tooling-automation--ud892) courses by [Udacity](https://www.udacity.com/).
+Extended scripts and references used in the :
+    -[Building High Conversion Web Tools - By Google](https://www.udacity.com/course/building-high-conversion-web-forms--ud890) 
+    -[Web Tooling & Automation - By Google](https://www.udacity.com/course/web-tooling-automation--ud892)
 
 Various stack overflow posts, and other internet tutorials referenced in my commits. 
 
