@@ -31,13 +31,14 @@ $ npm install
 Install bower components:
 ```
 $ bower install
-$ bower install -p polymerlabs/note-app-elements firebase/polymerfire
 ```
 
 
 ## Usage
 
 There will be no public access to the firebase database, but to run this application locally use the following instructions:
+
+The application can be viewed here :[https://event-planner-e6ee3.firebaseapp.com] (https://event-planner-e6ee3.firebaseapp.com/)
 
 ```
 $ gulp serve
