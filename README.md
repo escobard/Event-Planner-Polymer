@@ -13,6 +13,12 @@ Clone the repository from:
 $git clone https://github.com/escobard/udacity-srwebdev-project1-event-signup.git
 ```
 
+Install Global Dependencies:
+```
+$ npm install -g bower
+$ npm install -g firebase-tools 
+```
+
 Install NPM:
 ```
 $ npm install
@@ -21,7 +27,9 @@ $ npm install
 Install bower components:
 ```
 $ bower install
+$ bower install -p polymerlabs/note-app-elements firebase/polymerfire
 ```
+
 Optionally install the firebase CLI:
 ```
 $ npm install -g firebase-tools
