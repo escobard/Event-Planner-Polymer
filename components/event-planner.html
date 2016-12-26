@@ -211,6 +211,19 @@
         </paper-input>
       </fieldset>
       <paper-input
+       type="text" 
+       name="guestlist"
+       id="event-guest-list" 
+       label="Who will be attending this event? (enter guest names)" 
+       required
+       auto-validate
+       pattern="[a-zA-Z\s*]*"
+       minlength="3"
+       error-message="Must be longer than 3 characters, be alphanumerical and spaces"
+       placeholder="{{guestlist}}" 
+       bind-value="{{guestlist}}">
+      </paper-input>
+      <paper-input
        type="text"
        onFocus="geolocate" 
        id="event-address" 
@@ -225,7 +238,7 @@
       </paper-input>
       <fieldset>
           <paper-checkbox id="guestInfo">
-            <span>Check to enter guest information (optional)</span>
+            <span>Check this to enter a guest message (optional)</span>
           </paper-checkbox>
       </fieldset>
       <fieldset id="eventOptionalContainer">
@@ -237,14 +250,7 @@
        placeholder="{{guestmessage}}" 
        bind-value="{{guestmessage}}">
       </paper-input>
-      <paper-input
-       type="text" 
-       name="guestlist"
-       id="event-guest-list" 
-       label="Who will be attending this event? (optional)" 
-       placeholder="{{guestlist}}" 
-       bind-value="{{guestlist}}">
-      </paper-input>
+
       </fieldset>
   <div class="output"></div>
 </form>

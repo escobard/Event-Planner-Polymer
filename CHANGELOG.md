@@ -1,7 +1,7 @@
 ** Changelog for Event Planning Application
 v1.1
 - fixing application areas that instructors required:
-- Event form is missing optional message for guests field
+- Event form optional field is now only the optional message, all other fields are required.
 - Event times cannot be in the past, and end time cannot have times before the start date (view http://codepen.io/NKiD/pen/EyJrvq)
 - Name must be required on the sign up form
 - All fields except for additional messages to guest must be required
