@@ -205,6 +205,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               name="loginemail"
               label="Enter your email to login" 
               required 
+              autofocus
               autocomplete="email" 
               aria-disabled="false" 
               bind-value="{[useremail]}" 
@@ -244,6 +245,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           autocomplete="nickname"
           pattern="[a-zA-Z]*\s*[a-zA-Z]*"
           minlength="2"
+          autofocus
           auto-validate
           error-message="Please enter your name correctly - Only letters and a single space allowed">
          </paper-input>
