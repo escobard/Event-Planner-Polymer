@@ -1,10 +1,10 @@
 ** Changelog for Event Planning Application
 v1.1
-- fixing application areas that instructors required:
+- fixing application areas that instructors requested:
 - Event form optional field is now only the optional message, all other fields are required. (completed)
 - Event times cannot be in the past, and end time cannot have times before the start date (view http://codepen.io/NKiD/pen/EyJrvq)
-- Name must be required on the sign up form
-- All fields except for additional messages to guest must be required
+- Name must be required on the sign up form (completed)
+- All fields except for additional messages to guest must be required in the event form (completed)
 - The autofocus attribute must be added to the first input in each state (completed)
 
 v0.99
