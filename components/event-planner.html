@@ -205,13 +205,12 @@
          id="eventEnd" 
          class="times"
          name="eventend"
-         on-click="dateFocusEnd"
+         on-click="dateFocusedEnd"
          label="When is your event ending?" 
          required
-         auto-validate
          value="{{dateEndValue}}"
          on-input="dateEndChange"
-         pattern="[[dateStartPattern]]"
+         pattern="[[dateEndPattern]]"
          error-message="Date must be greater than start date"
          placeholder="{{enddate}}" 
          bind-value="{{enddate}}">
