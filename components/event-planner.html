@@ -255,14 +255,6 @@
       </paper-input>
         <span id="t"></span>
       </fieldset>
-      <script>
-  var es = document.querySelector('#eventStart');
-
-  // The dom-change event signifies when the template has stamped its DOM.
-  t.addEventListener('dom-change', function() {
-    // auto-binding template is ready.
-  });
-</script>
   <div class="output"></div>
 </form>
     </template>
@@ -368,23 +360,19 @@
         return true;
       },
       dateStartChange: function (){
-        var dateStartValue = this.dateStartValue;
-        var es = es;
         var dateStart = Polymer.dom(this.root).querySelector('#eventStart');
         this.valueState.passvalue = this.dateStartValidation();
         this.dateStartPattern = this.valueState.dateStartValue ? this.dateStartValue :'';
         dateStart.validate();
       },
       dateStartValidation: function (){
-        var dateStartValue = this.dateStartValue;
-        // var dateStart = this.$.eForm.$$('#eventStart');
-        var value = dateStartValue;
+        var value = this.dateStartValue;
         var dateMin = value.length >= 8;
 
         if (dateMin) {
-          console.log('date valie!');
+          console.log('DATE VALID!');
         } else {
-          console.log('Passwords invalid!');
+          console.log('DATE invalid!');
 
         }
         return dateMin;
