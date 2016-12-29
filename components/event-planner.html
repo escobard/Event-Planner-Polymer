@@ -220,12 +220,12 @@
        type="text" 
        name="guestlist"
        id="event-guest-list" 
-       label="Who will be attending this event? (enter guest names)" 
+       label="Who will be attending this event? (enter guest names separated by commas)" 
        required
        auto-validate
-       pattern="[a-zA-Z\s*]*"
+       pattern="[a-zA-Z\s*\,*]*"
        minlength="3"
-       error-message="Must be longer than 3 characters, be alphanumerical and spaces"
+       error-message="Must be alphanumerical and may contain spaces or commas"
        placeholder="{{guestlist}}" 
        bind-value="{{guestlist}}">
       </paper-input>
