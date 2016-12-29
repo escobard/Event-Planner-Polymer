@@ -192,7 +192,9 @@
          label="When is your event starting?" 
          required
          auto-validate
-         pattern="[[datestart]]"
+         value="{{dateStartValue}}"
+         on-input="startdatechange"
+         pattern="[[dateStartPattern]]"
          error-message="Please enter a valid date and time"
          placeholder="{{startdate}}" 
          bind-value="{{startdate}}">
@@ -275,6 +277,11 @@
           reflectToAttribute: true,
           value: false
         },
+        valueState: {
+          type: Object,
+          value: {
+          }
+        },
         note: {
           type: Object,
           notify: true
@@ -325,10 +332,15 @@
           notify: true,
           value: ''
         },
-        datestart: {
+        dateStartValue: {
           type: String,
           notify: true,
-          value: '[^(([0]?[1-9]|1[0-2])/([0-2]?[0-9]|3[0-1])/[1-2]\d{3}) (20|21|22|23|[0-1]?\d{1}):([0-5]?\d{1})$]'
+          value: ''
+        },
+        dateStartPattern: {
+          type: String,
+          notify: true,
+          value: ''
         },
         dateend: {
           type: String,
@@ -347,7 +359,7 @@
         }
         return true;
       },
-      dateStartVal: function(){
+      dateStartVal: function (){
         
       },
       dateEndVal: function (){
