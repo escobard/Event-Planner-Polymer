@@ -189,12 +189,12 @@
          id="eventStart" 
          class="times"
          name="eventstart"
+         on-click="dateFocused"
          label="When is your event starting?" 
          required
-         auto-validate
          value="{{dateStartValue}}"
          on-input="dateStartChange"
-         pattern="[[dateStartPattern]]"
+         pattern="^(([0]?[1-9]|1[0-2])/([0-2]?[0-9]|3[0-1])/[1-2]\d{3}) (20|21|22|23|[0-1]?\d{1}):([0-5]?\d{1})$"
          error-message="Please enter a valid date and time"
          placeholder="{{startdate}}" 
          bind-value="{{startdate}}">
@@ -359,23 +359,27 @@
         }
         return true;
       },
+      dateFocused: function(){
+        var dateStart = Polymer.dom(this.root).querySelector('#eventStart');
+        dateStart.setAttribute("invalid", "");
+      },
       dateStartChange: function (){
         var dateStart = Polymer.dom(this.root).querySelector('#eventStart');
-        this.valueState.passvalue = this.dateStartValidation();
+        this.valueState.dateStartValue = this.dateStartValidation();
         this.dateStartPattern = this.valueState.dateStartValue ? this.dateStartValue :'';
-        dateStart.validate();
       },
       dateStartValidation: function (){
-        var value = this.dateStartValue;
-        var dateMin = value.length >= 8;
-
-        if (dateMin) {
+        var dateStart = Polymer.dom(this.root).querySelector('#eventStart');
+        var value = dateStart.value;
+        var dateMin = value.length >= 8; 
+        var datePattern = /[\+\=\&\^\%\'$'\#\@\!]/.test(value);
+        if (dateMin && datePattern) {
           console.log('DATE VALID!');
+          dateStart.validate();
         } else {
           console.log('DATE invalid!');
-
         }
-        return dateMin;
+        return dateMin && datePattern;
       },
       activateHiddenVars: function () {
         var Test = this.$.eForm;
