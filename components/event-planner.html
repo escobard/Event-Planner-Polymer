@@ -133,7 +133,7 @@
 
 }
     </style>
-    <template is="dom-if" if="[[editable]]">
+    <template is="dom-if" if="[[editable]]" id="eForm">
     <form is="iron-form" method="get" action="/" id="eventForm">
       <paper-input 
        type="text" 
@@ -143,6 +143,7 @@
        required
        minlength="3"
        auto-validate
+       autofocus
        pattern="[a-zA-Z0-9\s*]*"
        error-message="Must be longer than 3 characters, be alphanumerical and spaces"
        placeholder="{{title}}" 
@@ -182,34 +183,52 @@
         <option value="Wedding"></option>
         <option value="Other"></option>
       </datalist>
-      <fieldset>
+      <fieldset id="TEST">
         <paper-input
          type="datetime-local" 
-         id="event-start" 
+         id="eventStart" 
          class="times"
          name="eventstart"
+         on-click="dateFocusedStart"
          label="When is your event starting?" 
          required
-         auto-validate
-         pattern="^(([0]?[1-9]|1[0-2])/([0-2]?[0-9]|3[0-1])/[1-2]\d{3}) (20|21|22|23|[0-1]?\d{1}):([0-5]?\d{1})$"
-         error-message="Please enter a valid date and time"
+         autovalidate
+         value="{{dateStartValue}}"
+         on-input="dateStartChange"
+         pattern="[[dateStartPattern]]"
+         error-message="Date must be in the present and contain valid characters"
          placeholder="{{startdate}}" 
          bind-value="{{startdate}}">
         </paper-input>
         <paper-input
          type="datetime-local"
-         id="event-end" 
+         id="eventEnd" 
          class="times"
          name="eventend"
+         on-click="dateFocusedEnd"
          label="When is your event ending?" 
          required
-         auto-validate
-         pattern="^(([0]?[1-9]|1[0-2])/([0-2]?[0-9]|3[0-1])/[1-2]\d{3}) (20|21|22|23|[0-1]?\d{1}):([0-5]?\d{1})$"
-         error-message="Please enter a valid date and time"
+         value="{{dateEndValue}}"
+         on-input="dateEndChange"
+         pattern="[[dateEndPattern]]"
+         error-message="Date must be greater than start date"
          placeholder="{{enddate}}" 
          bind-value="{{enddate}}">
         </paper-input>
       </fieldset>
+      <paper-input
+       type="text" 
+       name="guestlist"
+       id="event-guest-list" 
+       label="Who will be attending this event? (enter guest names separated by commas)" 
+       required
+       auto-validate
+       pattern="[a-zA-Z\s*\,*]*"
+       minlength="3"
+       error-message="Must be alphanumerical and may contain spaces or commas"
+       placeholder="{{guestlist}}" 
+       bind-value="{{guestlist}}">
+      </paper-input>
       <paper-input
        type="text"
        onFocus="geolocate" 
@@ -225,7 +244,7 @@
       </paper-input>
       <fieldset>
           <paper-checkbox id="guestInfo">
-            <span>Check to enter guest information (optional)</span>
+            <span>Check this to enter a guest message (optional)</span>
           </paper-checkbox>
       </fieldset>
       <fieldset id="eventOptionalContainer">
@@ -233,17 +252,9 @@
        type="text-area" 
        name="guestmessage"
        id="event-guest-message" 
-       label="Do you have a message for your guests?" 
+       label="Do you have a message for your guests? (optional)" 
        placeholder="{{guestmessage}}" 
        bind-value="{{guestmessage}}">
-      </paper-input>
-      <paper-input
-       type="text" 
-       name="guestlist"
-       id="event-guest-list" 
-       label="Who will be attending this event?" 
-       placeholder="{{guestlist}}" 
-       bind-value="{{guestlist}}">
       </paper-input>
       </fieldset>
   <div class="output"></div>
@@ -267,6 +278,11 @@
           type: Boolean,
           reflectToAttribute: true,
           value: false
+        },
+        valueState: {
+          type: Object,
+          value: {
+          }
         },
         note: {
           type: Object,
@@ -317,7 +333,27 @@
           type: String,
           notify: true,
           value: ''
-        }
+        },
+        dateStartValue: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        dateStartPattern: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        dateEndValue: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+        dateEndPattern: {
+          type: String,
+          notify: true,
+          value: ''
+        },
       },
       emptyClass : function (content) {
         return !content ? 'hidden' : '';
@@ -329,6 +365,47 @@
           }
         }
         return true;
+      },
+      dateFocusedStart: function(){
+        var dateStart = Polymer.dom(this.root).querySelector('#eventStart');
+        dateStart.setAttribute("invalid", "");
+      },
+      dateFocusedEnd: function(){
+        var dateEnd = Polymer.dom(this.root).querySelector('#eventEnd');
+        dateEnd.setAttribute("invalid", "");
+      },
+      dateStartChange: function (){
+        var dateStart = Polymer.dom(this.root).querySelector('#eventStart');
+        this.valueState.dateStartValue = this.dateStartValidation();
+        this.dateStartPattern = this.valueState.dateStartValue ? this.dateStartValue :'';
+      },
+      dateEndChange: function (){
+        var dateEnd = Polymer.dom(this.root).querySelector('#eventEnd');
+        this.valueState.dateEndValue = this.dateEndValidation();
+        this.dateEndPattern = this.valueState.dateEndValue ? this.dateEndValue :'';
+      },
+      dateStartValidation: function (){
+        var dateStart = Polymer.dom(this.root).querySelector('#eventStart');
+        var currentDate = new Date();
+        var enteredDate = new Date(dateStart.value);
+        if (enteredDate > currentDate) {
+          console.log('DATE VALID!');
+          dateStart.validate();
+        } else {
+          console.log('DATE INVALID!');
+        }
+      },
+      dateEndValidation: function (){
+        var dateEnd = Polymer.dom(this.root).querySelector('#eventEnd');
+        var dateStart = Polymer.dom(this.root).querySelector('#eventStart');
+        var enteredDateStart = new Date(dateStart.value);
+        var enteredDateEnd = new Date(dateEnd.value);
+        if (enteredDateStart < enteredDateEnd) {
+          console.log('DATE VALID!');
+          dateEnd.validate();
+        } else {
+          console.log('DATE INVALID!');
+        }
       }
     })
   </script>

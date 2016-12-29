@@ -188,7 +188,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             min-width: 90%;
         }
       }
-
     </style>
     <firebase-auth
       id="auth"
@@ -206,6 +205,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               name="loginemail"
               label="Enter your email to login" 
               required 
+              autofocus
               autocomplete="email" 
               aria-disabled="false" 
               bind-value="{[useremail]}" 
@@ -241,10 +241,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type="text" 
           id="regUserName"
           name="nickname" 
-          label="Enter your nickname (optional)"
+          label="Enter your name"
           autocomplete="nickname"
           pattern="[a-zA-Z]*\s*[a-zA-Z]*"
           minlength="2"
+          required
+          autofocus
           auto-validate
           error-message="Please enter your name correctly - Only letters and a single space allowed">
          </paper-input>
@@ -406,11 +408,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: ''
         },
         passvalidate: {
-          type: String,
-          notify: true,
-          value: ''
-        },
-        passconfirm: {
           type: String,
           notify: true,
           value: ''

@@ -3,10 +3,13 @@
 [debug] CLI Version:  3.2.0
 [debug] Platform:     win32
 [debug] Node Version: v4.6.1
-[debug] Time:         Tue Dec 20 2016 22:06:34 GMT-0700 (Mountain Standard Time)
+[debug] Time:         Wed Dec 28 2016 23:24:20 GMT-0700 (Mountain Standard Time)
 [debug] ----------------------------------------------------------------------
 [debug] 
 [debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token
+[debug] <<< HTTP RESPONSE 200
 [debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/event-planner-e6ee3 
 [debug] <<< HTTP RESPONSE 200
 [debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/event-planner-e6ee3/tokens 
@@ -17,3 +20,4 @@
 [info] i  deploying database, hosting
 [info] +  database: rules ready to deploy.
 [info] i  hosting: preparing ./ directory for upload...
+[debug] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/event-planner-e6ee3/uploads/-K_8F2T-6cndbBZUkHgP?fileCount=24177&message= 
