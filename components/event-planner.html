@@ -133,7 +133,7 @@
 
 }
     </style>
-    <template is="dom-if" if="[[editable]]">
+    <template is="dom-if" if="[[editable]]" id="eForm">
     <form is="iron-form" method="get" action="/" id="eventForm">
       <paper-input 
        type="text" 
@@ -183,17 +183,17 @@
         <option value="Wedding"></option>
         <option value="Other"></option>
       </datalist>
-      <fieldset>
+      <fieldset id="TEST">
         <paper-input
          type="datetime-local" 
-         id="event-start" 
+         id="eventStart" 
          class="times"
          name="eventstart"
          label="When is your event starting?" 
          required
          auto-validate
          value="{{dateStartValue}}"
-         on-input="startdatechange"
+         on-input="dateStartChange"
          pattern="[[dateStartPattern]]"
          error-message="Please enter a valid date and time"
          placeholder="{{startdate}}" 
@@ -255,6 +255,14 @@
       </paper-input>
         <span id="t"></span>
       </fieldset>
+      <script>
+  var es = document.querySelector('#eventStart');
+
+  // The dom-change event signifies when the template has stamped its DOM.
+  t.addEventListener('dom-change', function() {
+    // auto-binding template is ready.
+  });
+</script>
   <div class="output"></div>
 </form>
     </template>
@@ -359,14 +367,31 @@
         }
         return true;
       },
-      dateStartVal: function (){
-        
+      dateStartChange: function (){
+        var dateStartValue = this.dateStartValue;
+        var es = es;
+        var dateStart = Polymer.dom(this.root).querySelector('#eventStart');
+        this.valueState.passvalue = this.dateStartValidation();
+        this.dateStartPattern = this.valueState.dateStartValue ? this.dateStartValue :'';
+        dateStart.validate();
       },
-      dateEndVal: function (){
+      dateStartValidation: function (){
+        var dateStartValue = this.dateStartValue;
+        // var dateStart = this.$.eForm.$$('#eventStart');
+        var value = dateStartValue;
+        var dateMin = value.length >= 8;
 
+        if (dateMin) {
+          console.log('date valie!');
+        } else {
+          console.log('Passwords invalid!');
+
+        }
+        return dateMin;
       },
       activateHiddenVars: function () {
-        var t = document.querySelector('#t');
+        var Test = this.$.eForm;
+        var dateStart = document.querySelector('#TEST');
       }
 
     })
