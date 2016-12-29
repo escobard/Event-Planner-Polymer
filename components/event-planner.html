@@ -194,7 +194,7 @@
          required
          value="{{dateStartValue}}"
          on-input="dateStartChange"
-         pattern="^(([0]?[1-9]|1[0-2])/([0-2]?[0-9]|3[0-1])/[1-2]\d{3}) (20|21|22|23|[0-1]?\d{1}):([0-5]?\d{1})$"
+         pattern="[[dateStartPattern]]"
          error-message="Please enter a valid date and time"
          placeholder="{{startdate}}" 
          bind-value="{{startdate}}">
@@ -253,7 +253,6 @@
        placeholder="{{guestmessage}}" 
        bind-value="{{guestmessage}}">
       </paper-input>
-        <span id="t"></span>
       </fieldset>
   <div class="output"></div>
 </form>
@@ -370,16 +369,17 @@
       },
       dateStartValidation: function (){
         var dateStart = Polymer.dom(this.root).querySelector('#eventStart');
-        var value = dateStart.value;
-        var dateMin = value.length >= 8; 
-        var datePattern = /[\+\=\&\^\%\'$'\#\@\!]/.test(value);
-        if (dateMin && datePattern) {
+        var value = dateStart.value; 
+        var currentDate = new Date();
+        var enteredDate = new Date(dateStart.value);
+        if (enteredDate > currentDate) {
           console.log('DATE VALID!');
+          console.log(dateStart.value);
           dateStart.validate();
         } else {
           console.log('DATE invalid!');
+          console.log(dateStart.value);
         }
-        return dateMin && datePattern;
       },
       activateHiddenVars: function () {
         var Test = this.$.eForm;
