@@ -1,5 +1,12 @@
 ** Changelog for Event Planning Application
-v1.1
+
+v1.20
+- Prototype to fix service worker functionality
+- Prototype to add login form on landing rather than after a button click.
+- Prototype to vulcanize gulp pipeline files.
+- Prototype to remove irrelevant console.logs.
+
+v1.10
 - fixing application areas that instructors requested:
 - Event form optional field is now only the optional message, all other fields are required. (completed)
 - Event times cannot be in the past, and end time cannot have times before the start date (completed)
