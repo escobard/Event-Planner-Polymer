@@ -2,8 +2,7 @@
 
 v1.20
 - service worker functionality fixed.
-- Prototype to vulcanize gulp pipeline files.
-- Prototype to remove irrelevant console.logs.
+- all polymer files and dependencies are now stored in a single file, index.html.
 
 v1.10
 - fixing application areas that instructors requested:
