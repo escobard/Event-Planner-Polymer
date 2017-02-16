@@ -27,7 +27,6 @@ gulp.task('serve', ['styles', 'lint'], function() {
 //publishes content, calls tasks that copy content over
 gulp.task('public', [
 	'copy-html',
-	'copy-html-components',
 	'copy-images',
 	'styles',
 	'lint'
@@ -69,8 +68,8 @@ gulp.task('copy-html-components', function() {
 
 // copies images over to the public folder
 gulp.task('copy-images', function() {
-	gulp.src('components/img/*')
-		.pipe(gulp.dest('public/components/img/*'));
+	gulp.src('components/img/**')
+		.pipe(gulp.dest('public/components/img/'));
 });
 
 
