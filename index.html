@@ -9,7 +9,6 @@
     <title>Event Planner Application - v1.20</title>
     <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
     <script src="bower_components/web-animations-js/web-animations.min.js"></script>
-    <link rel="import" href="bower_components/platinum-sw/platinum-sw-elements.html">
     <link rel="import" href="global-dependencies.html">
     <link rel="icon"
       sizes="192x192"
@@ -22,16 +21,6 @@
     </style>
   </head>
   <body>
-  <platinum-sw-register
-    auto-register
-    skip-waiting
-    clients-claim
-    reload-on-install
-    href="sw-import.js">
-    <platinum-sw-cache
-        default-cache-strategy="networkFirst">
-    </platinum-sw-cache>
-  </platinum-sw-register>
      <firebase-app
         name="event-planner"
         api-key="AIzaSyCzhnmg4lArK8DY7jrk-BKMKi91p3Fw3hc"
@@ -44,6 +33,6 @@
      <checkout-form></checkout-form>-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtStNsFJnuTo2aG1-9mKf5T7OXEbchdpM&libraries=places&callback=initAutocomplete"
         async defer></script>
-    
+    <script src="sw-register.js"></script>
   </body>
 </html>
