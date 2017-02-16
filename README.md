@@ -74,6 +74,7 @@ $ gulp public
 ## Known Bugs
 - Google place autocomplete does not recognize paper inputs as HTMLInputElements
 - When editing an event, event input text is autofilled with most recent entry.
+- On browsers other than chrome, shadowDOM elements are not being recognized so progress bars, and hidden checkbox fields are not working
 
 ## Libraries, Frameworks
 

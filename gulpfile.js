@@ -12,6 +12,7 @@ var babel = require('gulp-babel');
 var htmlmin = require('gulp-htmlmin');
 var cleanCSS = require('gulp-clean-css');
 var vulcanize = require('gulp-vulcanize');
+var minifyInline = require('gulp-minify-inline');
 
 // defines gulp tasks on default command
 gulp.task('serve', ['styles', 'lint', 'scripts'], function() {
@@ -76,6 +77,7 @@ gulp.task('copy-html', function() {
 	      inlineScripts: true,
 	      inlineCss: true
 	    }))
+	   	.pipe(minifyInline())
 		.pipe(htmlmin({collapseWhitespace: true}))
 		.pipe(gulp.dest('./public'));
 });
@@ -83,6 +85,12 @@ gulp.task('copy-html', function() {
 // copies ALL html over from components to the public folder. This can be used for json / template files
 gulp.task('copy-html-components', function() {
 	gulp.src('./components/*.html')
+		.pipe(vulcanize({
+	      stripComments: true,
+	      inlineScripts: true,
+	      inlineCss: true
+	    }))
+		.pipe(minifyInline())
 		.pipe(htmlmin({collapseWhitespace: true}))
 		.pipe(gulp.dest('./public/components'));
 });

@@ -1,8 +1,7 @@
 ** Changelog for Event Planning Application
 
 v1.20
-- Prototype to fix service worker functionality
-- Prototype to add login form on landing rather than after a button click.
+- service worker functionality fixed.
 - Prototype to vulcanize gulp pipeline files.
 - Prototype to remove irrelevant console.logs.
 
