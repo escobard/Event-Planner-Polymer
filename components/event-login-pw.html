@@ -230,7 +230,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <span id="invalidLogin">Invalid login credentials!</span>
         </fieldset>
         <paper-button on-tap="signIn" id="loginButton" disabled>Click here to Login</paper-button>
-        <p id="signInRegistration">Don't have an Account? <span id="accountReg" onclick="registrationForm.open()">Click here to register</span></p>
+        <p id="signInRegistration">Don't have an Account? <span id="accountReg" on-tap="openReg">Click here to register</span></p>
       </form>
     </paper-dialog>
     <paper-dialog id="registrationForm" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
@@ -499,7 +499,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       openLogin: function(){
         var element = document.querySelector('#logIn');
-        console.log('WORKING');
+        element.toggle();
+      },
+      openReg: function(){
+        var element = document.querySelector('#registrationForm');
         element.toggle();
       }
     });
