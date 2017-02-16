@@ -14,7 +14,8 @@ self.addEventListener('install', function(event) {
       return cache.addAll([
       './',
       './index.html',
-      './components/img/calendar-favicon.png'
+      './components/img/calendar-favicon.png',
+      './components/img/calendar.png'
       ]);
     }).then(function(){
       return self.skipWaiting();

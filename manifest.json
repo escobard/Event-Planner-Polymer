@@ -8,7 +8,7 @@
   "orientation":"any",
     "icons": [
   {
-    "src": "../bower_components/note-app/common/images/icon-4x.png",
+    "src": "components/img/calendar.png",
     "sizes": "192x192",
     "type": "image/png"
   }]
