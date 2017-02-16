@@ -72,7 +72,8 @@ $ gulp public
 - Refactor all code into Polymer for cleaner scalability. 
 
 ## Known Bugs
-- Application height is bugged under certain circumstances in Chrome version 54+
+- Google place autocomplete does not recognize paper inputs as HTMLInputElements
+- When editing an event, event input text is autofilled with most recent entry.
 
 ## Libraries, Frameworks
 
