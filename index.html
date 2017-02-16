@@ -2,11 +2,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
-    <!-- Older Chrome configuration  -->
+    <link rel="manifest" href="manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Notes">
-    <title>Event Planner Application - v1.1</title>
-    <link rel="import" href="components/global-dependencies.html">
+    <meta name="application-name" content="Event Planner">
+    <title>Event Planner Application - v1.20</title>
+    <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <script src="bower_components/web-animations-js/web-animations.min.js"></script>
+    <link rel="import" href="global-dependencies.html">
+    <link rel="icon"
+      sizes="512x512"
+      href="components/img/calendar.png">
     <link rel="shortcut icon" type="image/png" href="components/img/calendar-favicon.png"/>
     <style>
       body {
@@ -22,11 +27,8 @@
         database-url="https://event-planner-e6ee3.firebaseio.com">
      </firebase-app>
      <main-app></main-app>
-
-       <!-- This is the call to our form template, uncomment when ready to use
-     <checkout-form></checkout-form>-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtStNsFJnuTo2aG1-9mKf5T7OXEbchdpM&libraries=places&callback=initAutocomplete"
         async defer></script>
-        
+    <script src="sw-register.js"></script>
   </body>
 </html>

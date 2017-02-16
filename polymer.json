@@ -1,0 +1,20 @@
+{
+  "main": "index.html",
+  "shell": "components/main-app.html",
+  "fragments": [
+    "components/event-login-pw.html",
+    "components/event-registration-form.html",
+    "components/event-toolbar.html",
+    "components/event-planner.html",
+    "components/event-planner-editor.html",
+  ],
+  "sourceGlobs": [
+   "components/**/*",
+   "components/images/**/*",
+   "bower.json"
+  ],
+  "includeDependencies": [
+    "manifest.json",
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
+  ]
+}

@@ -22,16 +22,18 @@
       function initAutocomplete() {
         // Create the autocomplete object, restricting the search to geographical
         // location types.
+        var eventAddress = document.getElementById('event-address');
+        
         autocomplete = new google.maps.places.Autocomplete(
-            (document.getElementById('event-address')),
+            (eventAddress),
             {types: ['geocode']});
 
         // When the user selects an address from the dropdown, populate the address
         // fields in the form.
         autocomplete.addListener('place_changed', fillInAddress);
-
+        var eventAddress2 = document.getElementById('diff-geo-address');
         // object created to populate different address field when field is active
-        autocomplete2 = new google.maps.places.Autocomplete(document.getElementById('diff-geo-address'), { types: [ 'geocode' ] });
+        autocomplete2 = new google.maps.places.Autocomplete(eventAddress2, { types: [ 'geocode' ] });
         autocomplete2.addListener('place_changed', function() {
           fillInAddress();
         });

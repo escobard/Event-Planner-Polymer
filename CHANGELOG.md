@@ -1,5 +1,12 @@
 ** Changelog for Event Planning Application
-v1.1
+
+v1.20
+- service worker functionality fixed.
+- all polymer files and dependencies are now stored in a single file, index.html.
+- fixed firefox and other browser usage, only works with production version not dev version due to how polymer components render with shadowDOM
+- application working offline for development and production versions
+
+v1.10
 - fixing application areas that instructors requested:
 - Event form optional field is now only the optional message, all other fields are required. (completed)
 - Event times cannot be in the past, and end time cannot have times before the start date (completed)

@@ -195,7 +195,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       signed-in="{{signedIn}}"
       user="{{user}}">
     </firebase-auth>
-    <paper-button id="signInPw" raised onclick="logIn.open()">Click here to begin</paper-button>
+    <paper-button id="signInPw" raised on-tap="openLogin">Click here to begin</paper-button>
     <paper-dialog id="logIn" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
       <h1>Login to your Account</h1>
       <form is="iron-form" id="loginForm">
@@ -230,7 +230,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <span id="invalidLogin">Invalid login credentials!</span>
         </fieldset>
         <paper-button on-tap="signIn" id="loginButton" disabled>Click here to Login</paper-button>
-        <p id="signInRegistration">Don't have an Account? <span id="accountReg" onclick="registrationForm.open()">Click here to register</span></p>
+        <p id="signInRegistration">Don't have an Account? <span id="accountReg" on-tap="openReg">Click here to register</span></p>
       </form>
     </paper-dialog>
     <paper-dialog id="registrationForm" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
@@ -381,7 +381,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-button on-tap="Register" id="registerButton" disabled>Click here to create your account</paper-button>
     </form>
   </paper-dialog>
-  <script src="js/app.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+  
   </template>
   <script>
     Polymer({
@@ -495,6 +496,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         } else {
           console.log('Login credentials invalid!')
         }
+      },
+      openLogin: function(){
+        var element = document.querySelector('#logIn');
+        element.toggle();
+      },
+      openReg: function(){
+        var element = document.querySelector('#registrationForm');
+        element.toggle();
       }
     });
   </script>

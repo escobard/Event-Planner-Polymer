@@ -1,0 +1,15 @@
+{
+  "name": "Meetup Event Planner",
+  "short_name": "Meetup Event Planner - Project 1",
+  "start_url": "index.html",
+  "display": "standalone",
+  "theme_color": "#038ccf",
+  "background_color": "#038ccf",
+  "orientation":"any",
+    "icons": [
+  {
+    "src": "components/img/calendar.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  }]
+}

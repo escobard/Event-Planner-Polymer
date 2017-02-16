@@ -223,7 +223,7 @@
        label="Who will be attending this event? (enter guest names separated by commas)" 
        required
        auto-validate
-       pattern="[a-zA-Z\s*\,*]*"
+       pattern="[a-zA-Z\/,\s*]*"
        minlength="3"
        error-message="Must be alphanumerical and may contain spaces or commas"
        placeholder="{{guestlist}}" 
@@ -268,7 +268,7 @@
       <p class$="[[emptyClass(eventtype)]]">This event is a <span class="type">{{eventtype}}</span>, located at <span class="location">{{location}}</span>, starting at <span class="startdate">{{startdate}}</span> and ending at <span class="endate">{{enddate}}</span></p>
       <p class$="[[emptyClass(location)]]"></p>
     </template>
-    <script src="js/app.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
   </template>
   <script>
     Polymer({
