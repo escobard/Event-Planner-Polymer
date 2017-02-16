@@ -6,7 +6,7 @@ This application was created as an Event Planner, with a special focus on form v
 
 ### Additional Features
 - Home-screen installable.
-- Google Geolocation.
+- Google places address autocomplete.
 - Firebase JSON data get / post. 
 - Firebase Authentication user login / account creation.
 - Basic offline functionality.
@@ -39,7 +39,7 @@ Install NPM dependencies:
 $ npm install
 ```
 
-Install bower components:
+Install Bower components:
 ```
 $ bower install
 ```
@@ -53,16 +53,14 @@ $ gulp serve
 To publish, minimize, and compile components for production use:
 
 ```
-$ gulp public
+$ gulp build
 ```
 
-## Most Recent Update - v1.10
-- fixing application areas that instructors requested:
-- Event form optional field is now only the optional message, all other fields are required. (completed)
-- Event times cannot be in the past, and end time cannot have times before the start date (completed)
-- Name must be required on the sign up form (completed)
-- All fields except for additional messages to guest must be required in the event form (completed)
-- The autofocus attribute must be added to the first input in each state (completed)
+## Most Recent Update - v1.20
+- service worker functionality fixed.
+- all polymer files and dependencies are now stored in a single file, index.html.
+- fixed firefox and other browser usage for production version.
+- application working offline for development and production versions.
 
 ## To Do's
 - Get rid of obsolete commentary in code.
@@ -72,7 +70,6 @@ $ gulp public
 ## Known Bugs
 - Google place autocomplete does not recognize paper inputs as HTMLInputElements
 - When editing an event, event input text is autofilled with most recent entry.
-
 
 ## Libraries, Frameworks
 
