@@ -1,4 +1,4 @@
-# Event Planner - Polymer
+# Event Planner - Polymer / Firebase
 This repository contains all my own programming project files, notes, and associated files for the [Udacity -Senior Web Developer Nanodegree - By Google - Project 1](https://www.udacity.com/course/object-oriented-javascript--ud015) course with [Udacity](https://www.udacity.com/). 
 
 ## Project Criteria
@@ -9,7 +9,7 @@ This application was created as an Event Planner, with a special focus on form v
 - Google places address autocomplete.
 - Firebase JSON data get / post. 
 - Firebase Authentication user login / account creation.
-- Basic offline functionality.
+- Offline functionality.
 
 ## Demo
 
