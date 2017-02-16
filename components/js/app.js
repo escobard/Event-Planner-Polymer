@@ -122,7 +122,7 @@ MVC start
 
     // function to activate checkbox containers
     this._checkboxActivate = function (checkButton, checkContainer) {
-      if (checkButton == null) {return;}
+      if (checkButton == null) {return}
       checkButton.addEventListener('change', function () {
         if (this.active) {
           checkContainer.classList.add("active");
@@ -135,7 +135,7 @@ MVC start
 
     // function to manage progress bar states
     this._ProgressState = function (button, aContainer, aProgress) {
-    if (aContainer == null) {return;}
+    if (aContainer == null) {return}
     // following function extended from following stackoverflow post: http://stackoverflow.com/questions/14188654/detect-click-outside-element-vanilla-javascript
       document.addEventListener('click', function(event){
 
@@ -163,11 +163,11 @@ MVC start
         input.element = document.querySelector(input.selector);
         input.added = false;
         input.isValid = null;
-        if (input == null) {return;} else{
+        if (input.element == null) {return}
         input.element.oninput = function () {
           input.isValid = self._determineStatus(input);
           self._adjustProgressIfNecessary(input);
-        };}
+        };
       });
       this._determineStatus = function (input) {
         var isValid = false;
