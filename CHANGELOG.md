@@ -4,7 +4,7 @@ v1.20
 - service worker functionality fixed.
 - all polymer files and dependencies are now stored in a single file, index.html.
 - fixed firefox and other browser usage, only works with production version not dev version due to how polymer components render with shadowDOM
-- prototype to make application work offline on for public
+- application working offline for development and production versions
 
 v1.10
 - fixing application areas that instructors requested:

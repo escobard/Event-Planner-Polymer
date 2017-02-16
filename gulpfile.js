@@ -49,7 +49,7 @@ gulp.task('copy-html', function() {
 // copies ALL html over from root to the public folder. This can be used for json / template files
 // USE THIS to setup these two tasks in the future when json files are in the right place
 gulp.task('copy-sw', function() {
-	gulp.src('sw-import.js')
+	gulp.src('service-worker.js')
 		.pipe(gulp.dest('./dist'));	
 });
 
@@ -94,6 +94,6 @@ gulp.task('lint', function () {
 
 // use browser-sync start --server --index index.html --files="public/*.css"
  browserSync.init({
-     server: "./"
+     server: "./dist"
  });
  browserSync.stream();

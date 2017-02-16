@@ -9,6 +9,7 @@ This application was created as an Event Planner, with a special focus on form v
 - Google Geolocation.
 - Firebase JSON data get / post. 
 - Firebase Authentication user login / account creation.
+- Basic offline functionality.
 
 ## Demo
 
@@ -64,10 +65,7 @@ $ gulp public
 - The autofocus attribute must be added to the first input in each state (completed)
 
 ## To Do's
-- Fix application faulty service worker functionality.
 - Get rid of obsolete commentary in code.
-- Update pipeline to vulcanize and compress components correctly.
-- Display the login form on application landing.
 - Add google login functionality.
 - Refactor all code into Polymer for cleaner scalability. 
 
