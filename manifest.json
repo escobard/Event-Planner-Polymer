@@ -1,6 +1,6 @@
 {
   "name": "Meetup Event Planner",
-  "short_name": "Meet Up Event Planner - Project 1",
+  "short_name": "Meetup Event Planner - Project 1",
   "start_url": "index.html",
   "display": "standalone",
   "theme_color": "#3f51b5",
