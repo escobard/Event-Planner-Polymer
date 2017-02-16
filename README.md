@@ -82,9 +82,11 @@ $ gulp public
 
 [Firebase](https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#0)
 
-[Google Labs Note App Tutorial](https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#0)
+[FLATICON - for the favicon] (http://www.flaticon.com/)
 
 ## Tutorials
+
+[Google Labs Note App Tutorial](https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#0)
 
 [Building High Conversion Web Tools - By Google] (https://www.udacity.com/course/building-high-conversion-web-forms--ud890) 
 
