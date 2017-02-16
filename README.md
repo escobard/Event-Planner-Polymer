@@ -8,6 +8,7 @@ This application was created as an Event Planner, with a special focus on form v
 - Home-screen installable.
 - Google Geolocation.
 - Firebase JSON data get / post. 
+- Firebase Authentication user login / account creation.
 
 ## Demo
 
