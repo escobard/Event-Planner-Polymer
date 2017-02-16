@@ -97,4 +97,4 @@ Feel free to contribute to this repository. All files in this repository are pro
 For commercial or educational use, please paste a link to this repository to give proper credit.
 
 ## License
-As of October 31st, 2016, these files are open for all to use and contribute to. This repository is protected under the [MIT License](http://choosealicense.com/licenses/mit/).
+As of February 16th, 2016, these files are open for all to use and contribute to. This repository is protected under the [MIT License](http://choosealicense.com/licenses/mit/).
