@@ -66,6 +66,7 @@ $ gulp build
 - Get rid of obsolete commentary in code.
 - Add google login functionality.
 - Refactor all code into Polymer for cleaner scalability. 
+- Mobile revisions.
 
 ## Known Bugs
 - Google place autocomplete does not recognize paper inputs as HTMLInputElements
