@@ -122,6 +122,7 @@ MVC start
 
     // function to activate checkbox containers
     this._checkboxActivate = function (checkButton, checkContainer) {
+      if (checkButton == null) {return;} else {
       checkButton.addEventListener('change', function () {
         if (this.active) {
           checkContainer.classList.add("active");
@@ -130,6 +131,7 @@ MVC start
           checkContainer.classList.remove("active");
         };
       });
+      }
     };
 
     // function to manage progress bar states
@@ -156,7 +158,6 @@ MVC start
       var self = this;
       this.progressBar = progressBar;
       this.inputs = inputs;
-
       this.inputs.forEach(function (input) {
         input.element = document.querySelector(input.selector);
         input.added = false;
@@ -167,7 +168,6 @@ MVC start
           self._adjustProgressIfNecessary(input);
         };
       });
-
       this._determineStatus = function (input) {
         var isValid = false;
         
