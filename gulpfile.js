@@ -25,7 +25,7 @@ gulp.task('serve', ['styles', 'lint'], function() {
 });
 
 //publishes content, calls tasks that copy content over
-gulp.task('public', [
+gulp.task('build', [
 	'copy-html',
 	'copy-images',
 	'styles',
@@ -42,13 +42,13 @@ gulp.task('copy-html', function() {
 	      inlineCss: true
 	    }))
 		.pipe(htmlmin({collapseWhitespace: true}))
-		.pipe(gulp.dest('./public'));	
+		.pipe(gulp.dest('./dist'));	
 });
 
 // copies images over to the public folder
 gulp.task('copy-images', function() {
 	gulp.src('components/img/**')
-		.pipe(gulp.dest('public/components/img/'));
+		.pipe(gulp.dest('./dist/components/img/'));
 });
 
 
@@ -61,7 +61,7 @@ gulp.task('styles', function() {
 		.pipe(autoprefixer({
 			browsers: ['last 2 versions']
 		}))
-		.pipe(gulp.dest('public/css'))
+		.pipe(gulp.dest('./dist/css'))
 		.pipe(browserSync.stream());
 });
 
@@ -81,6 +81,6 @@ gulp.task('lint', function () {
 
 // use browser-sync start --server --index index.html --files="public/*.css"
  browserSync.init({
-     server: "./public"
+     server: "./dist"
  });
  browserSync.stream();
