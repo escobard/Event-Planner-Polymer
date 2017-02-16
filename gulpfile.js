@@ -28,6 +28,7 @@ gulp.task('serve', ['styles', 'lint'], function() {
 gulp.task('build', [
 	'copy-html',
 	'copy-json',
+	'copy-sw',
 	'copy-images',
 	'styles',
 	'lint'
@@ -43,6 +44,12 @@ gulp.task('copy-html', function() {
 	      inlineCss: true
 	    }))
 		.pipe(htmlmin({collapseWhitespace: true}))
+		.pipe(gulp.dest('./dist'));	
+});
+// copies ALL html over from root to the public folder. This can be used for json / template files
+// USE THIS to setup these two tasks in the future when json files are in the right place
+gulp.task('copy-sw', function() {
+	gulp.src('sw-import.js')
 		.pipe(gulp.dest('./dist'));	
 });
 // copies ALL html over from root to the public folder. This can be used for json / template files
