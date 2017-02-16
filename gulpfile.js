@@ -30,9 +30,7 @@ gulp.task('public', [
 	'copy-html-components',
 	'copy-images',
 	'styles',
-	'lint',
-	'copy-scripts',
-	'copy-json'
+	'lint'
 ]);
 
 // copy js files over to public folder, into a single file
@@ -44,20 +42,6 @@ gulp.task('scripts', function() {
     }))
     .pipe(concat('all.js'))
     .pipe(gulp.dest('./public/components/js/'));
-});
-
-// copies scripts + concats
-gulp.task('copy-scripts', function() {
-	gulp.src('./components/js/*.js')
-		.pipe(concat('app.js'))
-		.pipe(uglify())
-		.pipe(gulp.dest('./public/components/js'));
-});
-
-// copies over json files
-gulp.task('copy-json', function() {
-	gulp.src('./components/json/*.json')
-		.pipe(gulp.dest('./public/components/json'));
 });
 
 
@@ -77,7 +61,7 @@ gulp.task('copy-html', function() {
 	      inlineScripts: true,
 	      inlineCss: true
 	    }))
-	   	.pipe(minifyInline())
+
 		.pipe(htmlmin({collapseWhitespace: true}))
 		.pipe(gulp.dest('./public'));
 });
@@ -90,7 +74,6 @@ gulp.task('copy-html-components', function() {
 	      inlineScripts: true,
 	      inlineCss: true
 	    }))
-		.pipe(minifyInline())
 		.pipe(htmlmin({collapseWhitespace: true}))
 		.pipe(gulp.dest('./public/components'));
 });
