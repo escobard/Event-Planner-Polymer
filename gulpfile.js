@@ -15,7 +15,7 @@ var vulcanize = require('gulp-vulcanize');
 var minifyInline = require('gulp-minify-inline');
 
 // defines gulp tasks on default command
-gulp.task('serve', ['styles', 'lint', 'scripts'], function() {
+gulp.task('serve', ['styles', 'lint'], function() {
 	gulp.watch('components/sass/**/*.scss', ['styles']);
 	gulp.watch('components/js/**/*.js', ['lint']);
 	gulp.watch('index.html').on('change', browserSync.reload);
@@ -32,18 +32,6 @@ gulp.task('public', [
 	'styles',
 	'lint'
 ]);
-
-// copy js files over to public folder, into a single file
-// this can be re-used for CSS compilation
-gulp.task('scripts', function() {
-  gulp.src('./components/js/*.js')
-    .pipe(babel({
-            presets: ['es2015']
-    }))
-    .pipe(concat('all.js'))
-    .pipe(gulp.dest('./public/components/js/'));
-});
-
 
 // copies over json files
 gulp.task('copy-bower', function() {
@@ -63,7 +51,7 @@ gulp.task('copy-html', function() {
 	    }))
 
 		.pipe(htmlmin({collapseWhitespace: true}))
-		.pipe(gulp.dest('./public'));
+		.pipe(gulp.dest('./public'));	
 });
 
 // copies ALL html over from components to the public folder. This can be used for json / template files
@@ -81,7 +69,7 @@ gulp.task('copy-html-components', function() {
 
 // copies images over to the public folder
 gulp.task('copy-images', function() {
-	gulp.src('img/*')
+	gulp.src('components/img/*')
 		.pipe(gulp.dest('public/components/img/*'));
 });
 
@@ -115,6 +103,6 @@ gulp.task('lint', function () {
 
 // use browser-sync start --server --index index.html --files="public/*.css"
  browserSync.init({
-     server: "./"
+     server: "./public"
  });
  browserSync.stream();
