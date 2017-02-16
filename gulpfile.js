@@ -29,6 +29,7 @@ gulp.task('build', [
 	'copy-html',
 	'copy-json',
 	'copy-sw',
+	'copy-sw-deps',
 	'copy-images',
 	'styles',
 	'lint'
@@ -51,6 +52,12 @@ gulp.task('copy-html', function() {
 gulp.task('copy-sw', function() {
 	gulp.src('sw-import.js')
 		.pipe(gulp.dest('./dist'));	
+});
+// copies ALL html over from root to the public folder. This can be used for json / template files
+// USE THIS to setup these two tasks in the future when json files are in the right place
+gulp.task('copy-sw-deps', function() {
+	gulp.src('components/platinum-sw/**')
+		.pipe(gulp.dest('./dist/components/platinum-sw/'));	
 });
 // copies ALL html over from root to the public folder. This can be used for json / template files
 // USE THIS to setup these two tasks in the future when json files are in the right place
