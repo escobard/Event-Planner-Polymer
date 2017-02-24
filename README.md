@@ -2,13 +2,14 @@
 This repository contains all my own programming project files, notes, and associated files for the [Udacity -Senior Web Developer Nanodegree - By Google - Project 1](https://www.udacity.com/course/object-oriented-javascript--ud015) course with [Udacity](https://www.udacity.com/). 
 
 ## Project Criteria
-This application was created as an Event Planner, with a special focus on form validation, and application responsive display on all devices. The application must allow someone to name their event, search for a host location (using a location API like Foursquare), set the capacity of the event, the start and end times, and input a description of the event.
+This application was created as an Event Planner, with a special focus on HTML form semantics, usability & validation, as well as application responsive display on all devices. The application must allow someone to name their event, search for a host location (using a location API like Foursquare), set the capacity of the event, the start and end times, and input a description of the event.
 
 ### Additional Features
 - Home-screen installable.
 - Google places address autocomplete.
 - Firebase JSON data get / post. 
 - Firebase Authentication user login / account creation.
+- app.js uses Model-View-Controller OOP methodology, and JS prototyping.
 - Offline functionality.
 
 ## Demo
@@ -66,10 +67,10 @@ $ gulp build
 - Get rid of obsolete commentary in code.
 - Add google login functionality.
 - Refactor all code into Polymer for cleaner scalability. 
-- Mobile revisions.
+- Change event date display format.
 
 ## Known Bugs
-- Google place autocomplete does not recognize paper inputs as HTMLInputElements
+- Google place autocomplete does not recognize polymer paper-inputs as HTMLInputElements.
 - When editing an event, event input text is autofilled with most recent entry.
 - app-storage bugged for production due to vulcanization compile.
 

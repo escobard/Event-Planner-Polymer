@@ -5,6 +5,11 @@
     width: 80%;
     margin: 15px auto;
   }
+  :host {
+    height: auto;
+    margin: 0;
+    min-height: 100%;
+  }
   body {
     margin:0;
   }
@@ -17,7 +22,7 @@
         --paper-progress-height: 25px;
         --paper-progress-container-color: rgb(3, 140, 207);
         --paper-progress-active-color:rgb(255, 141, 0);
-        z-index: 2;
+        z-index: 3;
       }
   paper-fab {
     z-index: 1;
@@ -38,6 +43,16 @@
       #editor {
           overflow-y: scroll;
       } 
+      paper-progress {
+        width: 100% !important;
+        height: 48px !important;
+        top: -55px;
+        --paper-progress-transition-duration: 0.7s;
+        --paper-progress-transition-timing-function: ease;
+        --paper-progress-transition-transition-delay: 0s;
+        --paper-progress-height: 48px;
+        z-index: 3;
+      }
     } 
   </style>
 

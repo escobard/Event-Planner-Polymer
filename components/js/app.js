@@ -1,6 +1,10 @@
 /*=========================================================================== 
 
-This document contains the main javascript for the event planner application
+  This document contains the main custom javascript for the event planner application
+
+  The goal here is to use JS prototypes, and apply a MVC structure.
+
+  Since this isn't allowed within Polymer, this code was split outside of the Polymer.dom JS code.
 
 ============================================================================*/
 
@@ -20,27 +24,7 @@ MVC start
   
   Model = {
 
-    // button elements
-    rButton : document.getElementById("registerButton"),
-    lButton : document.getElementById("loginButton"),
-    lFormButton : document.getElementById("signInPw"),
-    lFormRegButton : document.getElementById("accountReg"),
-    pInfo : document.getElementById("personalInfo"),
-    gInfo : document.getElementById("guestInfo"),
-
-    // container elements
-    loginContainer : document.querySelector('#logIn'),
-    regContainer : document.querySelector('#registrationForm'),
-    regInputContainer : document.querySelector('.regInput'),
-    pInfoContainer : document.querySelector('#personalInfoContainer'),
-    eventOptContainer: document.querySelector('#eventOptionalContainer'),
-
-    // progress ars 
-    loginProgressBar : document.querySelector('#progressLogin'),
-    regProgressBar : document.querySelector('#progress-reg'),
-    regProgressBarOpt : document.querySelector('#progress-reg-optional'),
-
-     // progress ar inputs arrays
+  // progress ar inputs arrays
     inputs : [
       {
         selector: '#loginEmail',
@@ -84,7 +68,7 @@ MVC start
         amount: 25
       }    
     ]
-  };
+  }; 
 
   /*=========================================================================== 
 
@@ -92,26 +76,30 @@ MVC start
 
   ============================================================================*/
     
+     
   View = {
 
-  // generates view elements
-  
-  // generates checkbox constructor objects
-  pCheckbox : new Controller()._checkboxActivate(Model.pInfo, Model.pInfoContainer),
-  gCheckbox : new Controller()._checkboxActivate(Model.gInfo, Model.eventOptContainer),
+    // button elements
+    rButton : document.getElementById("registerButton"),
+    lButton : document.getElementById("loginButton"),
+    lFormButton : document.getElementById("signInPw"),
+    lFormRegButton : document.getElementById("accountReg"),
+    pInfo : document.getElementById("personalInfo"),
+    gInfo : document.getElementById("guestInfo"),
 
-  // progressState constructor objects
-  logProgressHide: new Controller()._ProgressState(Model.lButton, Model.loginContainer, Model.loginProgressBar),
-  regProgressHide: new Controller()._ProgressState(Model.rButton, Model.regInputContainer, Model.regProgressBar),
-  regOptProgressHide: new Controller()._ProgressState(Model.pInfo, Model.pInfoContainer, Model.regProgressBarOpt),
+    // container elements
+    loginContainer : document.querySelector('#logIn'),
+    regContainer : document.querySelector('#registrationForm'),
+    regInputContainer : document.querySelector('.regInput'),
+    pInfoContainer : document.querySelector('#personalInfoContainer'),
+    eventOptContainer: document.querySelector('#eventOptionalContainer'),
 
-  // registration progress tracker constructor objects
-  progressTracker : new Controller()._ProgressTracker(Model.inputs, Model.loginProgressBar),
-  progressBarReg : new Controller()._ProgressTracker(Model.inputsReg, Model.regProgressBar),
-  progressBarRegOpt : new Controller()._ProgressTracker(Model.inputsRegOpt, Model.regProgressBarOpt),
-  
-  };    
+    // progress ars 
+    loginProgressBar : document.querySelector('#progressLogin'),
+    regProgressBar : document.querySelector('#progress-reg'),
+    regProgressBarOpt : document.querySelector('#progress-reg-optional')
 
+  };
   /*=========================================================================== 
 
   Controller Objects
@@ -201,7 +189,21 @@ MVC start
     };
 
   };
+  
+  Controller.prototype.objects = {
+  pCheckbox : new Controller()._checkboxActivate(View.pInfo, View.pInfoContainer),
+  gCheckbox : new Controller()._checkboxActivate(View.gInfo, View.eventOptContainer),
 
+  // progressState constructor objects
+  logProgressHide: new Controller()._ProgressState(View.lButton, View.loginContainer, View.loginProgressBar),
+  regProgressHide: new Controller()._ProgressState(View.rButton, View.regInputContainer, View.regProgressBar),
+  regOptProgressHide: new Controller()._ProgressState(View.pInfo, View.pInfoContainer, View.regProgressBarOpt),
+
+  // registration progress tracker constructor objects
+  progressTracker : new Controller()._ProgressTracker(Model.inputs, View.loginProgressBar),
+  progressBarReg : new Controller()._ProgressTracker(Model.inputsReg, View.regProgressBar),
+  progressBarRegOpt : new Controller()._ProgressTracker(Model.inputsRegOpt, View.regProgressBarOpt)
+  };
   /*=========================================================================== 
 
   Controller end

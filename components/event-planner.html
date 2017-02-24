@@ -178,10 +178,10 @@
       </paper-input>
       <datalist id="eventtypes">
         <option value="Birthday"></option>
-        <option value="Corporate"></option>
-        <option value="Personal"></option>
+        <option value="Corporate Event"></option>
+        <option value="Personal Event"></option>
         <option value="Wedding"></option>
-        <option value="Other"></option>
+        <option value="Other Event"></option>
       </datalist>
       <fieldset id="TEST">
         <paper-input
@@ -265,7 +265,8 @@
     <template is="dom-if" if="[[!editable]]">
       <h1 class$="[[emptyClass(title)]]"><span>{{title}}</span></h1>
       <h2 class$="[[emptyClass(host)]]">Hosted by: <span>{{host}}</span></h2>
-      <p class$="[[emptyClass(eventtype)]]">This event is a <span class="type">{{eventtype}}</span>, located at <span class="location">{{location}}</span>, starting at <span class="startdate">{{startdate}}</span> and ending at <span class="endate">{{enddate}}</span></p>
+      <p class$="[[emptyClass(eventtype)]]">This event is a <span class="type">{{eventtype}}</span>, located at <span class="location">{{location}}.</span><br>
+      This event starts at: <span class="startdate">{{startdate}}</span> and ends at: <span class="endate">{{enddate}}</span>.</p>
       <p class$="[[emptyClass(location)]]"></p>
     </template>
     <script type="text/javascript" src="js/app.js"></script>

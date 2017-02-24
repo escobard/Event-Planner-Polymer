@@ -6,7 +6,7 @@
 
 
 // sets the cache name
-var staticCacheName = 'ep-static-v0.2';
+var staticCacheName = 'ep-static-v0.7';
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
@@ -29,7 +29,7 @@ self.addEventListener('activate', function(event) {
     caches.keys().then(function(cacheNames) {
       return Promise.all(
         cacheNames.filter(function(cacheName) {
-          return cacheName.startsWith('wa-') &&
+          return cacheName.startsWith('ep-') &&
                  cacheName != staticCacheName;
         }).map(function(cacheName) {
           return caches.delete(cacheName);

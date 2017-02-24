@@ -81,7 +81,7 @@ d.push(this),c++,n()}var s=t.querySelectorAll("link[rel=import]"),c=0,l=s.length
       function initAutocomplete() {
         // Create the autocomplete object, restricting the search to geographical
         // location types.
-        var eventAddress = document.getElementById('event-address');
+        var eventAddress = document.querySelector('#event-address');
         
         autocomplete = new google.maps.places.Autocomplete(
             (eventAddress),
@@ -130,7 +130,11 @@ d.push(this),c++,n()}var s=t.querySelectorAll("link[rel=import]"),c=0,l=s.length
 
   ============================================================================*/</script><script type="text/javascript">/*=========================================================================== 
 
-This document contains the main javascript for the event planner application
+  This document contains the main custom javascript for the event planner application
+
+  The goal here is to use JS prototypes, and apply a MVC structure.
+
+  Since this isn't allowed within Polymer, this code was split outside of the Polymer.dom JS code.
 
 ============================================================================*/
 
@@ -150,27 +154,7 @@ MVC start
   
   Model = {
 
-    // button elements
-    rButton : document.getElementById("registerButton"),
-    lButton : document.getElementById("loginButton"),
-    lFormButton : document.getElementById("signInPw"),
-    lFormRegButton : document.getElementById("accountReg"),
-    pInfo : document.getElementById("personalInfo"),
-    gInfo : document.getElementById("guestInfo"),
-
-    // container elements
-    loginContainer : document.querySelector('#logIn'),
-    regContainer : document.querySelector('#registrationForm'),
-    regInputContainer : document.querySelector('.regInput'),
-    pInfoContainer : document.querySelector('#personalInfoContainer'),
-    eventOptContainer: document.querySelector('#eventOptionalContainer'),
-
-    // progress ars 
-    loginProgressBar : document.querySelector('#progressLogin'),
-    regProgressBar : document.querySelector('#progress-reg'),
-    regProgressBarOpt : document.querySelector('#progress-reg-optional'),
-
-     // progress ar inputs arrays
+  // progress ar inputs arrays
     inputs : [
       {
         selector: '#loginEmail',
@@ -214,7 +198,7 @@ MVC start
         amount: 25
       }    
     ]
-  };
+  }; 
 
   /*=========================================================================== 
 
@@ -222,26 +206,30 @@ MVC start
 
   ============================================================================*/
     
+     
   View = {
 
-  // generates view elements
-  
-  // generates checkbox constructor objects
-  pCheckbox : new Controller()._checkboxActivate(Model.pInfo, Model.pInfoContainer),
-  gCheckbox : new Controller()._checkboxActivate(Model.gInfo, Model.eventOptContainer),
+    // button elements
+    rButton : document.getElementById("registerButton"),
+    lButton : document.getElementById("loginButton"),
+    lFormButton : document.getElementById("signInPw"),
+    lFormRegButton : document.getElementById("accountReg"),
+    pInfo : document.getElementById("personalInfo"),
+    gInfo : document.getElementById("guestInfo"),
 
-  // progressState constructor objects
-  logProgressHide: new Controller()._ProgressState(Model.lButton, Model.loginContainer, Model.loginProgressBar),
-  regProgressHide: new Controller()._ProgressState(Model.rButton, Model.regInputContainer, Model.regProgressBar),
-  regOptProgressHide: new Controller()._ProgressState(Model.pInfo, Model.pInfoContainer, Model.regProgressBarOpt),
+    // container elements
+    loginContainer : document.querySelector('#logIn'),
+    regContainer : document.querySelector('#registrationForm'),
+    regInputContainer : document.querySelector('.regInput'),
+    pInfoContainer : document.querySelector('#personalInfoContainer'),
+    eventOptContainer: document.querySelector('#eventOptionalContainer'),
 
-  // registration progress tracker constructor objects
-  progressTracker : new Controller()._ProgressTracker(Model.inputs, Model.loginProgressBar),
-  progressBarReg : new Controller()._ProgressTracker(Model.inputsReg, Model.regProgressBar),
-  progressBarRegOpt : new Controller()._ProgressTracker(Model.inputsRegOpt, Model.regProgressBarOpt),
-  
-  };    
+    // progress ars 
+    loginProgressBar : document.querySelector('#progressLogin'),
+    regProgressBar : document.querySelector('#progress-reg'),
+    regProgressBarOpt : document.querySelector('#progress-reg-optional')
 
+  };
   /*=========================================================================== 
 
   Controller Objects
@@ -331,7 +319,21 @@ MVC start
     };
 
   };
+  
+  Controller.prototype.objects = {
+  pCheckbox : new Controller()._checkboxActivate(View.pInfo, View.pInfoContainer),
+  gCheckbox : new Controller()._checkboxActivate(View.gInfo, View.eventOptContainer),
 
+  // progressState constructor objects
+  logProgressHide: new Controller()._ProgressState(View.lButton, View.loginContainer, View.loginProgressBar),
+  regProgressHide: new Controller()._ProgressState(View.rButton, View.regInputContainer, View.regProgressBar),
+  regOptProgressHide: new Controller()._ProgressState(View.pInfo, View.pInfoContainer, View.regProgressBarOpt),
+
+  // registration progress tracker constructor objects
+  progressTracker : new Controller()._ProgressTracker(Model.inputs, View.loginProgressBar),
+  progressBarReg : new Controller()._ProgressTracker(Model.inputsReg, View.regProgressBar),
+  progressBarRegOpt : new Controller()._ProgressTracker(Model.inputsRegOpt, View.regProgressBarOpt)
+  };
   /*=========================================================================== 
 
   Controller end
@@ -23497,9 +23499,13 @@ event and do your own custom submission:
           width: 100% !important;
       }
 
-}</style><template is="dom-if" if="[[editable]]" id="eForm"><form is="iron-form" method="get" action="/" id="eventForm"><paper-input type="text" id="event-title" label="What's your event called?" name="eventtitle" required="" minlength="3" auto-validate="" autofocus="" pattern="[a-zA-Z0-9\s*]*" error-message="Must be longer than 3 characters, be alphanumerical and spaces" placeholder="{{title}}" bind-value="{{title}}"></paper-input><paper-input type="text" id="event-subtitle" name="eventsubtitle" label="Who is hosting this event?" required="" auto-validate="" minlength="3" pattern="[a-zA-Z\s*]*" error-message="Must be longer than 3 characters, be alphanumerical and spaces" placeholder="{{host}}" bind-value="{{host}}"></paper-input><paper-input type="text" id="event-type" name="eventtype" required="" list="eventtypes" auto-validate="" min-length="3" pattern="[a-zA-Z\s*]*" error-message="Select an event type or enter an event type that can only contain letters and spaces" label="What kind of event is this?" placeholder="{{eventtype}}" bind-value="{{eventtype}}"></paper-input><datalist id="eventtypes"><option value="Birthday"></option><option value="Corporate"></option><option value="Personal"></option><option value="Wedding"></option><option value="Other"></option></datalist><fieldset id="TEST"><paper-input type="datetime-local" id="eventStart" class="times" name="eventstart" on-click="dateFocusedStart" label="When is your event starting?" required="" autovalidate="" value="{{dateStartValue}}" on-input="dateStartChange" pattern="[[dateStartPattern]]" error-message="Date must be in the present and contain valid characters" placeholder="{{startdate}}" bind-value="{{startdate}}"></paper-input><paper-input type="datetime-local" id="eventEnd" class="times" name="eventend" on-click="dateFocusedEnd" label="When is your event ending?" required="" value="{{dateEndValue}}" on-input="dateEndChange" pattern="[[dateEndPattern]]" error-message="Date must be greater than start date" placeholder="{{enddate}}" bind-value="{{enddate}}"></paper-input></fieldset><paper-input type="text" name="guestlist" id="event-guest-list" label="Who will be attending this event? (enter guest names separated by commas)" required="" auto-validate="" pattern="[a-zA-Z\/,\s*]*" minlength="3" error-message="Must be alphanumerical and may contain spaces or commas" placeholder="{{guestlist}}" bind-value="{{guestlist}}"></paper-input><paper-input type="text" onfocus="geolocate" id="event-address" name="eventaddress" minlength="10" required="" auto-validate="" error-message="Please enter a valid address" label="Where will your event take place?" placeholder="{{location}}" bind-value="{{location}}"></paper-input><fieldset><paper-checkbox id="guestInfo"><span>Check this to enter a guest message (optional)</span></paper-checkbox></fieldset><fieldset id="eventOptionalContainer"><paper-input type="text-area" name="guestmessage" id="event-guest-message" label="Do you have a message for your guests? (optional)" placeholder="{{guestmessage}}" bind-value="{{guestmessage}}"></paper-input></fieldset><div class="output"></div></form></template><template is="dom-if" if="[[!editable]]"><h1 class$="[[emptyClass(title)]]"><span>{{title}}</span></h1><h2 class$="[[emptyClass(host)]]">Hosted by: <span>{{host}}</span></h2><p class$="[[emptyClass(eventtype)]]">This event is a <span class="type">{{eventtype}}</span>, located at <span class="location">{{location}}</span>, starting at <span class="startdate">{{startdate}}</span> and ending at <span class="endate">{{enddate}}</span></p><p class$="[[emptyClass(location)]]"></p></template><script type="text/javascript">/*=========================================================================== 
+}</style><template is="dom-if" if="[[editable]]" id="eForm"><form is="iron-form" method="get" action="/" id="eventForm"><paper-input type="text" id="event-title" label="What's your event called?" name="eventtitle" required="" minlength="3" auto-validate="" autofocus="" pattern="[a-zA-Z0-9\s*]*" error-message="Must be longer than 3 characters, be alphanumerical and spaces" placeholder="{{title}}" bind-value="{{title}}"></paper-input><paper-input type="text" id="event-subtitle" name="eventsubtitle" label="Who is hosting this event?" required="" auto-validate="" minlength="3" pattern="[a-zA-Z\s*]*" error-message="Must be longer than 3 characters, be alphanumerical and spaces" placeholder="{{host}}" bind-value="{{host}}"></paper-input><paper-input type="text" id="event-type" name="eventtype" required="" list="eventtypes" auto-validate="" min-length="3" pattern="[a-zA-Z\s*]*" error-message="Select an event type or enter an event type that can only contain letters and spaces" label="What kind of event is this?" placeholder="{{eventtype}}" bind-value="{{eventtype}}"></paper-input><datalist id="eventtypes"><option value="Birthday"></option><option value="Corporate Event"></option><option value="Personal Event"></option><option value="Wedding"></option><option value="Other Event"></option></datalist><fieldset id="TEST"><paper-input type="datetime-local" id="eventStart" class="times" name="eventstart" on-click="dateFocusedStart" label="When is your event starting?" required="" autovalidate="" value="{{dateStartValue}}" on-input="dateStartChange" pattern="[[dateStartPattern]]" error-message="Date must be in the present and contain valid characters" placeholder="{{startdate}}" bind-value="{{startdate}}"></paper-input><paper-input type="datetime-local" id="eventEnd" class="times" name="eventend" on-click="dateFocusedEnd" label="When is your event ending?" required="" value="{{dateEndValue}}" on-input="dateEndChange" pattern="[[dateEndPattern]]" error-message="Date must be greater than start date" placeholder="{{enddate}}" bind-value="{{enddate}}"></paper-input></fieldset><paper-input type="text" name="guestlist" id="event-guest-list" label="Who will be attending this event? (enter guest names separated by commas)" required="" auto-validate="" pattern="[a-zA-Z\/,\s*]*" minlength="3" error-message="Must be alphanumerical and may contain spaces or commas" placeholder="{{guestlist}}" bind-value="{{guestlist}}"></paper-input><paper-input type="text" onfocus="geolocate" id="event-address" name="eventaddress" minlength="10" required="" auto-validate="" error-message="Please enter a valid address" label="Where will your event take place?" placeholder="{{location}}" bind-value="{{location}}"></paper-input><fieldset><paper-checkbox id="guestInfo"><span>Check this to enter a guest message (optional)</span></paper-checkbox></fieldset><fieldset id="eventOptionalContainer"><paper-input type="text-area" name="guestmessage" id="event-guest-message" label="Do you have a message for your guests? (optional)" placeholder="{{guestmessage}}" bind-value="{{guestmessage}}"></paper-input></fieldset><div class="output"></div></form></template><template is="dom-if" if="[[!editable]]"><h1 class$="[[emptyClass(title)]]"><span>{{title}}</span></h1><h2 class$="[[emptyClass(host)]]">Hosted by: <span>{{host}}</span></h2><p class$="[[emptyClass(eventtype)]]">This event is a <span class="type">{{eventtype}}</span>, located at <span class="location">{{location}}.</span><br>This event starts at: <span class="startdate">{{startdate}}</span> and ends at: <span class="endate">{{enddate}}</span>.</p><p class$="[[emptyClass(location)]]"></p></template><script type="text/javascript">/*=========================================================================== 
 
-This document contains the main javascript for the event planner application
+  This document contains the main custom javascript for the event planner application
+
+  The goal here is to use JS prototypes, and apply a MVC structure.
+
+  Since this isn't allowed within Polymer, this code was split outside of the Polymer.dom JS code.
 
 ============================================================================*/
 
@@ -23519,27 +23525,7 @@ MVC start
   
   Model = {
 
-    // button elements
-    rButton : document.getElementById("registerButton"),
-    lButton : document.getElementById("loginButton"),
-    lFormButton : document.getElementById("signInPw"),
-    lFormRegButton : document.getElementById("accountReg"),
-    pInfo : document.getElementById("personalInfo"),
-    gInfo : document.getElementById("guestInfo"),
-
-    // container elements
-    loginContainer : document.querySelector('#logIn'),
-    regContainer : document.querySelector('#registrationForm'),
-    regInputContainer : document.querySelector('.regInput'),
-    pInfoContainer : document.querySelector('#personalInfoContainer'),
-    eventOptContainer: document.querySelector('#eventOptionalContainer'),
-
-    // progress ars 
-    loginProgressBar : document.querySelector('#progressLogin'),
-    regProgressBar : document.querySelector('#progress-reg'),
-    regProgressBarOpt : document.querySelector('#progress-reg-optional'),
-
-     // progress ar inputs arrays
+  // progress ar inputs arrays
     inputs : [
       {
         selector: '#loginEmail',
@@ -23583,7 +23569,7 @@ MVC start
         amount: 25
       }    
     ]
-  };
+  }; 
 
   /*=========================================================================== 
 
@@ -23591,26 +23577,30 @@ MVC start
 
   ============================================================================*/
     
+     
   View = {
 
-  // generates view elements
-  
-  // generates checkbox constructor objects
-  pCheckbox : new Controller()._checkboxActivate(Model.pInfo, Model.pInfoContainer),
-  gCheckbox : new Controller()._checkboxActivate(Model.gInfo, Model.eventOptContainer),
+    // button elements
+    rButton : document.getElementById("registerButton"),
+    lButton : document.getElementById("loginButton"),
+    lFormButton : document.getElementById("signInPw"),
+    lFormRegButton : document.getElementById("accountReg"),
+    pInfo : document.getElementById("personalInfo"),
+    gInfo : document.getElementById("guestInfo"),
 
-  // progressState constructor objects
-  logProgressHide: new Controller()._ProgressState(Model.lButton, Model.loginContainer, Model.loginProgressBar),
-  regProgressHide: new Controller()._ProgressState(Model.rButton, Model.regInputContainer, Model.regProgressBar),
-  regOptProgressHide: new Controller()._ProgressState(Model.pInfo, Model.pInfoContainer, Model.regProgressBarOpt),
+    // container elements
+    loginContainer : document.querySelector('#logIn'),
+    regContainer : document.querySelector('#registrationForm'),
+    regInputContainer : document.querySelector('.regInput'),
+    pInfoContainer : document.querySelector('#personalInfoContainer'),
+    eventOptContainer: document.querySelector('#eventOptionalContainer'),
 
-  // registration progress tracker constructor objects
-  progressTracker : new Controller()._ProgressTracker(Model.inputs, Model.loginProgressBar),
-  progressBarReg : new Controller()._ProgressTracker(Model.inputsReg, Model.regProgressBar),
-  progressBarRegOpt : new Controller()._ProgressTracker(Model.inputsRegOpt, Model.regProgressBarOpt),
-  
-  };    
+    // progress ars 
+    loginProgressBar : document.querySelector('#progressLogin'),
+    regProgressBar : document.querySelector('#progress-reg'),
+    regProgressBarOpt : document.querySelector('#progress-reg-optional')
 
+  };
   /*=========================================================================== 
 
   Controller Objects
@@ -23700,7 +23690,21 @@ MVC start
     };
 
   };
+  
+  Controller.prototype.objects = {
+  pCheckbox : new Controller()._checkboxActivate(View.pInfo, View.pInfoContainer),
+  gCheckbox : new Controller()._checkboxActivate(View.gInfo, View.eventOptContainer),
 
+  // progressState constructor objects
+  logProgressHide: new Controller()._ProgressState(View.lButton, View.loginContainer, View.loginProgressBar),
+  regProgressHide: new Controller()._ProgressState(View.rButton, View.regInputContainer, View.regProgressBar),
+  regOptProgressHide: new Controller()._ProgressState(View.pInfo, View.pInfoContainer, View.regProgressBarOpt),
+
+  // registration progress tracker constructor objects
+  progressTracker : new Controller()._ProgressTracker(Model.inputs, View.loginProgressBar),
+  progressBarReg : new Controller()._ProgressTracker(Model.inputsReg, View.regProgressBar),
+  progressBarRegOpt : new Controller()._ProgressTracker(Model.inputsRegOpt, View.regProgressBarOpt)
+  };
   /*=========================================================================== 
 
   Controller end
@@ -23856,6 +23860,8 @@ MVC end
         right: 0;
         bottom: 0;
         z-index: 1;
+        min-height: 110%;
+        height: auto;
       }
       :host([opened]) {
         display: block;
@@ -24025,7 +24031,7 @@ MVC end
         bottom: 0;
         background-color: rgb(3, 140, 207);
         transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 1;
+        z-index: 2;
         color: var(--paper-purple-50);
         @apply(--layout);
         @apply(--layout-center-center);
@@ -24185,13 +24191,18 @@ MVC end
           margin: 15px 0 !important;
       }
       paper-dialog {
-            top: 65px;
+            top: 24px;
             overflow-y: scroll;
-            min-width: 90%;
+            width:98%;
+            margin:1.5rem 0 !important;
         }
-      }</style><firebase-auth id="auth" app-name="event-planner" signed-in="{{signedIn}}" user="{{user}}"></firebase-auth><paper-button id="signInPw" raised="" on-tap="openLogin">Click here to begin</paper-button><paper-dialog id="logIn" entry-animation="scale-up-animation" exit-animation="fade-out-animation"><h1>Login to your Account</h1><form is="iron-form" id="loginForm"><fieldset><gold-email-input id="loginEmail" name="loginemail" label="Enter your email to login" required="" autofocus="" autocomplete="email" aria-disabled="false" bind-value="{[useremail]}" auto-validate="" error-message="Please enter a valid Email Address"></gold-email-input><paper-input type="password" id="loginPassword" label="Enter your password to login" required="" name="loginpass" auto-validate="" value="{{passvalue}}" on-input="passchange" pattern="[[passvalidate]]" autocomplete="password" min-length="8" error-message="Please enter a password matching the requirements" char-counter=""></paper-input><span id="invalidLogin">Invalid login credentials!</span></fieldset><paper-button on-tap="signIn" id="loginButton" disabled="">Click here to Login</paper-button><p id="signInRegistration">Don't have an Account? <span id="accountReg" on-tap="openReg">Click here to register</span></p></form></paper-dialog><paper-dialog id="registrationForm" entry-animation="scale-up-animation" exit-animation="fade-out-animation"><form is="iron-form" id="regForm"><fieldset class="regInput"><h1>Register your Account</h1><paper-input type="text" id="regUserName" name="nickname" label="Enter your name" autocomplete="nickname" pattern="[a-zA-Z]*\s*[a-zA-Z]*" minlength="2" required="" autofocus="" auto-validate="" error-message="Please enter your name correctly - Only letters and a single space allowed"></paper-input><gold-email-input id="regEmail" name="email" label="Please enter your email" required="" autocomplete="email" bind-value="{[useremail]}" auto-validate="" error-message="Please enter a valid Email Address"></gold-email-input><paper-input type="password" id="regPassword" class="regPasswords" label="Please enter your password" required="" value="{{passvalue}}" on-input="passchange" pattern="[[passvalidate]]" autocomplete="password" min-length="8" auto-validate="" error-message="Please enter a password matching the requirements" char-counter=""></paper-input><paper-input type="password" id="regSecondPass" class="regPasswords" name="password-confirm" label="Please confirm your password" required="" autocomplete="password" value="{{passconfirmValue}}" on-input="passconfirmchange" pattern="[[passconfirm]]" auto-validate="" error-message="Make sure both passwords match" char-counter=""></paper-input><h3>Make sure your password fits all requirements:</h3></fieldset><fieldset class="regInput checkboxes"><paper-checkbox id="passwordLower" invalid="" disabled="">Must contain a lower case letter</paper-checkbox><paper-checkbox id="passwordUpper" invalid="" disabled="">Must contain an upper case letter</paper-checkbox><paper-checkbox id="passwordNumber" invalid="" disabled="">Must contain one number</paper-checkbox></fieldset><fieldset class="regInput checkboxes"><paper-checkbox id="passwordSymbol" invalid="" disabled="">Must contain at least one symbol</paper-checkbox><paper-checkbox id="passwordMin" invalid="" disabled="">Must contain at least 8 characters</paper-checkbox><paper-checkbox id="passwordConfirmed" invalid="" disabled="">Make sure both passwords are the same</paper-checkbox></fieldset><fieldset><paper-checkbox id="personalInfo"><h2>Check to enter personal information (optional)</h2></paper-checkbox></fieldset><fieldset id="personalInfoContainer"><paper-input id="reg-occupation" name="occupation" label="What's your occupation?" autocomplete="organization-title"></paper-input><paper-input name="birthday" id="reg-birthday" type="date" label="When were you born?" autocomplete="bday"></paper-input><paper-input name="appuse" id="reg-appuse" type="text" list="uses" label="How will you be using this application?"></paper-input><datalist id="uses"><option value="Confidential"></option><option value="Corporate"></option><option value="Educational"></option><option value="N/A"></option><option value="Other"></option><option value="Personal"></option><option value="Private Events"></option><option value="Recreation"></option></datalist><paper-input name="streetaddress" id="diff-geo-address" onfocus="geolocate" type="text" label="What's your street address?" autocomplete="street-address"></paper-input></fieldset><paper-button on-tap="Register" id="registerButton" disabled="">Click here to create your account</paper-button></form></paper-dialog><script type="text/javascript">/*=========================================================================== 
+      }</style><firebase-auth id="auth" app-name="event-planner" signed-in="{{signedIn}}" user="{{user}}"></firebase-auth><paper-button id="signInPw" raised="" on-tap="openLogin">Click here to begin</paper-button><paper-dialog id="logIn" entry-animation="scale-up-animation" exit-animation="fade-out-animation"><h1>Login</h1><form is="iron-form" id="loginForm"><fieldset><gold-email-input id="loginEmail" name="loginemail" label="Enter your email to login" required="" autofocus="" autocomplete="email" aria-disabled="false" bind-value="{[useremail]}" auto-validate="" error-message="Please enter a valid Email Address"></gold-email-input><paper-input type="password" id="loginPassword" label="Enter your password to login" required="" name="loginpass" auto-validate="" value="{{passvalue}}" on-input="passchange" pattern="[[passvalidate]]" autocomplete="password" min-length="8" error-message="Please enter a password matching the requirements" char-counter=""></paper-input><span id="invalidLogin">Invalid login credentials!</span></fieldset><paper-button on-tap="signIn" id="loginButton" disabled="">Click here to Login</paper-button><p id="signInRegistration">Don't have an Account? <span id="accountReg" on-tap="openReg">Click here to register</span></p></form></paper-dialog><paper-dialog id="registrationForm" entry-animation="scale-up-animation" exit-animation="fade-out-animation"><form is="iron-form" id="regForm"><fieldset class="regInput"><h1>Register a new account/h1&gt;<paper-input type="text" id="regUserName" name="nickname" label="Enter your name" autocomplete="nickname" pattern="[a-zA-Z]*\s*[a-zA-Z]*" minlength="2" required="" autofocus="" auto-validate="" error-message="Please enter your name correctly - Only letters and a single space allowed"></paper-input><gold-email-input id="regEmail" name="email" label="Please enter your email" required="" autocomplete="email" bind-value="{[useremail]}" auto-validate="" error-message="Please enter a valid Email Address"></gold-email-input><paper-input type="password" id="regPassword" class="regPasswords" label="Please enter your password" required="" value="{{passvalue}}" on-input="passchange" pattern="[[passvalidate]]" autocomplete="password" min-length="8" auto-validate="" error-message="Please enter a password matching the requirements" char-counter=""></paper-input><paper-input type="password" id="regSecondPass" class="regPasswords" name="password-confirm" label="Please confirm your password" required="" autocomplete="password" value="{{passconfirmValue}}" on-input="passconfirmchange" pattern="[[passconfirm]]" auto-validate="" error-message="Make sure both passwords match" char-counter=""></paper-input></h1><h3>Make sure your password fits all requirements:</h3></fieldset><fieldset class="regInput checkboxes"><paper-checkbox id="passwordLower" invalid="" disabled="">Must contain a lower case letter</paper-checkbox><paper-checkbox id="passwordUpper" invalid="" disabled="">Must contain an upper case letter</paper-checkbox><paper-checkbox id="passwordNumber" invalid="" disabled="">Must contain one number</paper-checkbox></fieldset><fieldset class="regInput checkboxes"><paper-checkbox id="passwordSymbol" invalid="" disabled="">Must contain at least one symbol</paper-checkbox><paper-checkbox id="passwordMin" invalid="" disabled="">Must contain at least 8 characters</paper-checkbox><paper-checkbox id="passwordConfirmed" invalid="" disabled="">Make sure both passwords are the same</paper-checkbox></fieldset><fieldset><paper-checkbox id="personalInfo"><h2>Check to enter personal information (optional)</h2></paper-checkbox></fieldset><fieldset id="personalInfoContainer"><paper-input id="reg-occupation" name="occupation" label="What's your occupation?" autocomplete="organization-title"></paper-input><paper-input name="birthday" id="reg-birthday" type="date" label="When were you born?" autocomplete="bday"></paper-input><paper-input name="appuse" id="reg-appuse" type="text" list="uses" label="How will you be using this application?"></paper-input><datalist id="uses"><option value="Confidential"></option><option value="Corporate"></option><option value="Educational"></option><option value="N/A"></option><option value="Other"></option><option value="Personal"></option><option value="Private Events"></option><option value="Recreation"></option></datalist><paper-input name="streetaddress" id="diff-geo-address" onfocus="geolocate" type="text" label="What's your street address?" autocomplete="street-address"></paper-input></fieldset><paper-button on-tap="Register" id="registerButton" disabled="">Click here to create your account</paper-button></form></paper-dialog><script type="text/javascript">/*=========================================================================== 
 
-This document contains the main javascript for the event planner application
+  This document contains the main custom javascript for the event planner application
+
+  The goal here is to use JS prototypes, and apply a MVC structure.
+
+  Since this isn't allowed within Polymer, this code was split outside of the Polymer.dom JS code.
 
 ============================================================================*/
 
@@ -24211,27 +24222,7 @@ MVC start
   
   Model = {
 
-    // button elements
-    rButton : document.getElementById("registerButton"),
-    lButton : document.getElementById("loginButton"),
-    lFormButton : document.getElementById("signInPw"),
-    lFormRegButton : document.getElementById("accountReg"),
-    pInfo : document.getElementById("personalInfo"),
-    gInfo : document.getElementById("guestInfo"),
-
-    // container elements
-    loginContainer : document.querySelector('#logIn'),
-    regContainer : document.querySelector('#registrationForm'),
-    regInputContainer : document.querySelector('.regInput'),
-    pInfoContainer : document.querySelector('#personalInfoContainer'),
-    eventOptContainer: document.querySelector('#eventOptionalContainer'),
-
-    // progress ars 
-    loginProgressBar : document.querySelector('#progressLogin'),
-    regProgressBar : document.querySelector('#progress-reg'),
-    regProgressBarOpt : document.querySelector('#progress-reg-optional'),
-
-     // progress ar inputs arrays
+  // progress ar inputs arrays
     inputs : [
       {
         selector: '#loginEmail',
@@ -24275,7 +24266,7 @@ MVC start
         amount: 25
       }    
     ]
-  };
+  }; 
 
   /*=========================================================================== 
 
@@ -24283,26 +24274,30 @@ MVC start
 
   ============================================================================*/
     
+     
   View = {
 
-  // generates view elements
-  
-  // generates checkbox constructor objects
-  pCheckbox : new Controller()._checkboxActivate(Model.pInfo, Model.pInfoContainer),
-  gCheckbox : new Controller()._checkboxActivate(Model.gInfo, Model.eventOptContainer),
+    // button elements
+    rButton : document.getElementById("registerButton"),
+    lButton : document.getElementById("loginButton"),
+    lFormButton : document.getElementById("signInPw"),
+    lFormRegButton : document.getElementById("accountReg"),
+    pInfo : document.getElementById("personalInfo"),
+    gInfo : document.getElementById("guestInfo"),
 
-  // progressState constructor objects
-  logProgressHide: new Controller()._ProgressState(Model.lButton, Model.loginContainer, Model.loginProgressBar),
-  regProgressHide: new Controller()._ProgressState(Model.rButton, Model.regInputContainer, Model.regProgressBar),
-  regOptProgressHide: new Controller()._ProgressState(Model.pInfo, Model.pInfoContainer, Model.regProgressBarOpt),
+    // container elements
+    loginContainer : document.querySelector('#logIn'),
+    regContainer : document.querySelector('#registrationForm'),
+    regInputContainer : document.querySelector('.regInput'),
+    pInfoContainer : document.querySelector('#personalInfoContainer'),
+    eventOptContainer: document.querySelector('#eventOptionalContainer'),
 
-  // registration progress tracker constructor objects
-  progressTracker : new Controller()._ProgressTracker(Model.inputs, Model.loginProgressBar),
-  progressBarReg : new Controller()._ProgressTracker(Model.inputsReg, Model.regProgressBar),
-  progressBarRegOpt : new Controller()._ProgressTracker(Model.inputsRegOpt, Model.regProgressBarOpt),
-  
-  };    
+    // progress ars 
+    loginProgressBar : document.querySelector('#progressLogin'),
+    regProgressBar : document.querySelector('#progress-reg'),
+    regProgressBarOpt : document.querySelector('#progress-reg-optional')
 
+  };
   /*=========================================================================== 
 
   Controller Objects
@@ -24392,7 +24387,21 @@ MVC start
     };
 
   };
+  
+  Controller.prototype.objects = {
+  pCheckbox : new Controller()._checkboxActivate(View.pInfo, View.pInfoContainer),
+  gCheckbox : new Controller()._checkboxActivate(View.gInfo, View.eventOptContainer),
 
+  // progressState constructor objects
+  logProgressHide: new Controller()._ProgressState(View.lButton, View.loginContainer, View.loginProgressBar),
+  regProgressHide: new Controller()._ProgressState(View.rButton, View.regInputContainer, View.regProgressBar),
+  regOptProgressHide: new Controller()._ProgressState(View.pInfo, View.pInfoContainer, View.regProgressBarOpt),
+
+  // registration progress tracker constructor objects
+  progressTracker : new Controller()._ProgressTracker(Model.inputs, View.loginProgressBar),
+  progressBarReg : new Controller()._ProgressTracker(Model.inputsReg, View.regProgressBar),
+  progressBarRegOpt : new Controller()._ProgressTracker(Model.inputsRegOpt, View.regProgressBarOpt)
+  };
   /*=========================================================================== 
 
   Controller end
@@ -24527,6 +24536,11 @@ MVC end
     width: 80%;
     margin: 15px auto;
   }
+  :host {
+    height: auto;
+    margin: 0;
+    min-height: 100%;
+  }
   body {
     margin:0;
   }
@@ -24539,7 +24553,7 @@ MVC end
         --paper-progress-height: 25px;
         --paper-progress-container-color: rgb(3, 140, 207);
         --paper-progress-active-color:rgb(255, 141, 0);
-        z-index: 2;
+        z-index: 3;
       }
   paper-fab {
     z-index: 1;
@@ -24560,6 +24574,16 @@ MVC end
       #editor {
           overflow-y: scroll;
       } 
+      paper-progress {
+        width: 100% !important;
+        height: 48px !important;
+        top: -55px;
+        --paper-progress-transition-duration: 0.7s;
+        --paper-progress-transition-timing-function: ease;
+        --paper-progress-transition-transition-delay: 0s;
+        --paper-progress-height: 48px;
+        z-index: 3;
+      }
     }</style><event-toolbar disabled="[[!signedIn]]" signed-in="[[signedIn]]" on-sign-out="signOut"></event-toolbar><paper-progress is="dom-if" if="[[editable]]" id="progressLogin" class="transiting" value="0"></paper-progress><paper-progress id="progress-reg" class="transiting" value="0"></paper-progress><paper-progress id="progress-reg-optional" class="transiting" value="0"></paper-progress><event-login-pw on-sign-in="signIn2" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-pw><firebase-auth id="auth" app-name="event-planner" provider="google" signed-in="{{signedIn}}" user="{{user}}"></firebase-auth><paper-fab icon="add" on-tap="create" disabled="[[!online]]" aria-label="Add note"></paper-fab><event-planner-editor id="editor" note="{{editableNote}}" on-close="commitChange"></event-planner-editor><app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"></app-indexeddb-mirror><firebase-document id="document" app-name="event-planner" path="[[editableNoteId]]" data="{{editableNote}}"></firebase-document><firebase-query id="query" app-name="event-planner" path="/notes/[[user.uid]]" data="{{notes}}"></firebase-query><div class="notes"><template is="dom-repeat" items="[[persistedNotes]]" as="note"><event-planner id$="[[note.$key]]" title="[[note.title]]" host="[[note.host]]" eventtype="[[note.eventtype]]" startdate="[[note.startdate]]" enddate="[[note.enddate]]" location="[[note.location]]" guesttitle="[[note.guesttitle]]" guestlist="[[note.guestlist]]" on-tap="edit"></event-planner></template></div></template><script>Polymer({
       is: 'main-app',
 
