@@ -6,7 +6,7 @@
 
 
 // sets the cache name
-var staticCacheName = 'ep-static-v0.3';
+var staticCacheName = 'ep-static-v0.4';
 
 self.addEventListener('install', function(event) {
   event.waitUntil(

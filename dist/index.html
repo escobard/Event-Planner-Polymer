@@ -24534,6 +24534,11 @@ MVC end
     width: 80%;
     margin: 15px auto;
   }
+  :host {
+    height: auto;
+    margin: 0;
+    
+  }
   body {
     margin:0;
   }
@@ -24569,12 +24574,12 @@ MVC end
       } 
       paper-progress {
         width: 100% !important;
-        height: 52px !important;
+        height: 48px !important;
         top: -55px;
         --paper-progress-transition-duration: 0.7s;
         --paper-progress-transition-timing-function: ease;
         --paper-progress-transition-transition-delay: 0s;
-        --paper-progress-height: 52px;
+        --paper-progress-height: 48px;
         z-index: 3;
       }
     }</style><event-toolbar disabled="[[!signedIn]]" signed-in="[[signedIn]]" on-sign-out="signOut"></event-toolbar><paper-progress is="dom-if" if="[[editable]]" id="progressLogin" class="transiting" value="0"></paper-progress><paper-progress id="progress-reg" class="transiting" value="0"></paper-progress><paper-progress id="progress-reg-optional" class="transiting" value="0"></paper-progress><event-login-pw on-sign-in="signIn2" signed-in="[[signedIn]]" disabled="[[!online]]"></event-login-pw><firebase-auth id="auth" app-name="event-planner" provider="google" signed-in="{{signedIn}}" user="{{user}}"></firebase-auth><paper-fab icon="add" on-tap="create" disabled="[[!online]]" aria-label="Add note"></paper-fab><event-planner-editor id="editor" note="{{editableNote}}" on-close="commitChange"></event-planner-editor><app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"></app-indexeddb-mirror><firebase-document id="document" app-name="event-planner" path="[[editableNoteId]]" data="{{editableNote}}"></firebase-document><firebase-query id="query" app-name="event-planner" path="/notes/[[user.uid]]" data="{{notes}}"></firebase-query><div class="notes"><template is="dom-repeat" items="[[persistedNotes]]" as="note"><event-planner id$="[[note.$key]]" title="[[note.title]]" host="[[note.host]]" eventtype="[[note.eventtype]]" startdate="[[note.startdate]]" enddate="[[note.enddate]]" location="[[note.location]]" guesttitle="[[note.guesttitle]]" guestlist="[[note.guestlist]]" on-tap="edit"></event-planner></template></div></template><script>Polymer({
