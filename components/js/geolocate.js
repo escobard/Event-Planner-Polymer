@@ -22,7 +22,7 @@
       function initAutocomplete() {
         // Create the autocomplete object, restricting the search to geographical
         // location types.
-        var eventAddress = document.getElementById('event-address');
+        var eventAddress = document.querySelector('#event-address');
         
         autocomplete = new google.maps.places.Autocomplete(
             (eventAddress),

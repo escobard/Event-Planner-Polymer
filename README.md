@@ -69,9 +69,9 @@ $ gulp build
 - Mobile revisions.
 
 ## Known Bugs
-- Google place autocomplete does not recognize paper inputs as HTMLInputElements
-- When editing an event, event input text is autofilled with most recent entry.
-- app-storage bugged for production due to vulcanization compile.
+- Google place autocomplete does not recognize polymer paper-inputs as HTMLInputElements
+- When editing an event, event input text is autofilled with most recent entry
+- app-storage bugged for production due to vulcanization compile
 
 ## Libraries, Frameworks
 
