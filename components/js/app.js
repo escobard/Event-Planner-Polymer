@@ -1,6 +1,10 @@
 /*=========================================================================== 
 
-This document contains the main javascript for the event planner application
+  This document contains the main custom javascript for the event planner application
+
+  The goal here is to use JS prototypes, and apply a MVC structure.
+
+  Since this isn't allowed within Polymer, this code was split outside of the Polymer.dom JS code.
 
 ============================================================================*/
 
@@ -20,9 +24,6 @@ MVC start
   
   Model = {
 
-  // generates view elements
-  
-  // generates checkbox constructor objects
   // progress ar inputs arrays
     inputs : [
       {

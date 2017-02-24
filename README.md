@@ -9,6 +9,7 @@ This application was created as an Event Planner, with a special focus on HTML f
 - Google places address autocomplete.
 - Firebase JSON data get / post. 
 - Firebase Authentication user login / account creation.
+- app.js uses Model-View-Controller OOP methodology, and JS prototyping.
 - Offline functionality.
 
 ## Demo
