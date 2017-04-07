@@ -16,7 +16,7 @@ This application was created as an Event Planner, with a special focus on HTML f
 
 ![desktop image](https://onlinedevelopers.ca/udacity/event-planner/components/img/read-me/proj1-collage.jpg)
 
-[To view the application live click here] (https://onlinedevelopers.ca/udacity/event-planner/)
+[To view the application live click here](https://onlinedevelopers.ca/udacity/event-planner/)
 
 To download, please follow the instructions below.
 
@@ -81,15 +81,15 @@ $ gulp build
 
 [Firebase](https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#0)
 
-[FLATICON - for the favicon] (http://www.flaticon.com/)
+[FLATICON - for the favicon](http://www.flaticon.com/)
 
 ## Tutorials
 
 [Google Labs Note App Tutorial](https://codelabs.developers.google.com/codelabs/polymer-firebase-pwa/index.html?index=..%2F..%2Findex#0)
 
-[Building High Conversion Web Tools - By Google] (https://www.udacity.com/course/building-high-conversion-web-forms--ud890) 
+[Building High Conversion Web Tools - By Google](https://www.udacity.com/course/building-high-conversion-web-forms--ud890) 
 
-[Web Tooling & Automation - By Google] (https://www.udacity.com/course/web-tooling-automation--ud892)
+[Web Tooling & Automation - By Google](https://www.udacity.com/course/web-tooling-automation--ud892)
 
 Various stack overflow posts, and other internet tutorials referenced in my commits. 
 
