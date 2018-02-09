@@ -14,9 +14,9 @@ This application was created as an Event Planner, with a special focus on HTML f
 
 ## Demo
 
-![desktop image](https://onlinedevelopers.ca/udacity/event-planner/components/img/read-me/proj1-collage.jpg)
+![desktop image](http://odevs.ca/portfolio/event-planner/collage.jpg)
 
-[To view the application live click here](https://onlinedevelopers.ca/udacity/event-planner/)
+[To view the application live click here](https://odevs.ca/portfolio/event-planner/)
 
 To download, please follow the instructions below.
 
